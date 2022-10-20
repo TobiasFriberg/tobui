@@ -1,0 +1,12 @@
+@use "sass:math";
+
+@function contrast($color, $light: $text-color-light, $dark: $text-color-dark) {
+  $color-brightness: round((red($color) * 299) + (green($color) * 587) + math.div(blue($color) * 114, 1000));
+  $light-color: round((red(#ffffff) * 299) + (green(#ffffff) * 587) + math.div(blue(#ffffff) * 114, 1000));
+
+  @if abs($color-brightness) < math.div($light-color, 1.51) {
+    @return $light;
+  } @else {
+    @return $dark;
+  }
+}

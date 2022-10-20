@@ -1,0 +1,37 @@
+$primary-color: #902785;
+$secondary-color: #ed6b2f;
+$alternative-color: #073b4c;
+
+$background-color: #faf9f9;
+
+$background-color-light: lighten($background-color, 5%);
+$background-color-dark: darken($background-color, 10%);
+
+$text-color-dark: #303030;
+$text-color-light: #fafafa;
+
+$gray-light-even-more: #eeeeee;
+$gray-light-more: #e0e0e0;
+$gray-light: #bdbdbd;
+$gray: #9e9e9e;
+$gray-dark: #757575;
+$gray-dark-more: #424242;
+$gray-dark-even-more: #212121;
+
+$border-color: contrast($background-color-light, $gray-dark, $gray-light);
+
+$notification-error: #e53935;
+$notification-warning: #ffb300;
+$notification-info: #0277bd;
+$notification-success: #558b2f;
+
+$content-width: 1200px;
+$font-size: 16px;
+$menu-height: 76px;
+$menu-height-phone: 56px;
+$roundness: 8px;
+$button-roundness: 25px;
+$input-roundness: 8px;
+
+@import 'functions';
+@import 'mixins';
