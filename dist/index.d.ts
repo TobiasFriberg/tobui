@@ -1,6 +1,7 @@
 export { ThemeProvider } from './components/themeProvider';
-export { Button, InputField, SearchField, Select } from './components/form';
+export { Button, InputField, SearchField, Select, CheckBox } from './components/form';
 export { List, ListItem } from './components/list';
+export { Dropdown } from './components/dropdown';
 export { Modal } from './components/modal';
 export { Popup, sendPopupEvent } from './components/popup';
 export { Toaster, AddToaster } from './components/toaster';

@@ -1153,19 +1153,19 @@ if (process.env.NODE_ENV !== 'production') {
 
 var PropTypes = propTypes.exports;
 
-function _extends$8() { _extends$8 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$8.apply(this, arguments); }
+function _extends$9() { _extends$9 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$9.apply(this, arguments); }
 
-function _objectWithoutProperties$7(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$7(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutProperties$8(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$8(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function _objectWithoutPropertiesLoose$7(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose$8(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 var AlertCircle = React.forwardRef(function (_ref, ref) {
   var _ref$color = _ref.color,
       color = _ref$color === void 0 ? 'currentColor' : _ref$color,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$7(_ref, ["color", "size"]);
+      rest = _objectWithoutProperties$8(_ref, ["color", "size"]);
 
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$8({
+  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$9({
     ref: ref,
     xmlns: "http://www.w3.org/2000/svg",
     width: size,
@@ -1199,19 +1199,19 @@ AlertCircle.propTypes = {
 AlertCircle.displayName = 'AlertCircle';
 var AlertCircle$1 = AlertCircle;
 
-function _extends$7() { _extends$7 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$7.apply(this, arguments); }
+function _extends$8() { _extends$8 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$8.apply(this, arguments); }
 
-function _objectWithoutProperties$6(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$6(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutProperties$7(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$7(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function _objectWithoutPropertiesLoose$6(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose$7(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 var AlertTriangle = React.forwardRef(function (_ref, ref) {
   var _ref$color = _ref.color,
       color = _ref$color === void 0 ? 'currentColor' : _ref$color,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$6(_ref, ["color", "size"]);
+      rest = _objectWithoutProperties$7(_ref, ["color", "size"]);
 
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$7({
+  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$8({
     ref: ref,
     xmlns: "http://www.w3.org/2000/svg",
     width: size,
@@ -1243,19 +1243,19 @@ AlertTriangle.propTypes = {
 AlertTriangle.displayName = 'AlertTriangle';
 var AlertTriangle$1 = AlertTriangle;
 
-function _extends$6() { _extends$6 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$6.apply(this, arguments); }
+function _extends$7() { _extends$7 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$7.apply(this, arguments); }
 
-function _objectWithoutProperties$5(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$5(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutProperties$6(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$6(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function _objectWithoutPropertiesLoose$5(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+function _objectWithoutPropertiesLoose$6(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 var CheckCircle = React.forwardRef(function (_ref, ref) {
   var _ref$color = _ref.color,
       color = _ref$color === void 0 ? 'currentColor' : _ref$color,
       _ref$size = _ref.size,
       size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$5(_ref, ["color", "size"]);
+      rest = _objectWithoutProperties$6(_ref, ["color", "size"]);
 
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$6({
+  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$7({
     ref: ref,
     xmlns: "http://www.w3.org/2000/svg",
     width: size,
@@ -1278,6 +1278,40 @@ CheckCircle.propTypes = {
 };
 CheckCircle.displayName = 'CheckCircle';
 var CheckCircle$1 = CheckCircle;
+
+function _extends$6() { _extends$6 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$6.apply(this, arguments); }
+
+function _objectWithoutProperties$5(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$5(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose$5(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+var Check = React.forwardRef(function (_ref, ref) {
+  var _ref$color = _ref.color,
+      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
+      _ref$size = _ref.size,
+      size = _ref$size === void 0 ? 24 : _ref$size,
+      rest = _objectWithoutProperties$5(_ref, ["color", "size"]);
+
+  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$6({
+    ref: ref,
+    xmlns: "http://www.w3.org/2000/svg",
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: color,
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, rest), /*#__PURE__*/React__default["default"].createElement("polyline", {
+    points: "20 6 9 17 4 12"
+  }));
+});
+Check.propTypes = {
+  color: PropTypes.string,
+  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
+Check.displayName = 'Check';
+var Check$1 = Check;
 
 function _extends$5() { _extends$5 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$5.apply(this, arguments); }
 
@@ -3109,7 +3143,7 @@ const getCheckBoxContent = (props) => {
     border: 1px solid ${curriedDarken$1(0.2, color)};
   `;
 };
-styled__default["default"].div `
+const CheckBoxWrapper = styled__default["default"].div `
   margin-bottom: 6px;
 
   label {
@@ -3122,7 +3156,7 @@ styled__default["default"].div `
     }
   }
 `;
-styled__default["default"].div `
+const CheckBoxContent = styled__default["default"].div `
   ${(props) => getCheckBoxContent(props)}
   display: flex;
   align-items: center;
@@ -3243,6 +3277,20 @@ const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, dis
             React__default["default"].createElement(ChevronDown$1, { className: "tui-icon" }))));
 };
 
+const CheckBox = ({ label = '', checked = false, onCheck }) => {
+    const renderLabel = () => {
+        if (!label) {
+            return null;
+        }
+        return React__default["default"].createElement("span", null, label);
+    };
+    return (React__default["default"].createElement(CheckBoxWrapper, null,
+        React__default["default"].createElement("label", null,
+            renderLabel(),
+            React__default["default"].createElement("input", { type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
+            React__default["default"].createElement(CheckBoxContent, { active: checked }, checked && React__default["default"].createElement(Check$1, null)))));
+};
+
 const StyledList = styled__default["default"].div `
   display: flex;
   flex-direction: column;
@@ -3288,6 +3336,77 @@ const ListItem = ({ children, title = '' }) => {
     return (React__default["default"].createElement("div", { className: "tui-listItem" },
         React__default["default"].createElement("div", { className: "tui-title" }, title),
         children));
+};
+
+const useEventListener = (eventName, handler, element = typeof window === 'undefined' ? null : window) => {
+    const savedHandler = React.useRef(() => { });
+    React.useEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
+    React.useEffect(() => {
+        const isSupported = element && element.addEventListener;
+        if (!isSupported) {
+            return () => { };
+        }
+        const eventListener = (event) => savedHandler.current(event);
+        element.addEventListener(eventName, eventListener);
+        return () => {
+            element.removeEventListener(eventName, eventListener);
+        };
+    }, [eventName, element]);
+};
+
+const StyledDropdown = styled__default["default"].div `
+  position: relative;
+
+  @media ${device.phone} {
+    position: inherit;
+  }
+`;
+const DropdownButton = styled__default["default"].div `
+  cursor: pointer;
+  display: inline-block;
+`;
+const DropdownContent = styled__default["default"].div `
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 15;
+  background-color: ${(props) => props.theme.colors.grayLightEvenMore};
+  border: 1px solid ${(props) => props.theme.colors.grayLight};
+  border-radius: ${(props) => props.theme.roundness};
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  @media ${device.phone} {
+    bottom: 0;
+    min-height: 100px;
+    width: 100%;
+    top: auto;
+  }
+`;
+
+const Dropdown = ({ children, content }) => {
+    const [expanded, setExpanded] = React.useState(false);
+    const dropdownRef = React.useRef(null);
+    const handleMouseEvent = (e) => {
+        if (!expanded) {
+            return;
+        }
+        if (dropdownRef.current && e.composedPath().includes(dropdownRef.current)) {
+            return;
+        }
+        setExpanded(false);
+    };
+    useEventListener('mousedown', (e) => handleMouseEvent(e));
+    const renderContent = () => {
+        if (!expanded) {
+            return null;
+        }
+        return React__default["default"].createElement(DropdownContent, null, content);
+    };
+    return (React__default["default"].createElement(React__default["default"].Fragment, null,
+        React__default["default"].createElement(StyledDropdown, { ref: dropdownRef },
+            React__default["default"].createElement(DropdownButton, { onClick: () => setExpanded(!expanded) }, children),
+            renderContent())));
 };
 
 const modalAnimation = styled.keyframes `
@@ -3362,24 +3481,6 @@ const Modal = ({ children, onClose, onOpen, open }) => {
     return (React__default["default"].createElement(StyledModal, { className: getClasses },
         renderCloseButton(),
         React__default["default"].createElement("div", null, children)));
-};
-
-const useEventListener = (eventName, handler, element = typeof window === 'undefined' ? null : window) => {
-    const savedHandler = React.useRef(() => { });
-    React.useEffect(() => {
-        savedHandler.current = handler;
-    }, [handler]);
-    React.useEffect(() => {
-        const isSupported = element && element.addEventListener;
-        if (!isSupported) {
-            return () => { };
-        }
-        const eventListener = (event) => savedHandler.current(event);
-        element.addEventListener(eventName, eventListener);
-        return () => {
-            element.removeEventListener(eventName, eventListener);
-        };
-    }, [eventName, element]);
 };
 
 const getContent = (open) => {
@@ -3947,6 +4048,8 @@ h4 {
 exports.AddToaster = AddToaster;
 exports.Badge = Badge;
 exports.Button = Button;
+exports.CheckBox = CheckBox;
+exports.Dropdown = Dropdown;
 exports.Expander = Expander;
 exports.GlobalStyle = GlobalStyle;
 exports.InputField = InputField;
