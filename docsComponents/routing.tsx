@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Header } from './header';
 import { View } from '../components/view';
-import style from './routing.scss';
 import { Menu } from './menu';
 import { ButtonView } from '../views/button.view';
 import { InputView } from '../views/input.view';
@@ -15,20 +14,23 @@ import { ModalView } from '../views/modal.view';
 import { UtilsView } from '../views/utils.view';
 import { ViewView } from '../views/view.view';
 import { ThemeView } from '../views/theme.view';
+import { Page, PageContent, ViewContent } from './style';
+import { DropdownView } from '../views/dropdown.view';
 
 const Routing = () => {
   const getContent = () => {
     return (
       <BrowserRouter>
         <Header />
-        <div className={style.viewContent}>
+        <ViewContent>
           <Menu />
-          <div className={style.pageContent}>
-            <div className={style.page}>
+          <PageContent>
+            <Page>
               <Routes>
                 <Route index element={<HomeView />} />
                 <Route path="/toaster" element={<ToasterView />} />
                 <Route path="/button" element={<ButtonView />} />
+                <Route path="/dropdown" element={<DropdownView />} />
                 <Route path="/modal" element={<ModalView />} />
                 <Route path="/util" element={<UtilsView />} />
                 <Route path="/input" element={<InputView />} />
@@ -38,9 +40,9 @@ const Routing = () => {
                 <Route path="/theme" element={<ThemeView />} />
                 <Route element={PageNotFoundView} />
               </Routes>
-            </div>
-          </div>
-        </div>
+            </Page>
+          </PageContent>
+        </ViewContent>
       </BrowserRouter>
     );
   };

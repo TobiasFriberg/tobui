@@ -1,17 +1,18 @@
 import { List } from '../components/list';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import style from './menu.scss';
+import { StyledMenu } from './style';
 
 type Props = {};
 
 export const Menu = ({}: Props) => {
   return (
-    <div className={style.menu}>
+    <StyledMenu>
       <List padding lines>
         <NavLink to="/">Customize</NavLink>
         <NavLink to="/button">Button</NavLink>
         <NavLink to="/input">Input</NavLink>
+        <NavLink to="/dropdown">Dropdown</NavLink>
         <NavLink to="/list">List</NavLink>
         <NavLink to="/modal">Modal</NavLink>
         <NavLink to="/popup">Popup</NavLink>
@@ -21,6 +22,6 @@ export const Menu = ({}: Props) => {
         <NavLink to="/hooks">Hooks</NavLink>
         <NavLink to="/theme">Theme/styling</NavLink>
       </List>
-    </div>
+    </StyledMenu>
   );
 };

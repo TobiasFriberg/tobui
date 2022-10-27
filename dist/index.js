@@ -2791,6 +2791,7 @@ const StyledBadge = styled__default["default"].div `
     color: ${(props) => getContrastColor(props.theme, props.theme.colors.notificationError)};
   }
 `;
+
 const Badge = ({ children, value = '' }) => {
     if (!children) {
         return null;
@@ -3099,6 +3100,43 @@ const StyledInputField = styled__default["default"].div `
   }
   ${(props) => getIconStyle(props)}
   ${(props) => getInvalid(props)}
+`;
+const getCheckBoxContent = (props) => {
+    const color = props.active ? props.theme.colors.primary : props.theme.colors.backgroundColor;
+    return `
+    background-color: ${color};
+    color: ${getContrastColor(props.theme, color)};
+    border: 1px solid ${curriedDarken$1(0.2, color)};
+  `;
+};
+styled__default["default"].div `
+  margin-bottom: 6px;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    > span {
+      margin-right: 8px;
+    }
+  }
+`;
+styled__default["default"].div `
+  ${(props) => getCheckBoxContent(props)}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10%;
+  height: 18px;
+  width: 18px;
+  border-radius: ${(props) => props.theme.roundness};
+  padding: 3px;
+
+  @media ${device.phone} {
+    height: 22px;
+    width: 22px;
+  }
 `;
 
 const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', value = '', onChange, className = '', iconPosition = 'left', placeholder = '', width = 'auto', validator, onClear, testId = 'input', ...props }) => {

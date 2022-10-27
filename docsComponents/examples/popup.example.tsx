@@ -3,7 +3,7 @@ import { List } from '../../components/list';
 import { Button } from '../../components/form';
 import { Popup } from '../../components/popup';
 
-export const ToasterExample = () => {
+export const PopupExample = () => {
   const [isExamplePopupOpen, setIsExamplePopupOpen] = useState(false);
   const [isExamplePopupOpen2, setIsExamplePopupOpen2] = useState(false);
   const [isExamplePopupOpen3, setIsExamplePopupOpen3] = useState(false);
@@ -28,7 +28,7 @@ export const ToasterExample = () => {
           <Button onClick={() => setIsExamplePopupOpen3(true)}>Open popup with custom buttons</Button>
         </div>
       </List>
-      <Popup title="Closable" open={isExamplePopupOpen} onClose={() => setIsExamplePopupOpen(false)}>
+      <Popup title="Closable" closeText=":)" open={isExamplePopupOpen} onClose={() => setIsExamplePopupOpen(false)}>
         This popup can be closed by default.
       </Popup>
       <Popup title="Non-closable" open={isExamplePopupOpen2}>

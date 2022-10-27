@@ -1,4 +1,4 @@
-import { device } from '../../helpers/stylehelpers';
+import { device, getContrastColor } from '../../helpers/stylehelpers';
 import { darken, lighten, rgba } from 'polished';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
@@ -142,4 +142,45 @@ export const StyledInputField = styled.div<InputFieldProps>`
   }
   ${(props) => getIconStyle(props)}
   ${(props) => getInvalid(props)}
+`;
+
+const getCheckBoxContent = (props: any) => {
+  const color = props.active ? props.theme.colors.primary : props.theme.colors.backgroundColor;
+
+  return `
+    background-color: ${color};
+    color: ${getContrastColor(props.theme, color)};
+    border: 1px solid ${darken(0.2, color)};
+  `;
+};
+
+export const CheckBoxWrapper = styled.div`
+  margin-bottom: 6px;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    > span {
+      margin-right: 8px;
+    }
+  }
+`;
+
+export const CheckBoxContent = styled.div<{ active: boolean }>`
+  ${(props) => getCheckBoxContent(props)}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10%;
+  height: 18px;
+  width: 18px;
+  border-radius: ${(props) => props.theme.roundness};
+  padding: 3px;
+
+  @media ${device.phone} {
+    height: 22px;
+    width: 22px;
+  }
 `;

@@ -1,8 +1,8 @@
 import React from 'react';
-import style from './header.scss';
+import { StyledHeader } from './style';
 
 type Props = {};
 
 export const Header = ({}: Props) => {
-  return <div className={style.header}>tobUI Docs</div>;
+  return <StyledHeader>tobUI Docs</StyledHeader>;
 };

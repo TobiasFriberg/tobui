@@ -7,13 +7,14 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyling = createGlobalStyle`${GlobalStyle}`;
+const GlobalStyleProxy: any = GlobalStyling;
 
 const App = () => {
   const { appState } = useAppState();
 
   return (
     <ThemeProvider customTheme={appState.theme}>
-      <GlobalStyling />
+      <GlobalStyleProxy />
       <Toaster />
       <Routing />
     </ThemeProvider>

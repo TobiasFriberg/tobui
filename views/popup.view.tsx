@@ -32,7 +32,7 @@ export const PopupView = () => {
           <Button onClick={() => setIsExamplePopupOpen3(true)}>Open popup with custom buttons</Button>
         </div>
       </List>
-      <Popup title="Closable" open={isExamplePopupOpen} onClose={() => setIsExamplePopupOpen(false)}>
+      <Popup title="Closable" closeText=":)" open={isExamplePopupOpen} onClose={() => setIsExamplePopupOpen(false)}>
         This popup can be closed by default.
       </Popup>
       <Popup title="Non-closable" open={isExamplePopupOpen2}>
@@ -57,6 +57,7 @@ export const PopupView = () => {
         <div>children*</div>
         <ListItem title="open*">boolean</ListItem>
         <ListItem title="title">string</ListItem>
+        <ListItem title="closeText">string</ListItem>
         <ListItem title="onOpen">function</ListItem>
         <ListItem title="onClose">function</ListItem>
         <ListItem title="buttons">Buttons[]</ListItem>

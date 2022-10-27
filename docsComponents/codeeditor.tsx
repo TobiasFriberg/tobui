@@ -3,7 +3,6 @@ import AceEditor from 'react-ace';
 import 'ace-builds/webpack-resolver';
 import 'ace-builds/src-noconflict/mode-tsx';
 import 'ace-builds/src-noconflict/theme-monokai';
-import style from './codeeditor.scss';
 
 type Props = {
   onChange?: (value: string) => void;
@@ -13,7 +12,7 @@ type Props = {
 
 export const CodeEditor = ({ onChange, readonly = false, code }: Props) => {
   return (
-    <div className={style.editor}>
+    <div>
       <AceEditor
         mode="tsx"
         readOnly={readonly}
@@ -25,6 +24,7 @@ export const CodeEditor = ({ onChange, readonly = false, code }: Props) => {
         onChange={(editorValue) => (onChange ? onChange(editorValue) : {})}
         tabSize={2}
       />
+      <br />
     </div>
   );
 };

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 // @ts-ignore
-import txt from '../docsComponents/examples/input.example';
+import InputExample from '../docsComponents/examples/input.example';
+// @ts-ignore
+import InputSelectExample from '../docsComponents/examples/inputselect.example';
+// @ts-ignore
+import InputCheckboxExample from '../docsComponents/examples/inputcheckbox.example';
 import { List, ListItem } from '../components/list';
-import { InputField, SearchField, Select } from '../components/form';
+import { CheckBox, InputField, SearchField, Select } from '../components/form';
 import { Lock } from 'react-feather';
 import { Loader } from '../components/utils';
 import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
@@ -16,6 +20,7 @@ export const InputView = () => {
   const [validateValue, setValidateValue] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [searchResult, setSearchResult] = useState<string[]>(searchable);
+  const [checked, setChecked] = useState(false);
 
   const description = `Inputs comes in many flavours and variants, use them as you like.`;
 
@@ -93,16 +98,6 @@ export const InputView = () => {
           {renderSearchResult()}
         </List>
       </div>
-      <div>
-        <Select
-          label="Select something"
-          items={[
-            { label: 'Item 01', value: '01' },
-            { label: 'Item 02', value: '02' },
-          ]}
-          onChange={() => {}}
-        />
-      </div>
     </List>
   );
 
@@ -126,7 +121,77 @@ export const InputView = () => {
     </>
   );
 
+  const descriptionSelect = `Select dropdown`;
+
+  const exampleSelect = (
+    <Select
+      items={[
+        { label: 'Item 01', value: '01' },
+        { label: 'Item 02', value: '02' },
+      ]}
+      defaultValue="02"
+      onChange={() => {}}
+    />
+  );
+
+  const optionsSelect = (
+    <>
+      <List padding lines>
+        <ListItem title="label">string</ListItem>
+        <ListItem title="items*">SelectObject[]</ListItem>
+        <ListItem title="onChange*">function</ListItem>
+        <ListItem title="disabled">boolean</ListItem>
+        <ListItem title="defaultValue">string</ListItem>
+        <ListItem title="width">string</ListItem>
+      </List>
+      <br />
+      <h4>SelectObject</h4>
+      <List padding lines>
+        <ListItem title="label*">string</ListItem>
+        <ListItem title="value*">string</ListItem>
+      </List>
+      <span>* = required</span>
+    </>
+  );
+
+  const descriptionCheckbox = `Checkbox`;
+
+  const exampleCheckbox = <CheckBox label="Some checkbox" checked={checked} onCheck={(e) => setChecked(e)} />;
+
+  const optionsCheckbox = (
+    <>
+      <List padding lines>
+        <ListItem title="label">string</ListItem>
+        <ListItem title="checked*">boolean</ListItem>
+        <ListItem title="onCheck*">function</ListItem>
+      </List>
+      <span>* = required</span>
+    </>
+  );
+
   return (
-    <DocumentationTemplate title="Inputs" description={description} example={example} code={txt} options={options} />
+    <>
+      <DocumentationTemplate
+        title="Inputs"
+        description={description}
+        example={example}
+        code={InputExample}
+        options={options}
+      />
+      <DocumentationTemplate
+        title="Select"
+        description={descriptionSelect}
+        example={exampleSelect}
+        code={InputSelectExample}
+        options={optionsSelect}
+      />
+      <DocumentationTemplate
+        title="Checkbox"
+        description={descriptionCheckbox}
+        example={exampleCheckbox}
+        code={InputCheckboxExample}
+        options={optionsCheckbox}
+      />
+    </>
   );
 };

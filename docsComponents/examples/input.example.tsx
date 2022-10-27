@@ -6,7 +6,7 @@ import { InputField, SearchField, Select } from '../../components/form';
 let timer: NodeJS.Timeout;
 const searchable = ['John', 'Marie', 'Steve', 'Julie'];
 
-export const ToasterExample = () => {
+export const InputExample = () => {
   const [value, setValue] = useState('');
   const [password, setPassword] = useState('');
   const [validateValue, setValidateValue] = useState('');
@@ -86,15 +86,6 @@ export const ToasterExample = () => {
         <List padding lines>
           {renderSearchResult()}
         </List>
-      </div>
-      <div>
-        <Select
-          items={[
-            { label: 'Item 01', value: '01' },
-            { label: 'Item 02', value: '02' },
-          ]}
-          onChange={() => {}}
-        />
       </div>
     </List>
   );

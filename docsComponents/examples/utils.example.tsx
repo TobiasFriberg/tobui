@@ -3,7 +3,7 @@ import { Mail } from 'react-feather';
 import { List } from '../../components/list';
 import { Notification, Expander, Loader, Badge } from '../../components/utils';
 
-export const ModalExample = () => {
+export const UtilsExample = () => {
   return (
     <>
       <List padding>
