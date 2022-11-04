@@ -36,9 +36,9 @@ const toasterAnimation = keyframes`
   }
 `;
 
-export const StyledToaster = styled.div<ToasterProps>`
+export const Wrapper = styled.div<ToasterProps>`
   z-index: 99999;
-  position: absolute;
+  position: fixed;
   width: 100%;
   pointer-events: none;
   padding: 0 30px;
@@ -46,58 +46,45 @@ export const StyledToaster = styled.div<ToasterProps>`
   display: flex;
   bottom: 100px;
   flex-direction: column-reverse;
+`;
 
-  .tui-message {
-    display: flex;
-    margin: 6px 0;
-    flex-grow: 1;
-    transition: 0.2s;
-    padding: 16px;
-    border-radius: ${(props) => props.theme.roundness};
-    position: relative;
-    bottom: 0;
-    right: 0;
-    background-color: ${(props) => props.theme.colors.grayDarkMore};
-    color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    line-height: 1.25;
-    align-items: center;
-    justify-content: space-between;
+export const StyledToaster = styled.div<{ isClosing: boolean; closed: boolean }>`
+  display: flex;
+  margin: 6px 0;
+  flex-grow: 1;
+  transition: 0.2s;
+  padding: 16px;
+  border-radius: ${(props) => props.theme.roundness};
+  position: relative;
+  bottom: 0;
+  right: 0;
+  background-color: ${(props) => props.theme.colors.grayDarkMore};
+  color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 1.25;
+  align-items: center;
+  justify-content: space-between;
 
-    animation-name: ${toasterAnimation};
-    animation-duration: 0.12s;
-    animation-timing-function: linear;
+  animation-name: ${toasterAnimation};
+  animation-duration: 0.12s;
+  animation-timing-function: linear;
 
-    .tui-closeButton {
-      pointer-events: all;
-      cursor: pointer;
-    }
+  ${(props) => (props.isClosing ? `transform: translateX(100%); opacity: 0;` : '')}
+  ${(props) => (props.closed ? `display: none;` : '')}
+`;
 
-    .tui-messageGroup {
-      display: flex;
-      align-items: center;
+export const MessageGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
 
-      .tui-icon {
-        margin-right: 20px;
-      }
-    }
+export const CloseButton = styled.div`
+  pointer-events: all;
+  cursor: pointer;
+`;
 
-    .tui-content {
-      display: flex;
-      align-items: center;
-    }
-
-    .icon {
-      margin-right: 18px;
-    }
-
-    &.tui-closing {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-
-    &.tui-closed {
-      display: none;
-    }
-  }
+export const Content = styled.div`
+  display: flex;
+  align-items: center;
 `;

@@ -1,16 +1,15 @@
 import React from 'react';
 import FillPage from './fillpage';
-import { StyledLoader } from './loader.style';
+import { Circle, CircleFaded, StyledLoader } from './loader.style';
 
 type Props = {
   size?: string;
   light?: boolean;
   fillPage?: boolean;
-  className?: string;
   testId?: string;
 };
 
-export const Loader = ({ size, light = false, fillPage = false, className = '', testId = 'loader' }: Props) => {
+export const Loader = ({ size, light = false, fillPage = false, testId = 'loader' }: Props) => {
   const checkFillPage = () => {
     if (fillPage) {
       return <FillPage>{renderLoader()}</FillPage>;
@@ -19,13 +18,13 @@ export const Loader = ({ size, light = false, fillPage = false, className = '', 
     return renderLoader();
   };
 
-  const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-light' : '', className].join(' ');
+  const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : ''].join(' ');
 
   const renderLoader = () => {
     return (
       <StyledLoader className={getClasses()} data-test-id={testId}>
-        <div className="circle" />
-        <div className="circleFaded" />
+        <Circle small={size === 'small'} light={light} />
+        <CircleFaded small={size === 'small'} light={light} />
       </StyledLoader>
     );
   };

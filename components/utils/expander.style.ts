@@ -1,19 +1,24 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-type ExpanderProps = {
-  theme: any;
-};
-
-export const StyledExpander = styled.div<ExpanderProps>`
-  .tui-expanderButton {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+const expanderAnimation = keyframes`
+  0% {
+    opacity: 0;
   }
-
-  .tui-expanderContent {
-    padding: 12px;
-    font-size: calc(${(props) => props.theme.fontSize} * 0.85);
+  100% {
+    opacity: 1;
   }
+`;
+
+export const ExpanderButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+`;
+
+export const ExpanderContent = styled.div`
+  padding: 12px;
+  font-size: calc(${(props) => props.theme.fontSize} * 0.95);
+  animation-name: ${expanderAnimation};
+  animation-duration: 0.1s;
 `;

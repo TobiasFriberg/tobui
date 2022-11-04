@@ -62,7 +62,6 @@ export const UtilsView = () => {
             <ListItem title="size">&apos;small&apos;</ListItem>
             <ListItem title="light">boolean</ListItem>
             <ListItem title="fillPage">boolean</ListItem>
-            <ListItem title="className">string</ListItem>
           </List>
         </div>
         <div>

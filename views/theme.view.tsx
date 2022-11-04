@@ -3,9 +3,9 @@ import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
 import { CodeEditor } from '../docsComponents/codeeditor';
 
 export const ThemeView = () => {
-  const description = `To use the theme and get the global styling, like font en helper css-classes, use the ThemeProvider and GlobalStyle from tobui.`;
+  const description = `To use the theme and get the global styling, use the ThemeProvider and GlobalStyle from tobui.`;
 
-  const test = `import { ThemeProvider, GlobalStyle } from 'tobui';
+  const setupCode = `import { ThemeProvider, GlobalStyle } from 'tobui';
 import { createGlobalStyle } from 'styled-components';
 
 ${'const GlobalStyling = createGlobalStyle`${GlobalStyle}`;'}
@@ -22,7 +22,7 @@ const App = () => {
 export default App;
 `;
 
-  const test2 = `{
+  const theme = `{
   "colors": {
     "primary": "#902785",
     "secondary": "#ed6b2f",
@@ -52,29 +52,11 @@ export default App;
   "fontSize": "14px"
 }`;
 
-  const test3 = `
-/*Utils*/
-<div className="tui-pointer" /> // cursor pointer
-
-/*Texts*/
-<div className="tui-textCenter" /> // center text
-<div className="tui-textFaded" /> // faded text
-<div className="tui-textLight" /> // light text
-<div className="tui-textLightFaded" /> // light faded text
-<div className="tui-textDark" /> // dark text
-<div className="tui-textDarkFaded" /> // dark faded text
-
-<div className="tui-textSizeSmall" /> // small text
-<div className="tui-textSizeLarge" /> // large text
-`;
-
   const example = (
     <>
-      <CodeEditor onChange={() => {}} readonly code={test} />
+      <CodeEditor onChange={() => {}} readonly code={setupCode} />
       <h4>Theme variables</h4>
-      <CodeEditor onChange={() => {}} readonly code={test2} />
-      <h4>Classes</h4>
-      <CodeEditor onChange={() => {}} readonly code={test3} />
+      <CodeEditor onChange={() => {}} readonly code={theme} />
     </>
   );
 

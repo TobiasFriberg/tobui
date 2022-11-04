@@ -1,5 +1,5 @@
 import React, { forwardRef, useState, cloneElement, useEffect, useRef } from 'react';
-import styled, { ThemeProvider as ThemeProvider$1, keyframes } from 'styled-components';
+import styled, { ThemeProvider as ThemeProvider$1, keyframes, css } from 'styled-components';
 
 var colors = {
 	primary: "#902785",
@@ -2593,7 +2593,7 @@ const device = {
     desktop: `(min-width: ${size.desktop})`,
 };
 
-const generateColors = (theme) => {
+const getColor = (theme, type) => {
     const colors = [
         {
             name: 'error',
@@ -2612,15 +2612,19 @@ const generateColors = (theme) => {
             color: theme.colors.notificationInfo,
         },
     ];
-    return colors.map((color) => `&.tui-${color.name} {
-    .tui-notificationIcon {
-        background-color: ${color.color};
-        color: ${getContrastColor(theme, color.color)};
-        border-top-left-radius: calc(${theme.roundness} - 2);
-        border-bottom-left-radius: calc(${theme.roundness} - 2);
-      }
-      border: 1px solid ${curriedDarken$1(0.02, color.color)};
-  }`);
+    const foundColor = colors.find((color) => color.name === type)?.color;
+    return foundColor;
+    /*
+    return colors.map(
+      (color) => `&.tui-${color.name} {
+      .tui-notificationIcon {
+          background-color: ${color.color};
+          color: ${getContrastColor(theme, color.color)};
+        }
+        border: 1px solid ${darken(0.02, color.color)};
+    }`
+    );
+    */
 };
 const StyledNotification = styled.div `
   display: flex;
@@ -2629,19 +2633,23 @@ const StyledNotification = styled.div `
   background-color: ${(props) => curriedLighten$1(0.5, props.theme.colors.backgroundColor)};
   color: ${(props) => props.theme.colors.textColorDark};
 
-  .tui-notificationMessage {
-    padding: 20px;
-  }
-
-  .tui-notificationIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    width: 70px;
-  }
-
-  ${(props) => generateColors(props.theme)}
+  ${(props) => `border: 1px solid ${curriedDarken$1(0.02, getColor(props.theme, props.type))};`}
+`;
+const Icon = styled.div `
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  width: 70px;
+  border-top-left-radius: calc(${(props) => props.theme.roundness} - 2);
+  border-bottom-left-radius: calc(${(props) => props.theme.roundness} - 2);
+  ${(props) => `
+    background-color: ${getColor(props.theme, props.type)};
+    color: ${getContrastColor(props.theme, getColor(props.theme, props.type))};
+  `}
+`;
+const Message = styled.div `
+  padding: 20px;
 `;
 
 const Notification = ({ type, message, children }) => {
@@ -2668,9 +2676,9 @@ const Notification = ({ type, message, children }) => {
         }
         return icon;
     };
-    return (React.createElement(StyledNotification, { className: `tui-notification tui-${type}` },
-        React.createElement("div", { className: "tui-notificationIcon" }, renderIcon()),
-        React.createElement("div", { className: "tui-notificationMessage" }, children || message)));
+    return (React.createElement(StyledNotification, { type: type, className: `tui-notification tui-${type}` },
+        React.createElement(Icon, { type: type, className: "tui-notification-icon" }, renderIcon()),
+        React.createElement(Message, { className: "tui-notification-message" }, children || message)));
 };
 
 const StyledFillPage = styled.div `
@@ -2699,75 +2707,66 @@ const StyledLoader = styled.div `
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .circle {
-    position: absolute;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-left: 2px solid ${(props) => props.theme.colors.primary};
-    width: 40px;
-    height: 40px;
-    animation-name: ${spinningAnimation};
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  }
-
-  .circleFaded {
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    width: 40px;
-    height: 40px;
-  }
-
-  &.small {
-    .circle,
-    .circleFaded {
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-  &.light {
-    .circle {
-      border-left-color: ${(props) => props.theme.colors.textColorLight};
-    }
-
-    .circleFaded {
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-  }
+`;
+const Circle = styled.div `
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-left: 2px solid ${(props) => props.theme.colors.primary};
+  width: 40px;
+  height: 40px;
+  animation-name: ${spinningAnimation};
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  ${(props) => (props.light ? 'border-left-color: ${(props) => props.theme.colors.textColorLight};' : '')}
+  ${(props) => (props.small ? 'width: 20px; height: 20px;' : '')}
+`;
+const CircleFaded = styled.div `
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  ${(props) => (props.light ? 'border-color: rgba(255, 255, 255, 0.1);' : '')}
+  ${(props) => (props.small ? 'width: 20px; height: 20px;' : '')}
 `;
 
-const Loader = ({ size, light = false, fillPage = false, className = '', testId = 'loader' }) => {
+const Loader = ({ size, light = false, fillPage = false, testId = 'loader' }) => {
     const checkFillPage = () => {
         if (fillPage) {
             return React.createElement(FillPage, null, renderLoader());
         }
         return renderLoader();
     };
-    const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-light' : '', className].join(' ');
+    const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : ''].join(' ');
     const renderLoader = () => {
         return (React.createElement(StyledLoader, { className: getClasses(), "data-test-id": testId },
-            React.createElement("div", { className: "circle" }),
-            React.createElement("div", { className: "circleFaded" })));
+            React.createElement(Circle, { small: size === 'small', light: light }),
+            React.createElement(CircleFaded, { small: size === 'small', light: light })));
     };
     return checkFillPage();
 };
 
-const StyledExpander = styled.div `
-  .tui-expanderButton {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+const expanderAnimation = keyframes `
+  0% {
+    opacity: 0;
   }
-
-  .tui-expanderContent {
-    padding: 12px;
-    font-size: calc(${(props) => props.theme.fontSize} * 0.85);
+  100% {
+    opacity: 1;
   }
+`;
+const ExpanderButton = styled.div `
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+`;
+const ExpanderContent = styled.div `
+  padding: 12px;
+  font-size: calc(${(props) => props.theme.fontSize} * 0.95);
+  animation-name: ${expanderAnimation};
+  animation-duration: 0.1s;
 `;
 
 const Expander = ({ title = '', children, expanded = false }) => {
@@ -2786,35 +2785,34 @@ const Expander = ({ title = '', children, expanded = false }) => {
         if (!expandedState) {
             return null;
         }
-        return React.createElement("div", { className: "tui-expanderContent" }, children);
+        return React.createElement(ExpanderContent, { className: "tui-expander-content" }, children);
     };
-    return (React.createElement(StyledExpander, null,
-        React.createElement("div", { className: "tui-expanderButton", onClick: () => toggleExpander() },
-            React.createElement("div", { className: "tui-expanderTitle" }, title),
+    return (React.createElement("div", { className: "tui-expander" },
+        React.createElement(ExpanderButton, { className: "tui-expander-trigger", onClick: () => toggleExpander() },
+            React.createElement("div", { className: "tui-expander-title" }, title),
             renderArrow()),
         renderContent()));
 };
 
-const StyledBadge = styled.div `
+const BadgeWrapper = styled.div `
   position: relative;
   display: inline-block;
-
-  .tui-badge {
-    top: 0px;
-    right: 0px;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 8px;
-    line-height: 5px;
-    border-radius: 11px;
-    min-width: 11px;
-    height: 11px;
-    padding: 2px;
-    background-color: ${(props) => props.theme.colors.notificationError};
-    color: ${(props) => getContrastColor(props.theme, props.theme.colors.notificationError)};
-  }
+`;
+const StyledBadge = styled.div `
+  top: 0px;
+  right: 0px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  line-height: 5px;
+  border-radius: 11px;
+  min-width: 11px;
+  height: 11px;
+  padding: 2px;
+  background-color: ${(props) => props.theme.colors.notificationError};
+  color: ${(props) => getContrastColor(props.theme, props.theme.colors.notificationError)};
 `;
 
 const Badge = ({ children, value = '' }) => {
@@ -2825,9 +2823,9 @@ const Badge = ({ children, value = '' }) => {
         if (!value) {
             return null;
         }
-        return React.createElement("div", { className: "tui-badge" }, value);
+        return React.createElement(StyledBadge, { className: "tui-badge" }, value);
     };
-    return (React.createElement(StyledBadge, null,
+    return (React.createElement(BadgeWrapper, null,
         renderBadge(),
         children));
 };
@@ -3038,15 +3036,13 @@ const getInvalid = (props) => {
         return;
     }
     return `
-    .tui-input {
       border: 1px solid ${props.theme.colors.notificationError};
-      background-color: ${rgba(props.theme.colors.notificationError, 0.1)};
+      background-color: ${curriedLighten$1(0.4, props.theme.colors.notificationError)};
 
       &:hover,
       &:focus-within {
         border-color: ${curriedDarken$1(0.15, props.theme.colors.notificationError)};
       }
-    }
   `;
 };
 const StyledInputField = styled.div `
@@ -3059,71 +3055,68 @@ const StyledInputField = styled.div `
     width: 100%;
   }
 
-  label {
-    padding: 8px 0 6px 0;
-  }
-
-  .tui-clearIcon {
-    cursor: pointer;
-    margin-right: 8px;
-    margin-top: 1px;
-  }
-
-  .tui-icon {
-    position: absolute;
-  }
-
-  .tui-input {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-color: ${(props) => curriedLighten$1(0.3, props.theme.colors.backgroundColor)};
-    border: 1px solid ${(props) => props.theme.colors.grayLight};
-    border-radius: ${(props) => props.theme.inputRoundness};
-    width: 100%;
-
-    @media ${device.phone} {
-      width: 100%;
-    }
-
-    &:hover,
-    &:focus-within {
-      border-color: ${(props) => props.theme.colors.grayDarkMore};
-    }
-
-    input,
-    textarea,
-    select {
-      padding: 12px;
-      width: 100%;
-      border: 0;
-      resize: none;
-      background-color: transparent;
-      font-family: inherit;
-      font-size: inherit;
-      font-size: ${(props) => props.theme.fontSize};
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    &.tui-select {
-      select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        text-indent: 1px;
-        text-overflow: '';
-      }
-
-      .tui-icon {
-        right: 0;
-        margin-right: 10px;
-        pointer-events: none;
-      }
-    }
-  }
   ${(props) => getIconStyle(props)}
+`;
+const InputLabel = styled.label `
+  padding: 8px 0 6px 0;
+`;
+const ClearIcon = styled.div `
+  cursor: pointer;
+  margin-right: 8px;
+  margin-top: 1px;
+`;
+const InputIcon = styled.div `
+  position: absolute;
+  margin-top: 1px;
+
+  ${(props) => props.position === 'left' && `left: 0; margin-left: 10px;`}
+  ${(props) => props.position === 'right' && `right: 0; margin-right: 10px;`}
+`;
+const InputWrapper = styled.div `
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: ${(props) => curriedLighten$1(0.3, props.theme.colors.backgroundColor)};
+  border: 1px solid ${(props) => props.theme.colors.grayLight};
+  border-radius: ${(props) => props.theme.inputRoundness};
+  width: 100%;
+
+  @media ${device.phone} {
+    width: 100%;
+  }
+
+  &:hover,
+  &:focus-within {
+    border-color: ${(props) => props.theme.colors.grayDarkMore};
+  }
+
+  input,
+  textarea,
+  select {
+    padding: 12px;
+    width: 100%;
+    border: 0;
+    resize: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-size: ${(props) => props.theme.fontSize};
+
+    ${(props) => props.iconPosition === 'right' && `padding-right: 32px; padding-left: 10px;`}
+    ${(props) => props.iconPosition === 'left' && `padding-left: 32px; padding-right: 10px;`}
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+  }
+
   ${(props) => getInvalid(props)}
 `;
 const getCheckBoxContent = (props) => {
@@ -3147,6 +3140,20 @@ const CheckBoxWrapper = styled.div `
     }
   }
 `;
+styled.div `
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+  }
+`;
+const SelectIcon = styled.div `
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+  pointer-events: none;
+`;
 const CheckBoxContent = styled.div `
   ${(props) => getCheckBoxContent(props)}
   display: flex;
@@ -3164,7 +3171,7 @@ const CheckBoxContent = styled.div `
   }
 `;
 
-const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', value = '', onChange, className = '', iconPosition = 'left', placeholder = '', width = 'auto', validator, onClear, testId = 'input', ...props }) => {
+const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', value = '', onChange, className = '', iconPosition = 'left', placeholder = '', width = 'auto', validator, onClear, testId = 'input', autoComplete = 'on', ...props }) => {
     const [valid, setValid] = useState(true);
     useEffect(() => {
         if (validator) {
@@ -3181,9 +3188,9 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
     };
     const renderInput = () => {
         if (!multiline) {
-            return (React.createElement("input", { type: type, value: value, onChange: (e) => handleOnChange(e.target.value), placeholder: placeholder }));
+            return (React.createElement("input", { autoComplete: autoComplete, type: type, value: value, onChange: (e) => handleOnChange(e.target.value), placeholder: placeholder }));
         }
-        return (React.createElement("textarea", { onChange: (e) => handleOnChange(e.target.value), value: value, rows: rows, placeholder: placeholder }));
+        return (React.createElement("textarea", { autoComplete: autoComplete, onChange: (e) => handleOnChange(e.target.value), value: value, rows: rows, placeholder: placeholder }));
     };
     const renderIcon = () => {
         if (!props.icon) {
@@ -3195,20 +3202,20 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
         if (!label) {
             return null;
         }
-        return React.createElement("label", { className: "tui-label" }, label);
+        return React.createElement(InputLabel, { className: "tui-label" }, label);
     };
     const renderClearButton = () => {
         if (!onClear || value === '') {
             return null;
         }
-        return (React.createElement("div", { className: "tui-clearIcon", onClick: () => onClear() },
+        return (React.createElement(ClearIcon, { className: "tui-clear-icon", onClick: () => onClear() },
             React.createElement(X$1, { size: 16 })));
     };
-    const getClassNames = () => ['tui-input', className, valid ? '' : 'tui-invalid'].join(' ');
-    return (React.createElement(StyledInputField, { "data-test-id": testId, className: getClassNames(), ...props, invalid: !valid },
+    const getClassNames = () => ['tui-input', className, valid ? '' : 'tui-input-invalid'].join(' ');
+    return (React.createElement(StyledInputField, { "data-test-id": testId, className: getClassNames(), ...props },
         renderLabel(),
-        React.createElement("div", { className: "tui-input", style: { maxWidth: width } },
-            React.createElement("div", { className: "tui-icon" }, renderIcon()),
+        React.createElement(InputWrapper, { className: "tui-input", iconPosition: props.icon ? iconPosition : undefined, style: { maxWidth: width }, invalid: !valid },
+            React.createElement(InputIcon, { position: iconPosition, className: "tui-input-icon" }, renderIcon()),
             renderInput(),
             renderClearButton())));
 };
@@ -3263,9 +3270,10 @@ const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, dis
     };
     return (React.createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId },
         renderLabel(),
-        React.createElement("div", { className: "tui-input tui-select" },
+        React.createElement(InputWrapper, { className: "tui-input tui-select" },
             React.createElement("select", { disabled: disabled, defaultValue: defaultValue, onChange: (e) => onChange(items[e.target.selectedIndex]) }, renderOptions),
-            React.createElement(ChevronDown$1, { className: "tui-icon" }))));
+            React.createElement(SelectIcon, null,
+                React.createElement(ChevronDown$1, { className: "tui-icon" })))));
 };
 
 const CheckBox = ({ label = '', checked = false, onCheck }) => {
@@ -3278,7 +3286,7 @@ const CheckBox = ({ label = '', checked = false, onCheck }) => {
     return (React.createElement(CheckBoxWrapper, null,
         React.createElement("label", null,
             renderLabel(),
-            React.createElement("input", { type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
+            React.createElement("input", { className: "tui-input tui-checkbox", type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
             React.createElement(CheckBoxContent, { active: checked }, checked && React.createElement(Check$1, null)))));
 };
 
@@ -3347,35 +3355,168 @@ const useEventListener = (eventName, handler, element = typeof window === 'undef
     }, [eventName, element]);
 };
 
+const getModalForDropdown = (isModal) => {
+    if (!isModal) {
+        return '';
+    }
+    return `
+    @media ${device.phone} {
+      position: inherit;
+    }
+  `;
+};
 const StyledDropdown = styled.div `
   position: relative;
+  display: inline-block;
 
-  @media ${device.phone} {
-    position: inherit;
-  }
+  ${(props) => getModalForDropdown(props.modal)}
 `;
 const DropdownButton = styled.div `
   cursor: pointer;
-  display: inline-block;
 `;
+const openDropdownContent = (position) => {
+    let transformBegin = '';
+    let transformEnd = '';
+    switch (position) {
+        case 'up':
+            transformBegin = `
+        transform : translateY(20px);
+      `;
+            transformEnd = `
+        transform : translateY(0);
+      `;
+            break;
+        case 'down':
+            transformBegin = `
+        transform : translateY(-20px);
+      `;
+            transformEnd = `
+        transform : translateY(0);
+      `;
+            break;
+        case 'left':
+            transformBegin = `
+        transform : translateX(20px);
+      `;
+            transformEnd = `
+        transform : translateX(0);
+      `;
+            break;
+        case 'right':
+            transformBegin = `
+        transform : translateX(-20px);
+      `;
+            transformEnd = `
+        transform : translateX(0);
+      `;
+            break;
+    }
+    return keyframes `
+    0% {
+      opacity: 0;
+      ${transformBegin}
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      ${transformEnd}
+    }
+  `;
+};
+const setPosition = (position) => {
+    let positionCss = '';
+    switch (position) {
+        case 'up':
+            positionCss = `
+        left: 0;
+        bottom: 100%;
+        margin-bottom: 5px;
+      `;
+            break;
+        case 'down':
+            positionCss = `
+        left: 0;
+        top: 100%;
+        margin-top: 5px;
+      `;
+            break;
+        case 'left':
+            positionCss = `
+        right: 100%;
+        top: 0;
+        margin-right: 5px;
+      `;
+            break;
+        case 'right':
+            positionCss = `
+        left: 100%;
+        top: 0;
+        margin-left: 5px;
+      `;
+    }
+    return css `
+    ${positionCss}
+    animation-name: ${openDropdownContent(position)};
+    animation-duration: 0.2s;
+  `;
+};
+const openModal = keyframes `
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(0); }
+`;
+const getModalForContent = (isModal) => {
+    if (!isModal) {
+        return '';
+    }
+    return css `
+    @media ${device.phone} {
+      animation-name: ${openModal};
+      animation-duration: 0.2s;
+      position: fixed;
+      bottom: 0;
+      min-height: 100px;
+      width: 100%;
+      top: unset;
+      right: unset;
+      left: 0;
+      margin: 0;
+      z-index: 110;
+    }
+  `;
+};
 const DropdownContent = styled.div `
   position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 15;
+  width: max-content;
+  z-index: 25;
   background-color: ${(props) => props.theme.colors.grayLightEvenMore};
   border: 1px solid ${(props) => props.theme.colors.grayLight};
   border-radius: ${(props) => props.theme.roundness};
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+
+  ${(props) => setPosition(props.position)}
+
+  ${(props) => getModalForContent(props.modal)}
+`;
+const Blocker = styled.div `
+  display: none;
+
   @media ${device.phone} {
-    bottom: 0;
-    min-height: 100px;
-    width: 100%;
-    top: auto;
+    display: block;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    top: 0;
+    left: 0;
+    z-index: 100;
   }
 `;
+const DropdownWrapper = styled.div `
+  display: inline-block;
+`;
 
-const Dropdown = ({ children, content }) => {
+const Dropdown = ({ children, content, position = 'down', mobileModal = false }) => {
     const [expanded, setExpanded] = useState(false);
     const dropdownRef = useRef(null);
     const handleMouseEvent = (e) => {
@@ -3392,12 +3533,22 @@ const Dropdown = ({ children, content }) => {
         if (!expanded) {
             return null;
         }
-        return React.createElement(DropdownContent, null, content);
+        return (React.createElement(DropdownContent, { className: "tui-dropdown-content", modal: mobileModal, position: position }, content));
     };
-    return (React.createElement(React.Fragment, null,
-        React.createElement(StyledDropdown, { ref: dropdownRef },
-            React.createElement(DropdownButton, { onClick: () => setExpanded(!expanded) }, children),
-            renderContent())));
+    const renderBlocker = () => {
+        if (!expanded) {
+            return null;
+        }
+        if (!mobileModal) {
+            return null;
+        }
+        return React.createElement(Blocker, null);
+    };
+    return (React.createElement(DropdownWrapper, { className: "tui-dropdown" },
+        React.createElement(StyledDropdown, { modal: mobileModal, ref: dropdownRef },
+            React.createElement(DropdownButton, { className: "tui-dropdown-trigger", onClick: () => setExpanded(!expanded) }, children),
+            renderContent()),
+        renderBlocker()));
 };
 
 const modalAnimation = keyframes `
@@ -3410,9 +3561,9 @@ const modalAnimation = keyframes `
 `;
 const StyledModal = styled.div `
   transition: 0.2s;
-  position: absolute;
+  position: fixed;
   overflow: auto;
-  z-index: 100;
+  z-index: 150;
   left: 0;
   top: 0;
   width: 100vw;
@@ -3440,6 +3591,9 @@ const StyledModal = styled.div `
     display: none;
   }
 `;
+const CloseButton$1 = styled.div `
+  padding: 20px;
+`;
 
 const Modal = ({ children, onClose, onOpen, open }) => {
     const [isClosing, setIsClosing] = useState(false);
@@ -3465,7 +3619,7 @@ const Modal = ({ children, onClose, onOpen, open }) => {
         if (!onClose) {
             return null;
         }
-        return (React.createElement("div", { className: "tui-close", onClick: () => closeModal() },
+        return (React.createElement(CloseButton$1, { className: "tui-close", onClick: () => closeModal() },
             React.createElement(X$1, null)));
     };
     const getClasses = [isClosing ? 'tui-closing' : '', closed ? 'tui-closed' : ''].join(' ');
@@ -3671,9 +3825,9 @@ const toasterAnimation = keyframes `
     transform: translateX(0);
   }
 `;
-const StyledToaster = styled.div `
+const Wrapper = styled.div `
   z-index: 99999;
-  position: absolute;
+  position: fixed;
   width: 100%;
   pointer-events: none;
   padding: 0 30px;
@@ -3681,60 +3835,43 @@ const StyledToaster = styled.div `
   display: flex;
   bottom: 100px;
   flex-direction: column-reverse;
+`;
+const StyledToaster = styled.div `
+  display: flex;
+  margin: 6px 0;
+  flex-grow: 1;
+  transition: 0.2s;
+  padding: 16px;
+  border-radius: ${(props) => props.theme.roundness};
+  position: relative;
+  bottom: 0;
+  right: 0;
+  background-color: ${(props) => props.theme.colors.grayDarkMore};
+  color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 1.25;
+  align-items: center;
+  justify-content: space-between;
 
-  .tui-message {
-    display: flex;
-    margin: 6px 0;
-    flex-grow: 1;
-    transition: 0.2s;
-    padding: 16px;
-    border-radius: ${(props) => props.theme.roundness};
-    position: relative;
-    bottom: 0;
-    right: 0;
-    background-color: ${(props) => props.theme.colors.grayDarkMore};
-    color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    line-height: 1.25;
-    align-items: center;
-    justify-content: space-between;
+  animation-name: ${toasterAnimation};
+  animation-duration: 0.12s;
+  animation-timing-function: linear;
 
-    animation-name: ${toasterAnimation};
-    animation-duration: 0.12s;
-    animation-timing-function: linear;
-
-    .tui-closeButton {
-      pointer-events: all;
-      cursor: pointer;
-    }
-
-    .tui-messageGroup {
-      display: flex;
-      align-items: center;
-
-      .tui-icon {
-        margin-right: 20px;
-      }
-    }
-
-    .tui-content {
-      display: flex;
-      align-items: center;
-    }
-
-    .icon {
-      margin-right: 18px;
-    }
-
-    &.tui-closing {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-
-    &.tui-closed {
-      display: none;
-    }
-  }
+  ${(props) => (props.isClosing ? `transform: translateX(100%); opacity: 0;` : '')}
+  ${(props) => (props.closed ? `display: none;` : '')}
+`;
+const MessageGroup = styled.div `
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+const CloseButton = styled.div `
+  pointer-events: all;
+  cursor: pointer;
+`;
+const Content = styled.div `
+  display: flex;
+  align-items: center;
 `;
 
 const ToasterMessage = ({ toaster, onDelete }) => {
@@ -3756,21 +3893,21 @@ const ToasterMessage = ({ toaster, onDelete }) => {
     };
     const getClasses = [
         'tui-message',
-        isClosing ? 'tui-closing' : '',
-        closed ? 'tui-closed' : '',
-        toaster.variant ? `tui-${toaster.variant}` : '',
+        isClosing ? 'tui-toaster-closing' : '',
+        closed ? 'tui-toaster-closed' : '',
+        toaster.variant ? `tui-toaster-${toaster.variant}` : '',
     ].join(' ');
     const getIcon = () => {
         let icon = null;
         switch (toaster.variant) {
             case 'success':
-                icon = React.createElement(CheckCircle$1, { className: "tui-icon", size: "16" });
+                icon = React.createElement(CheckCircle$1, { className: "tui-toaster-icon", size: "16" });
                 break;
             case 'error':
-                icon = React.createElement(AlertCircle$1, { className: "tui-icon", size: "16" });
+                icon = React.createElement(AlertCircle$1, { className: "tui-toaster-icon", size: "16" });
                 break;
             case 'info':
-                icon = React.createElement(Info$1, { className: "tui-icon", size: "16" });
+                icon = React.createElement(Info$1, { className: "tui-toaster-icon", size: "16" });
                 break;
         }
         return icon;
@@ -3779,13 +3916,13 @@ const ToasterMessage = ({ toaster, onDelete }) => {
         if (!toaster.sticky) {
             return null;
         }
-        return (React.createElement("div", { className: "tui-closeButton", onClick: () => closeToaster() },
+        return (React.createElement(CloseButton, { className: "tui-toaster-close-button", onClick: () => closeToaster() },
             React.createElement(X$1, { size: 14 })));
     };
-    return (React.createElement("div", { className: getClasses },
-        React.createElement("div", { className: "tui-messageGroup" },
+    return (React.createElement(StyledToaster, { closed: closed, isClosing: isClosing, className: getClasses },
+        React.createElement(MessageGroup, null,
             getIcon(),
-            React.createElement("div", { className: "tui-content" }, toaster.text)),
+            React.createElement(Content, { className: "tui-toaster-content" }, toaster.text)),
         renderCloseButton()));
 };
 const AddToaster = (props) => {
@@ -3835,11 +3972,10 @@ const Toaster = () => {
         }
         return messages.map((message) => (React.createElement(ToasterMessage, { key: message.toaster.id, toaster: message.toaster, onDelete: (toaster) => removeToaster(toaster) })));
     };
-    return React.createElement(StyledToaster, { className: "tui-toaster" }, renderToasterMessage());
+    return React.createElement(Wrapper, { className: "tui-toaster" }, renderToasterMessage());
 };
 
 const StyledView = styled.div `
-  height: 100vh;
   background-color: ${(props) => props.theme.colors.backgroundColor};
   display: flex;
   flex-direction: column;

@@ -8,22 +8,27 @@ export const StyledHeader = styled.div`
   flex-shrink: 0;
   align-items: center;
   padding: 0 40px;
+  position: sticky;
+  top: 0;
+  z-index: 120;
   color: ${(p) => getContrastColor(p.theme, p.theme.colors.primary)};
 `;
 
 export const StyledMenu = styled.div`
   min-width: 200px;
   background-color: ${(p) => p.theme.colors.grayLightEvenMore};
+  position: sticky;
+  top: 60px;
+  z-index: 25;
+  height: calc(100vh - 60px);
 `;
 
 export const ViewContent = styled.div`
   display: flex;
   flex-grow: 1;
-  overflow: hidden;
 `;
 
 export const PageContent = styled.div`
-  overflow: auto;
   display: flex;
   flex-direction: column;
   flex-grow: 1;

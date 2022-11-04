@@ -19,7 +19,6 @@ export const Menu = ({}: Props) => {
         <NavLink to="/toaster">Toaster</NavLink>
         <NavLink to="/util">Utils</NavLink>
         <NavLink to="/view">View</NavLink>
-        <NavLink to="/hooks">Hooks</NavLink>
         <NavLink to="/theme">Theme/styling</NavLink>
       </List>
     </StyledMenu>

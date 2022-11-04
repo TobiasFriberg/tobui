@@ -16,6 +16,7 @@ import { ViewView } from '../views/view.view';
 import { ThemeView } from '../views/theme.view';
 import { Page, PageContent, ViewContent } from './style';
 import { DropdownView } from '../views/dropdown.view';
+import { ScrollToTop } from './scrollToTop';
 
 const Routing = () => {
   const getContent = () => {
@@ -40,6 +41,7 @@ const Routing = () => {
                 <Route path="/theme" element={<ThemeView />} />
                 <Route element={PageNotFoundView} />
               </Routes>
+              <ScrollToTop />
             </Page>
           </PageContent>
         </ViewContent>

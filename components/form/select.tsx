@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronDown } from 'react-feather';
-import { StyledInputField } from './inputfield.style';
+import { InputWrapper, SelectIcon, SelectWrapper, StyledInputField } from './inputfield.style';
 
 export interface ISelectItem {
   id?: string | number;
@@ -44,7 +44,7 @@ export const Select = ({
   return (
     <StyledInputField style={{ maxWidth: width }} data-test-id={testId}>
       {renderLabel()}
-      <div className="tui-input tui-select">
+      <InputWrapper className="tui-input tui-select">
         <select
           disabled={disabled}
           defaultValue={defaultValue}
@@ -52,8 +52,10 @@ export const Select = ({
         >
           {renderOptions}
         </select>
-        <ChevronDown className="tui-icon" />
-      </div>
+        <SelectIcon>
+          <ChevronDown className="tui-icon" />
+        </SelectIcon>
+      </InputWrapper>
     </StyledInputField>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { AlertCircle, AlertTriangle, CheckCircle, Info } from 'react-feather';
-import { StyledNotification } from './notification.style';
+import { Icon, Message, StyledNotification } from './notification.style';
 
 export interface NotificationTypes {
   type: 'success' | 'info' | 'warning' | 'error';
@@ -37,9 +37,11 @@ export const Notification = ({ type, message, children }: NotificationTypes) => 
   };
 
   return (
-    <StyledNotification className={`tui-notification tui-${type}`}>
-      <div className="tui-notificationIcon">{renderIcon()}</div>
-      <div className="tui-notificationMessage">{children || message}</div>
+    <StyledNotification type={type} className={`tui-notification tui-${type}`}>
+      <Icon type={type} className="tui-notification-icon">
+        {renderIcon()}
+      </Icon>
+      <Message className="tui-notification-message">{children || message}</Message>
     </StyledNotification>
   );
 };

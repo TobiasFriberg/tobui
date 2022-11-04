@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { StyledBadge } from './utils.style';
+import { BadgeWrapper, StyledBadge } from './badge.style';
 
 type Props = {
   children: ReactNode;
@@ -16,13 +16,13 @@ export const Badge = ({ children, value = '' }: Props) => {
       return null;
     }
 
-    return <div className="tui-badge">{value}</div>;
+    return <StyledBadge className="tui-badge">{value}</StyledBadge>;
   };
 
   return (
-    <StyledBadge>
+    <BadgeWrapper>
       {renderBadge()}
       {children}
-    </StyledBadge>
+    </BadgeWrapper>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { X } from 'react-feather';
-import { StyledModal } from './modal.style';
+import { StyledModal, CloseButton } from './modal.style';
 
 type ModalProps = {
   children: React.ReactNode;
@@ -39,9 +39,9 @@ export const Modal = ({ children, onClose, onOpen, open }: ModalProps) => {
     }
 
     return (
-      <div className="tui-close" onClick={() => closeModal()}>
+      <CloseButton className="tui-close" onClick={() => closeModal()}>
         <X />
-      </div>
+      </CloseButton>
     );
   };
 

@@ -106,6 +106,7 @@ export const InputView = () => {
       <List padding lines>
         <ListItem title="value*">string</ListItem>
         <ListItem title="onChange*">function</ListItem>
+        <ListItem title="autoComplete">string</ListItem>
         <ListItem title="label">string</ListItem>
         <ListItem title="placeholder">string</ListItem>
         <ListItem title="type">string</ListItem>

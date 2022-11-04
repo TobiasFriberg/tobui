@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'react-feather';
-import { StyledExpander } from './expander.style';
+import { ExpanderButton, ExpanderContent } from './expander.style';
 
 type Props = {
   title: string;
@@ -29,16 +29,16 @@ export const Expander = ({ title = '', children, expanded = false }: Props) => {
       return null;
     }
 
-    return <div className="tui-expanderContent">{children}</div>;
+    return <ExpanderContent className="tui-expander-content">{children}</ExpanderContent>;
   };
 
   return (
-    <StyledExpander>
-      <div className="tui-expanderButton" onClick={() => toggleExpander()}>
-        <div className="tui-expanderTitle">{title}</div>
+    <div className="tui-expander">
+      <ExpanderButton className="tui-expander-trigger" onClick={() => toggleExpander()}>
+        <div className="tui-expander-title">{title}</div>
         {renderArrow()}
-      </div>
+      </ExpanderButton>
       {renderContent()}
-    </StyledExpander>
+    </div>
   );
 };

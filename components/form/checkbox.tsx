@@ -20,7 +20,13 @@ export const CheckBox = ({ label = '', checked = false, onCheck }: Props) => {
     <CheckBoxWrapper>
       <label>
         {renderLabel()}
-        <input type="checkbox" hidden checked={checked} onChange={(e) => onCheck(e.target.checked)} />
+        <input
+          className="tui-input tui-checkbox"
+          type="checkbox"
+          hidden
+          checked={checked}
+          onChange={(e) => onCheck(e.target.checked)}
+        />
         <CheckBoxContent active={checked}>{checked && <Check />}</CheckBoxContent>
       </label>
     </CheckBoxWrapper>

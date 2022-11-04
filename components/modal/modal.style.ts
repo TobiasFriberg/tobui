@@ -17,9 +17,9 @@ const modalAnimation = keyframes`
 
 export const StyledModal = styled.div<ModalProps>`
   transition: 0.2s;
-  position: absolute;
+  position: fixed;
   overflow: auto;
-  z-index: 100;
+  z-index: 150;
   left: 0;
   top: 0;
   width: 100vw;
@@ -46,4 +46,8 @@ export const StyledModal = styled.div<ModalProps>`
   &.tui-closed {
     display: none;
   }
+`;
+
+export const CloseButton = styled.div`
+  padding: 20px;
 `;

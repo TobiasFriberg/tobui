@@ -1,10 +1,11 @@
 import React, { useState, ReactNode, useEffect, cloneElement, ReactElement } from 'react';
 import { X } from 'react-feather';
-import { StyledInputField } from './inputfield.style';
+import { ClearIcon, InputIcon, InputLabel, InputWrapper, StyledInputField } from './inputfield.style';
 
 type Props = {
   value: string;
   onChange: (e: any) => void;
+  autoComplete?: string;
   label?: string;
   placeholder?: string;
   type?: string;
@@ -40,6 +41,7 @@ export const InputField = ({
   validator,
   onClear,
   testId = 'input',
+  autoComplete = 'on',
   ...props
 }: Props) => {
   const [valid, setValid] = useState(true);
@@ -64,12 +66,24 @@ export const InputField = ({
   const renderInput = () => {
     if (!multiline) {
       return (
-        <input type={type} value={value} onChange={(e) => handleOnChange(e.target.value)} placeholder={placeholder} />
+        <input
+          autoComplete={autoComplete}
+          type={type}
+          value={value}
+          onChange={(e) => handleOnChange(e.target.value)}
+          placeholder={placeholder}
+        />
       );
     }
 
     return (
-      <textarea onChange={(e) => handleOnChange(e.target.value)} value={value} rows={rows} placeholder={placeholder} />
+      <textarea
+        autoComplete={autoComplete}
+        onChange={(e) => handleOnChange(e.target.value)}
+        value={value}
+        rows={rows}
+        placeholder={placeholder}
+      />
     );
   };
 
@@ -86,7 +100,7 @@ export const InputField = ({
       return null;
     }
 
-    return <label className="tui-label">{label}</label>;
+    return <InputLabel className="tui-label">{label}</InputLabel>;
   };
 
   const renderClearButton = () => {
@@ -95,22 +109,29 @@ export const InputField = ({
     }
 
     return (
-      <div className="tui-clearIcon" onClick={() => onClear()}>
+      <ClearIcon className="tui-clear-icon" onClick={() => onClear()}>
         <X size={16} />
-      </div>
+      </ClearIcon>
     );
   };
 
-  const getClassNames = () => ['tui-input', className, valid ? '' : 'tui-invalid'].join(' ');
+  const getClassNames = () => ['tui-input', className, valid ? '' : 'tui-input-invalid'].join(' ');
 
   return (
-    <StyledInputField data-test-id={testId} className={getClassNames()} {...props} invalid={!valid}>
+    <StyledInputField data-test-id={testId} className={getClassNames()} {...props}>
       {renderLabel()}
-      <div className="tui-input" style={{ maxWidth: width }}>
-        <div className="tui-icon">{renderIcon()}</div>
+      <InputWrapper
+        className="tui-input"
+        iconPosition={props.icon ? iconPosition : undefined}
+        style={{ maxWidth: width }}
+        invalid={!valid}
+      >
+        <InputIcon position={iconPosition} className="tui-input-icon">
+          {renderIcon()}
+        </InputIcon>
         {renderInput()}
         {renderClearButton()}
-      </div>
+      </InputWrapper>
     </StyledInputField>
   );
 };

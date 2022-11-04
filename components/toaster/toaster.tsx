@@ -1,7 +1,7 @@
 import { useEventListener } from '../../hooks';
 import React, { useEffect, useState, useRef } from 'react';
 import { AlertCircle, CheckCircle, Info, X } from 'react-feather';
-import { StyledToaster } from './toaster.style';
+import { Wrapper, StyledToaster, MessageGroup, Content, CloseButton } from './toaster.style';
 
 type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
 
@@ -40,22 +40,22 @@ const ToasterMessage = ({ toaster, onDelete }: ToasterMessageProps) => {
 
   const getClasses = [
     'tui-message',
-    isClosing ? 'tui-closing' : '',
-    closed ? 'tui-closed' : '',
-    toaster.variant ? `tui-${toaster.variant}` : '',
+    isClosing ? 'tui-toaster-closing' : '',
+    closed ? 'tui-toaster-closed' : '',
+    toaster.variant ? `tui-toaster-${toaster.variant}` : '',
   ].join(' ');
 
   const getIcon = () => {
     let icon = null;
     switch (toaster.variant) {
       case 'success':
-        icon = <CheckCircle className="tui-icon" size="16" />;
+        icon = <CheckCircle className="tui-toaster-icon" size="16" />;
         break;
       case 'error':
-        icon = <AlertCircle className="tui-icon" size="16" />;
+        icon = <AlertCircle className="tui-toaster-icon" size="16" />;
         break;
       case 'info':
-        icon = <Info className="tui-icon" size="16" />;
+        icon = <Info className="tui-toaster-icon" size="16" />;
         break;
       default:
         break;
@@ -69,20 +69,20 @@ const ToasterMessage = ({ toaster, onDelete }: ToasterMessageProps) => {
       return null;
     }
     return (
-      <div className="tui-closeButton" onClick={() => closeToaster()}>
+      <CloseButton className="tui-toaster-close-button" onClick={() => closeToaster()}>
         <X size={14} />
-      </div>
+      </CloseButton>
     );
   };
 
   return (
-    <div className={getClasses}>
-      <div className="tui-messageGroup">
+    <StyledToaster closed={closed} isClosing={isClosing} className={getClasses}>
+      <MessageGroup>
         {getIcon()}
-        <div className="tui-content">{toaster.text}</div>
-      </div>
+        <Content className="tui-toaster-content">{toaster.text}</Content>
+      </MessageGroup>
       {renderCloseButton()}
-    </div>
+    </StyledToaster>
   );
 };
 
@@ -159,5 +159,5 @@ export const Toaster = () => {
     ));
   };
 
-  return <StyledToaster className="tui-toaster">{renderToasterMessage()}</StyledToaster>;
+  return <Wrapper className="tui-toaster">{renderToasterMessage()}</Wrapper>;
 };
