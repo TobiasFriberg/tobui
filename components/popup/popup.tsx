@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { X } from 'react-feather';
 import { useEventListener } from '../../hooks';
 import { Button } from '../form';
-import { StyledPopup, StyledPopupBlocker } from './popup.style';
+import { StyledPopup, PopupBlocker, Content, TopBar, Title, Footer, ButtonGroup } from './popup.style';
 
 type Props = {
   title?: string;
@@ -85,11 +85,11 @@ export const Popup = ({
     }
 
     return (
-      <div className="tui-buttonGroup">
+      <ButtonGroup className="tui-popup-buttons">
         {buttons.map((button, i) => (
           <div key={i}>{button}</div>
         ))}
-      </div>
+      </ButtonGroup>
     );
   };
 
@@ -99,19 +99,19 @@ export const Popup = ({
     }
 
     return (
-      <StyledPopup className={getClasses()} open={isOpen}>
-        <div className="tui-popupContent" style={{ width: width }}>
-          <div className="tui-topBar">
-            <div className="tui-title">{title}</div>
+      <StyledPopup className={getClasses()} $fullscreen={fullscreen} open={isOpen}>
+        <Content className="tui-popup-content" style={{ width: width }}>
+          <TopBar className="tui-popup-top-bar">
+            <Title className="tui-popup-title">{title}</Title>
             <div>{renderCloseButton()}</div>
-          </div>
+          </TopBar>
           {children}
-          <div className="tui-footer">
+          <Footer className="tui-popup-footer">
             {renderButtons()}
             <div />
-          </div>
-        </div>
-        <StyledPopupBlocker className="tui-popupBlocker" onClick={() => closePopup()}></StyledPopupBlocker>
+          </Footer>
+        </Content>
+        <PopupBlocker className="tui-popup-blocker" onClick={() => closePopup()}></PopupBlocker>
       </StyledPopup>
     );
   };

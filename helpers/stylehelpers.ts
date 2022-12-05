@@ -31,3 +31,11 @@ export const device = {
   tabletOnly: `(min-width: ${size.phone}) AND (max-width: ${size.tablet})`,
   desktop: `(min-width: ${size.desktop})`,
 };
+
+export const measurements = {
+  extraSmall: '4px',
+  small: '8px',
+  medium: '16px',
+  large: '24px',
+  extraLarge: '32px',
+};

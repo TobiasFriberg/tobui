@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
-import { device } from '../../helpers/stylehelpers';
+import { device, measurements } from '../../helpers/stylehelpers';
 
 type position = 'down' | 'up' | 'left' | 'right';
 
@@ -90,28 +90,28 @@ const setPosition = (position: position) => {
       positionCss = `
         left: 0;
         bottom: 100%;
-        margin-bottom: 5px;
+        margin-bottom: ${measurements.extraSmall};
       `;
       break;
     case 'down':
       positionCss = `
         left: 0;
         top: 100%;
-        margin-top: 5px;
+        margin-top: ${measurements.extraSmall};
       `;
       break;
     case 'left':
       positionCss = `
         right: 100%;
         top: 0;
-        margin-right: 5px;
+        margin-right: ${measurements.extraSmall};
       `;
       break;
     case 'right':
       positionCss = `
         left: 100%;
         top: 0;
-        margin-left: 5px;
+        margin-left: ${measurements.extraSmall};
       `;
 
     default:

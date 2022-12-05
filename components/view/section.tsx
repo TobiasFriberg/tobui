@@ -1,8 +1,9 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
+import { measurements } from '../../helpers/stylehelpers';
 
 const StyledSection = styled.div<Props>`
-  padding: 32px 0;
+  padding: ${measurements.extraLarge} 0;
 `;
 
 type Props = {

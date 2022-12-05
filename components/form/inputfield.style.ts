@@ -1,4 +1,4 @@
-import { device, getContrastColor } from '../../helpers/stylehelpers';
+import { device, getContrastColor, measurements } from '../../helpers/stylehelpers';
 import { darken, lighten, rgba } from 'polished';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
@@ -13,12 +13,12 @@ const getIconStyle = (props: InputFieldProps) => {
       .tui-input {
         input,
         textarea {
-          padding-right: 32px;
-          padding-left: 10px;
+          padding-right: ${measurements.extraLarge};
+          padding-left: ${measurements.small};
         }
         .tui-icon {
           right: 0;
-          margin-right: 10px;
+          margin-right: ${measurements.small};
         }
       }
     `;
@@ -28,14 +28,14 @@ const getIconStyle = (props: InputFieldProps) => {
     .tui-input {
       input,
       textarea {
-        padding-left: 32px;
-        padding-right: 10px;
+        padding-left: ${measurements.extraLarge};
+        padding-right: ${measurements.small};
       }
     }
 
     .tui-icon {
       left: 0;
-      margin-left: 10px;
+      margin-left: ${measurements.small};
       margin-top: 1px;
     }
   `;
@@ -68,7 +68,7 @@ export const StyledInputField = styled.div<InputFieldProps>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 6px;
+  margin-bottom: ${measurements.extraSmall};
 
   @media ${device.phone} {
     width: 100%;
@@ -83,7 +83,7 @@ export const InputLabel = styled.label`
 
 export const ClearIcon = styled.div`
   cursor: pointer;
-  margin-right: 8px;
+  margin-right: ${measurements.small};
   margin-top: 1px;
 `;
 
@@ -91,8 +91,8 @@ export const InputIcon = styled.div<{ position?: 'right' | 'left' }>`
   position: absolute;
   margin-top: 1px;
 
-  ${(props) => props.position === 'left' && `left: 0; margin-left: 10px;`}
-  ${(props) => props.position === 'right' && `right: 0; margin-right: 10px;`}
+  ${(props) => props.position === 'left' && `left: 0; margin-left: ${measurements.small};`}
+  ${(props) => props.position === 'right' && `right: 0; margin-right: ${measurements.small};`}
 `;
 
 export const InputWrapper = styled.div<InputFieldProps>`
@@ -116,7 +116,7 @@ export const InputWrapper = styled.div<InputFieldProps>`
   input,
   textarea,
   select {
-    padding: 12px;
+    padding: ${measurements.small};
     width: 100%;
     border: 0;
     resize: none;
@@ -125,8 +125,12 @@ export const InputWrapper = styled.div<InputFieldProps>`
     font-size: inherit;
     font-size: ${(props) => props.theme.fontSize};
 
-    ${(props) => props.iconPosition === 'right' && `padding-right: 32px; padding-left: 10px;`}
-    ${(props) => props.iconPosition === 'left' && `padding-left: 32px; padding-right: 10px;`}
+    ${(props) =>
+      props.iconPosition === 'right' &&
+      `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.small};`}
+    ${(props) =>
+      props.iconPosition === 'left' &&
+      `padding-left: ${measurements.extraLarge}; padding-right: ${measurements.small};`}
 
     &:focus {
       outline: none;
@@ -154,7 +158,7 @@ const getCheckBoxContent = (props: any) => {
 };
 
 export const CheckBoxWrapper = styled.div`
-  margin-bottom: 6px;
+  margin-bottom: ${measurements.extraSmall};
 
   label {
     display: inline-flex;
@@ -162,7 +166,7 @@ export const CheckBoxWrapper = styled.div`
     cursor: pointer;
 
     > span {
-      margin-right: 8px;
+      margin-right: ${measurements.small};
     }
   }
 `;
@@ -179,7 +183,7 @@ export const SelectWrapper = styled.div`
 export const SelectIcon = styled.div`
   position: absolute;
   right: 0;
-  margin-right: 10px;
+  margin-right: ${measurements.small};
   pointer-events: none;
 `;
 
@@ -189,13 +193,13 @@ export const CheckBoxContent = styled.div<{ active: boolean }>`
   align-items: center;
   justify-content: center;
   font-size: 10%;
-  height: 18px;
-  width: 18px;
+  height: ${measurements.medium};
+  width: ${measurements.medium};
   border-radius: ${(props) => props.theme.roundness};
-  padding: 3px;
+  padding: 2px;
 
   @media ${device.phone} {
-    height: 22px;
-    width: 22px;
+    height: ${measurements.large};
+    width: ${measurements.large};
   }
 `;

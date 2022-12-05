@@ -1,7 +1,9 @@
 import styled, { keyframes } from 'styled-components';
+import { measurements } from '../../helpers/stylehelpers';
 
 type ModalProps = {
   iconPosition?: 'left' | 'right';
+  closing: boolean;
   invalid?: boolean;
   theme: any;
 };
@@ -25,29 +27,20 @@ export const StyledModal = styled.div<ModalProps>`
   width: 100vw;
   height: 100vh;
   background-color: ${(props) => props.theme.colors.backgroundColor};
-  padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
+  padding-bottom: calc(env(safe-area-inset-bottom) + ${measurements.medium});
   padding-top: env(safe-area-inset-top);
   animation-name: ${modalAnimation};
   animation-duration: 0.2s;
   animation-timing-function: ease-out;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
-  .tui-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
-  &.tui-closing {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-
-  &.tui-closed {
-    display: none;
-  }
+  ${(props) => props.closing && `transform: translateY(100%); opacity: 0;`}
 `;
 
 export const CloseButton = styled.div`
-  padding: 20px;
+  padding: ${measurements.medium};
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
 `;

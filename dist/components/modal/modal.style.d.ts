@@ -1,5 +1,6 @@
 declare type ModalProps = {
     iconPosition?: 'left' | 'right';
+    closing: boolean;
     invalid?: boolean;
     theme: any;
 };

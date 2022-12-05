@@ -1,6 +1,6 @@
 import React, { cloneElement, ReactElement, ReactNode, useState } from 'react';
 import { Loader } from '../utils';
-import { StyledButton } from './button.style';
+import { StyledButton, Icon, Content } from './button.style';
 
 type Props = {
   children: ReactNode;
@@ -37,14 +37,6 @@ export const Button = ({
     setIsLoading(false);
   };
 
-  const getButtonContentClassName = () => {
-    if (!isLoading) {
-      return 'tui-buttonContent';
-    }
-
-    return 'tui-blockingHidden';
-  };
-
   const renderLoader = () => {
     if (!isLoading) {
       return null;
@@ -58,11 +50,11 @@ export const Button = ({
       return null;
     }
 
-    return <div className="tui-icon">{cloneElement(icon, { size: 14 })}</div>;
+    return <Icon className="tui-button-icon">{cloneElement(icon, { size: 14 })}</Icon>;
   };
 
   const getClass = () => {
-    return ['tui-button', isLoading ? 'tui-loading' : '', className].join(' ');
+    return ['tui-button', isLoading ? 'tui-button-loading' : '', className].join(' ');
   };
 
   return (
@@ -71,11 +63,14 @@ export const Button = ({
       className={getClass()}
       disabled={disabled}
       onClick={() => handleClick()}
+      $loading={isLoading}
       {...props}
     >
       {renderLoader()}
       {renderIcon()}
-      <span className={getButtonContentClassName()}>{children}</span>
+      <Content className="tui-button-content" $loading={isLoading}>
+        {children}
+      </Content>
     </StyledButton>
   );
 };

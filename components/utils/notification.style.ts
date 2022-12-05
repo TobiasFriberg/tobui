@@ -1,4 +1,4 @@
-import { getContrastColor } from '../../helpers/stylehelpers';
+import { getContrastColor, measurements } from '../../helpers/stylehelpers';
 import { darken, lighten } from 'polished';
 import styled from 'styled-components';
 
@@ -30,25 +30,12 @@ const getColor = (theme: any, type: Type) => {
   ];
 
   const foundColor = colors.find((color) => color.name === type)?.color;
-
   return foundColor;
-
-  /*
-  return colors.map(
-    (color) => `&.tui-${color.name} {
-    .tui-notificationIcon {
-        background-color: ${color.color};
-        color: ${getContrastColor(theme, color.color)};
-      }
-      border: 1px solid ${darken(0.02, color.color)};
-  }`
-  );
-  */
 };
 
 export const StyledNotification = styled.div<NotificationProps>`
   display: flex;
-  margin: 20px 0;
+  margin: ${measurements.medium} 0;
   border-radius: ${(props) => props.theme.roundness};
   background-color: ${(props) => lighten(0.5, props.theme.colors.backgroundColor)};
   color: ${(props) => props.theme.colors.textColorDark};
@@ -61,9 +48,10 @@ export const Icon = styled.div<NotificationProps>`
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
-  width: 70px;
+  width: calc(${measurements.extraLarge} * 1.5);
   border-top-left-radius: calc(${(props) => props.theme.roundness} - 2);
   border-bottom-left-radius: calc(${(props) => props.theme.roundness} - 2);
+
   ${(props) => `
     background-color: ${getColor(props.theme, props.type)};
     color: ${getContrastColor(props.theme, getColor(props.theme, props.type))};
@@ -71,5 +59,5 @@ export const Icon = styled.div<NotificationProps>`
 `;
 
 export const Message = styled.div`
-  padding: 20px;
+  padding: ${measurements.medium};
 `;

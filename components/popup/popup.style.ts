@@ -1,4 +1,4 @@
-import { device } from '../../helpers/stylehelpers';
+import { device, measurements } from '../../helpers/stylehelpers';
 import { rgba } from 'polished';
 import styled from 'styled-components';
 
@@ -15,9 +15,9 @@ const getContent = (open: boolean) => {
       display: flex;
       justify-content: center;
       align-items: baseline;
-      padding: 25px;
+      padding: ${measurements.medium};
 
-      .popupBlocker {
+      ${PopupBlocker} {
         opacity: 1;
       }
     `;
@@ -26,7 +26,7 @@ const getContent = (open: boolean) => {
   return `
     pointer-events: none;
 
-    .popupBlocker {
+    ${PopupBlocker} {
       opacity: 0;
     }
   `;
@@ -35,92 +35,94 @@ const getContent = (open: boolean) => {
 type PopupProps = {
   open: boolean;
   theme: any;
+  $fullscreen: boolean;
 };
 
 export const StyledPopup = styled.div<PopupProps>`
-  ${(props) => getContent(props.open)}
+  ${(p) => getContent(p.open)}
 
-  .tui-popupContent {
-    z-index: 900;
-    transition: 0.1s;
-    max-width: 80%;
-    max-height: calc(100% - 40px);
-    overflow: auto;
-    background-color: ${(props) => props.theme.colors.backgroundColor};
-    border-radius: ${(props) => props.theme.roundness};
-    padding: 20px;
-    padding-top: 0;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-
-    @media ${device.phone} {
-      min-width: calc(100vw - 50px);
-    }
-
-    img,
-    video {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .tui-topBar {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background-color: ${(props) => rgba(props.theme.colors.backgroundColor, 0.85)};
-    }
-
-    .tui-title {
-      justify-content: space-between;
-      align-items: center;
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-
-    .tui-footer {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-
-      @media ${device.phone} {
-        display: block;
-      }
-
-      .tui-buttonGroup {
-        display: flex;
-
-        @media ${device.phone} {
-          flex-direction: column;
-        }
-
-        & > *:not(:last-child) {
-          margin-right: 20px;
-
-          @media ${device.phone} {
-            margin-right: 0;
-            margin-bottom: 10px;
-          }
-        }
-      }
-    }
-  }
-
-  &.tui-fullscreen {
+  ${(p) =>
+    p.$fullscreen &&
+    `
     padding: 0;
-
-    .tui-popupContent {
+    ${Content} {
       min-width: 100vw;
       min-height: -webkit-fill-available;
     }
+  `}
+`;
+
+export const Content = styled.div`
+  z-index: 900;
+  transition: 0.1s;
+  max-width: 80%;
+  max-height: calc(100% - 40px);
+  overflow: auto;
+  background-color: ${(props) => props.theme.colors.backgroundColor};
+  border-radius: ${(props) => props.theme.roundness};
+  padding: ${measurements.medium};
+  padding-top: 0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media ${device.phone} {
+    min-width: calc(100vw - 50px);
   }
 `;
 
-export const StyledPopupBlocker = styled.div<any>`
+export const TopBar = styled.div`
+  padding-top: ${measurements.medium};
+  padding-bottom: ${measurements.medium};
+  display: flex;
+  align-items: center;
+  margin-bottom: ${measurements.large};
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: ${(props) => rgba(props.theme.colors.backgroundColor, 0.85)};
+`;
+
+export const Title = styled.div`
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: bold;
+`;
+
+export const Footer = styled.div`
+  margin-top: ${measurements.large};
+  display: flex;
+  justify-content: space-between;
+
+  @media ${device.phone} {
+    display: block;
+  }
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+
+  & > *:not(:last-child) {
+    margin-right: ${measurements.large};
+
+    @media ${device.phone} {
+      margin-right: 0;
+      margin-bottom: ${measurements.small};
+    }
+  }
+
+  @media ${device.phone} {
+    flex-direction: column;
+  }
+`;
+
+export const PopupBlocker = styled.div<any>`
   position: absolute;
   z-index: 800;
   height: 100vh;

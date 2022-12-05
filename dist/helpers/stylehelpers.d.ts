@@ -6,3 +6,10 @@ export declare const device: {
     tabletOnly: string;
     desktop: string;
 };
+export declare const measurements: {
+    extraSmall: string;
+    small: string;
+    medium: string;
+    large: string;
+    extraLarge: string;
+};

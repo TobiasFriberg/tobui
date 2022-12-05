@@ -39,18 +39,22 @@ export const Modal = ({ children, onClose, onOpen, open }: ModalProps) => {
     }
 
     return (
-      <CloseButton className="tui-close" onClick={() => closeModal()}>
+      <CloseButton className="tui-modal-close" onClick={() => closeModal()}>
         <X />
       </CloseButton>
     );
   };
 
-  const getClasses = [isClosing ? 'tui-closing' : '', closed ? 'tui-closed' : ''].join(' ');
+  const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : ''].join(' ');
+
+  if (closed) {
+    return null;
+  }
 
   return (
-    <StyledModal className={getClasses}>
+    <StyledModal closing={isClosing} className={getClasses}>
       {renderCloseButton()}
-      <div>{children}</div>
+      <div className="tui-modal-content">{children}</div>
     </StyledModal>
   );
 };

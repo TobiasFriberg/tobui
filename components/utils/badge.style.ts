@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { getContrastColor } from '../../helpers/stylehelpers';
+import { getContrastColor, measurements } from '../../helpers/stylehelpers';
 
 export const BadgeWrapper = styled.div`
   position: relative;
@@ -13,8 +13,8 @@ export const StyledBadge = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8px;
-  line-height: 5px;
+  font-size: ${measurements.small};
+  line-height: ${measurements.extraSmall};
   border-radius: 11px;
   min-width: 11px;
   height: 11px;

@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { measurements } from '../../helpers/stylehelpers';
 
 const spinningAnimation = keyframes`
   0% {
@@ -28,22 +29,22 @@ export const Circle = styled.div<LoaderProps>`
   border-radius: 50%;
   border: 2px solid transparent;
   border-left: 2px solid ${(props) => props.theme.colors.primary};
-  width: 40px;
-  height: 40px;
+  width: ${measurements.extraLarge};
+  height: ${measurements.extraLarge};
   animation-name: ${spinningAnimation};
   animation-duration: 1s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  ${(props) => (props.light ? 'border-left-color: ${(props) => props.theme.colors.textColorLight};' : '')}
-  ${(props) => (props.small ? 'width: 20px; height: 20px;' : '')}
+  ${(props) => (props.light ? `border-left-color: ${props.theme.colors.textColorLight};` : '')}
+  ${(props) => (props.small ? `width: ${measurements.medium}; height: ${measurements.medium};` : '')}
 `;
 
 export const CircleFaded = styled.div<LoaderProps>`
   border-radius: 50%;
   border: 2px solid rgba(0, 0, 0, 0.1);
-  width: 40px;
-  height: 40px;
+  width: ${measurements.extraLarge};
+  height: ${measurements.extraLarge};
   ${(props) => (props.light ? 'border-color: rgba(255, 255, 255, 0.1);' : '')}
-  ${(props) => (props.small ? 'width: 20px; height: 20px;' : '')}
+  ${(props) => (props.small ? `width: ${measurements.medium}; height: ${measurements.medium};` : '')}
 `;

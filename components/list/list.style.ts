@@ -1,42 +1,47 @@
 import styled from 'styled-components';
+import { measurements } from '../../helpers/stylehelpers';
 
 type ListProps = {
   theme: any;
+  $padded: boolean;
+  $lines: boolean;
 };
 
 export const StyledList = styled.div<ListProps>`
   display: flex;
   flex-direction: column;
 
-  &.tui-padded {
-    & > *:not(:last-child) {
-      padding-bottom: 12px;
-    }
-  }
+  ${(p) =>
+    p.$padded &&
+    `& > *:not(:last-child) {
+      padding-bottom: ${measurements.medium};
+    }`}
 
-  &.tui-lines {
-    border-top: 1px solid ${(props) => props.theme.colors.grayLightMore};
-    border-bottom: 1px solid ${(props) => props.theme.colors.grayLightMore};
+  ${(p) =>
+    p.$lines &&
+    `
+    border-top: 1px solid ${p.theme.colors.grayLightMore};
+    border-bottom: 1px solid ${p.theme.colors.grayLightMore};
 
     & > *:hover {
-      background-color: ${(props) => props.theme.colors.grayLightEvenMore};
+      background-color: ${p.theme.colors.grayLightEvenMore};
     }
+    
     & > *:not(:last-child) {
-      border-bottom: 1px solid ${(props) => props.theme.colors.grayLightMore};
+      border-bottom: 1px solid ${p.theme.colors.grayLightMore};
     }
 
-    &.tui-padded {
-      & > * {
-        padding: 12px 8px;
-      }
+    ${
+      p.$padded &&
+      `& > * {
+        padding: ${measurements.medium} ${measurements.small};
+      }`
     }
-  }
+  `}
+`;
 
-  .tui-listItem {
-    .tui-title {
-      font-size: 12px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-  }
+export const StyledListTitle = styled.div`
+  font-size: calc(${(p) => p.theme.fontSize} * 0.9);
+  font-weight: bold;
+  margin-bottom: ${measurements.small};
 `;

@@ -1,4 +1,4 @@
-import { getContrastColor } from '../../helpers/stylehelpers';
+import { getContrastColor, measurements } from '../../helpers/stylehelpers';
 import styled, { keyframes } from 'styled-components';
 
 const getVariant = (theme: any, variant: Variants) => {
@@ -41,7 +41,7 @@ export const Wrapper = styled.div<ToasterProps>`
   position: fixed;
   width: 100%;
   pointer-events: none;
-  padding: 0 30px;
+  padding: 0 ${measurements.large};
   box-sizing: border-box;
   display: flex;
   bottom: 100px;
@@ -50,10 +50,10 @@ export const Wrapper = styled.div<ToasterProps>`
 
 export const StyledToaster = styled.div<{ isClosing: boolean; closed: boolean }>`
   display: flex;
-  margin: 6px 0;
+  margin: ${measurements.small} 0;
   flex-grow: 1;
   transition: 0.2s;
-  padding: 16px;
+  padding: ${measurements.medium};
   border-radius: ${(props) => props.theme.roundness};
   position: relative;
   bottom: 0;
@@ -76,12 +76,16 @@ export const StyledToaster = styled.div<{ isClosing: boolean; closed: boolean }>
 export const MessageGroup = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: ${measurements.medium};
 `;
 
 export const CloseButton = styled.div`
   pointer-events: all;
   cursor: pointer;
+
+  svg {
+    display: block;
+  }
 `;
 
 export const Content = styled.div`

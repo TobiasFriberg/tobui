@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { darken, rgba } from 'polished';
-import { device, getContrastColor, getVariantColor } from '../../helpers/stylehelpers';
+import { device, getContrastColor, getVariantColor, measurements } from '../../helpers/stylehelpers';
 import { ReactNode } from 'react';
+import { StyledLoader } from '../utils/loader.style';
 
 const getAppearance = (appearance: 'button' | 'text' | 'border' = 'button', color: string) => {
   if (appearance === 'button') {
@@ -59,8 +60,7 @@ const generateVariantColor = (props: ButtonProps) => {
       color: ${getContrastColor(props.theme, backgroundColor)};
       ${getAppearance(props.appearance, backgroundColor)}
 
-      &.tui-loading {
-        .tui-loader {
+      ${StyledLoader}{
           div:first-child {
             border-left-color: ${getContrastColor(
               props.theme,
@@ -78,21 +78,20 @@ const generateVariantColor = (props: ButtonProps) => {
             )}
           }
         }
-      }
     `;
 };
 
 const generateButtonSize = (props: ButtonProps) => {
   if (props.size === 'small') {
     return `
-      padding: 6px 12px;
+      padding: ${measurements.extraSmall} ${measurements.medium};
       font-size: calc(${props.theme.fontSize} * 0.8);
     `;
   }
 
   if (props.size === 'large') {
     return `
-      padding: 14px 24px;
+      padding: ${measurements.medium} ${measurements.large};
       font-size: calc(${props.theme.fontSize} * 1.2);
     `;
   }
@@ -105,6 +104,7 @@ type ButtonProps = {
   loading?: boolean;
   theme?: any;
   children: ReactNode;
+  $loading: boolean;
 };
 
 export const StyledButton = styled.button<ButtonProps>`
@@ -113,7 +113,7 @@ export const StyledButton = styled.button<ButtonProps>`
   letter-spacing: 0.05em;
   transition: 0.1s;
   border: 0;
-  padding: 10px 20px;
+  padding: ${measurements.small} ${measurements.medium};
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -124,10 +124,6 @@ export const StyledButton = styled.button<ButtonProps>`
   ${(props) => generateButtonSize(props)}
   ${(props) => generateVariantColor(props)}
 
-  @media ${device.tablet} {
-    padding: 8px 18px;
-  }
-
   @media ${device.phone} {
     width: 100%;
   }
@@ -137,28 +133,27 @@ export const StyledButton = styled.button<ButtonProps>`
     opacity: 0.3;
   }
 
-  .uri-buttonContent {
-    display: flex;
-    align-items: center;
-  }
-
-  &.tui-loading {
-    .tui-blockingHidden,
-    .tui-icon {
-      opacity: 0.3;
-    }
-  }
-
-  .tui-icon {
-    display: flex;
-    margin-right: 12px;
-  }
-
-  &.tui-loading {
+  ${(p) =>
+    p.$loading &&
+    `
     cursor: not-allowed;
 
-    .tui-loader {
+    ${StyledLoader} {
       position: absolute;
     }
-  }
+
+    ${Icon}, ${Content} {
+      opacity: 0.3;
+    }
+  `}
+`;
+
+export const Icon = styled.div`
+  display: flex;
+  margin-right: ${measurements.small};
+`;
+
+export const Content = styled.span<{ $loading: boolean }>`
+  display: flex;
+  align-items: center;
 `;
