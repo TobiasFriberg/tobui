@@ -25,12 +25,12 @@ const size = {
   desktop: '1024px',
 };
 
-export const device = {
-  phone: `(max-width: ${size.phone})`,
+export const device = (theme: any) => ({
+  phone: `(max-width: ${theme.app ? '100vw' : size.phone})`,
   tablet: `(max-width: ${size.tablet})`,
   tabletOnly: `(min-width: ${size.phone}) AND (max-width: ${size.tablet})`,
   desktop: `(min-width: ${size.desktop})`,
-};
+});
 
 export const measurements = {
   extraSmall: '4px',

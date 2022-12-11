@@ -27,7 +27,7 @@ export const StyledCard = styled.div<StyleCardProps>`
     }
   }}
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 `;

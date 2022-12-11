@@ -70,7 +70,7 @@ export const Content = styled.div`
     height: auto;
   }
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     min-width: calc(100vw - 50px);
   }
 `;
@@ -100,7 +100,7 @@ export const Footer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     display: block;
   }
 `;
@@ -111,13 +111,13 @@ export const ButtonGroup = styled.div`
   & > *:not(:last-child) {
     margin-right: ${measurements.large};
 
-    @media ${device.phone} {
+    @media ${(p) => device(p.theme).phone} {
       margin-right: 0;
       margin-bottom: ${measurements.small};
     }
   }
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     flex-direction: column;
   }
 `;

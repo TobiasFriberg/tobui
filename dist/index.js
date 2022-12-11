@@ -1294,8 +1294,8 @@ var curriedLighten = /*#__PURE__*/curry
 var curriedLighten$1 = curriedLighten;
 
 let theme = defaultTheme;
-const ThemeProvider = ({ children, customTheme = {} }) => {
-    theme = { ...defaultTheme, ...customTheme };
+const ThemeProvider = ({ children, customTheme = {}, app }) => {
+    theme = { ...defaultTheme, ...customTheme, app: app };
     theme.colors = { ...defaultTheme.colors, ...(customTheme.colors || {}) };
     const GlobalStyling = styled.createGlobalStyle `
   ${GlobalStyle}
@@ -2793,12 +2793,12 @@ const size = {
     tablet: '950px',
     desktop: '1024px',
 };
-const device = {
-    phone: `(max-width: ${size.phone})`,
+const device = (theme) => ({
+    phone: `(max-width: ${theme.app ? '100vw' : size.phone})`,
     tablet: `(max-width: ${size.tablet})`,
     tabletOnly: `(min-width: ${size.phone}) AND (max-width: ${size.tablet})`,
     desktop: `(min-width: ${size.desktop})`,
-};
+});
 const measurements = {
     extraSmall: '4px',
     small: '8px',
@@ -3122,7 +3122,7 @@ const StyledButton = styled__default["default"].button `
   ${(props) => generateButtonSize(props)}
   ${(props) => generateVariantColor(props)}
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 
@@ -3239,7 +3239,7 @@ const StyledInputField = styled__default["default"].div `
   align-items: flex-start;
   margin-bottom: ${measurements.extraSmall};
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 
@@ -3269,7 +3269,7 @@ const InputWrapper = styled__default["default"].div `
   border-radius: ${(props) => props.theme.inputRoundness};
   width: 100%;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 
@@ -3355,7 +3355,7 @@ const CheckBoxContent = styled__default["default"].div `
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};
     width: ${measurements.large};
   }
@@ -3544,7 +3544,7 @@ const StyledCard = styled__default["default"].div `
     }
 }}
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 `;
@@ -3596,12 +3596,12 @@ const useEventListener = (eventName, handler, element = typeof window === 'undef
     }, [eventName, element]);
 };
 
-const getModalForDropdown = (isModal) => {
+const getModalForDropdown = (props, isModal) => {
     if (!isModal) {
         return '';
     }
     return `
-    @media ${device.phone} {
+    @media ${device(props.theme).phone} {
       position: inherit;
     }
   `;
@@ -3610,7 +3610,7 @@ const StyledDropdown = styled__default["default"].div `
   position: relative;
   display: inline-block;
 
-  ${(props) => getModalForDropdown(props.modal)}
+  ${(props) => getModalForDropdown(props, props.modal)}
 `;
 const DropdownButton = styled__default["default"].div `
   cursor: pointer;
@@ -3711,7 +3711,7 @@ const getModalForContent = (isModal) => {
         return '';
     }
     return styled.css `
-    @media ${device.phone} {
+    @media ${(p) => device(p.theme).phone} {
       animation-name: ${openModal};
       animation-duration: 0.2s;
       position: fixed;
@@ -3742,7 +3742,7 @@ const DropdownContent = styled__default["default"].div `
 const Blocker = styled__default["default"].div `
   display: none;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     display: block;
     position: fixed;
     width: 100vw;
@@ -3921,7 +3921,7 @@ const Content$1 = styled__default["default"].div `
     height: auto;
   }
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     min-width: calc(100vw - 50px);
   }
 `;
@@ -3948,7 +3948,7 @@ const Footer = styled__default["default"].div `
   display: flex;
   justify-content: space-between;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     display: block;
   }
 `;
@@ -3958,13 +3958,13 @@ const ButtonGroup = styled__default["default"].div `
   & > *:not(:last-child) {
     margin-right: ${measurements.large};
 
-    @media ${device.phone} {
+    @media ${(p) => device(p.theme).phone} {
       margin-right: 0;
       margin-bottom: ${measurements.small};
     }
   }
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     flex-direction: column;
   }
 `;

@@ -33,7 +33,7 @@ export const PageContent = styled.div`
   flex-direction: column;
   flex-grow: 1;
 
-  @media ${device.tablet} {
+  @media ${(p) => device(p.theme).tablet} {
     margin-left: 45px;
   }
 `;

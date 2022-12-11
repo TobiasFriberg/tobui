@@ -70,7 +70,7 @@ export const StyledInputField = styled.div<InputFieldProps>`
   align-items: flex-start;
   margin-bottom: ${measurements.extraSmall};
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 
@@ -104,7 +104,7 @@ export const InputWrapper = styled.div<InputFieldProps>`
   border-radius: ${(props) => props.theme.inputRoundness};
   width: 100%;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 
@@ -198,7 +198,7 @@ export const CheckBoxContent = styled.div<{ active: boolean }>`
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};
     width: ${measurements.large};
   }

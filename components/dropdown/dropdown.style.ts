@@ -3,13 +3,13 @@ import { device, measurements } from '../../helpers/stylehelpers';
 
 type position = 'down' | 'up' | 'left' | 'right';
 
-const getModalForDropdown = (isModal: boolean) => {
+const getModalForDropdown = (props: any, isModal: boolean) => {
   if (!isModal) {
     return '';
   }
 
   return `
-    @media ${device.phone} {
+    @media ${device(props.theme).phone} {
       position: inherit;
     }
   `;
@@ -19,7 +19,7 @@ export const StyledDropdown = styled.div<{ modal: boolean }>`
   position: relative;
   display: inline-block;
 
-  ${(props) => getModalForDropdown(props.modal)}
+  ${(props) => getModalForDropdown(props, props.modal)}
 `;
 
 export const DropdownButton = styled.div`
@@ -136,7 +136,7 @@ const getModalForContent = (isModal: boolean) => {
   }
 
   return css`
-    @media ${device.phone} {
+    @media ${(p) => device(p.theme).phone} {
       animation-name: ${openModal};
       animation-duration: 0.2s;
       position: fixed;
@@ -169,7 +169,7 @@ export const DropdownContent = styled.div<{ position: position; modal: boolean }
 export const Blocker = styled.div`
   display: none;
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     display: block;
     position: fixed;
     width: 100vw;

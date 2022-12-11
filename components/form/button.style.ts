@@ -124,7 +124,7 @@ export const StyledButton = styled.button<ButtonProps>`
   ${(props) => generateButtonSize(props)}
   ${(props) => generateVariantColor(props)}
 
-  @media ${device.phone} {
+  @media ${(p) => device(p.theme).phone} {
     width: 100%;
   }
 

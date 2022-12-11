@@ -9,10 +9,11 @@ let theme = defaultTheme;
 type Props = {
   children: ReactNode;
   customTheme?: any;
+  app?: boolean;
 };
 
-export const ThemeProvider = ({ children, customTheme = {} }: Props) => {
-  theme = { ...defaultTheme, ...customTheme };
+export const ThemeProvider = ({ children, customTheme = {}, app }: Props) => {
+  theme = { ...defaultTheme, ...customTheme, app: app };
   theme.colors = { ...defaultTheme.colors, ...(customTheme.colors || {}) };
   const GlobalStyling = createGlobalStyle`
   ${GlobalStyle}
