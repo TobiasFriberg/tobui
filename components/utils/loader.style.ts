@@ -37,7 +37,8 @@ export const Circle = styled.div<LoaderProps>`
   animation-timing-function: linear;
   mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
   ${(props) => (props.light ? `border-left-color: ${props.theme.colors.textColorLight};` : '')}
-  ${(props) => (props.small ? `width: ${measurements.medium}; height: ${measurements.medium};` : '')}
+  ${(props) =>
+    props.small ? `width: calc(${measurements.medium} * 1.5); height: calc(${measurements.medium} * 1.5);` : ''}
 `;
 
 export const CircleFaded = styled.div<LoaderProps>`
@@ -46,5 +47,6 @@ export const CircleFaded = styled.div<LoaderProps>`
   width: ${measurements.extraLarge};
   height: ${measurements.extraLarge};
   ${(props) => (props.light ? 'border-color: rgba(255, 255, 255, 0.1);' : '')}
-  ${(props) => (props.small ? `width: ${measurements.medium}; height: ${measurements.medium};` : '')}
+  ${(props) =>
+    props.small ? `width: calc(${measurements.medium} * 1.5); height: calc(${measurements.medium} * 1.5);` : ''}
 `;

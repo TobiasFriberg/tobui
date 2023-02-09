@@ -25,7 +25,7 @@
     "notificationSuccess": "#558b2f"
   },
   "roundness": "4px",
-  "buttonRoundness": "24px",
-  "inputRoundness": "8px",
+  "buttonRoundness": "6px",
+  "inputRoundness": "20px",
   "fontSize": "14px"
 }

@@ -53,7 +53,7 @@ export const StyledToaster = styled.div<{ isClosing: boolean; closed: boolean }>
   margin: ${measurements.small} 0;
   flex-grow: 1;
   transition: 0.2s;
-  padding: ${measurements.medium};
+  padding: ${measurements.large};
   border-radius: ${(props) => props.theme.roundness};
   position: relative;
   bottom: 0;
@@ -85,6 +85,8 @@ export const CloseButton = styled.div`
 
   svg {
     display: block;
+    width: calc(${(p) => p.theme.fontSize} * 1.3);
+    height: calc(${(p) => p.theme.fontSize} * 1.3);
   }
 `;
 

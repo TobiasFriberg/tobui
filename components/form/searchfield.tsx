@@ -2,8 +2,6 @@ import { InputField } from './inputfield';
 import React, { useEffect, useState } from 'react';
 import { Search } from 'react-feather';
 
-let timer: NodeJS.Timeout;
-
 type Props = {
   handleSearch: (query: string) => void;
   onClear?: () => void;
@@ -27,8 +25,6 @@ export const SearchField = ({
   const [lastValue, setLastValue] = useState(value);
 
   useEffect(() => {
-    clearTimeout(timer);
-
     if (searchString === lastValue) {
       return;
     }
@@ -42,13 +38,13 @@ export const SearchField = ({
       return;
     }
 
-    timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setLastValue(searchString);
       handleSearch(searchString);
     }, delay);
 
     return () => {
-      clearTimeout();
+      clearTimeout(timer);
     };
   }, [searchString]);
 

@@ -48,7 +48,7 @@ export const Icon = styled.div<NotificationProps>`
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
-  width: calc(${measurements.extraLarge} * 1.5);
+  width: calc(${measurements.extraLarge} * 2);
   border-top-left-radius: calc(${(props) => props.theme.roundness} - 2);
   border-bottom-left-radius: calc(${(props) => props.theme.roundness} - 2);
 
@@ -59,5 +59,5 @@ export const Icon = styled.div<NotificationProps>`
 `;
 
 export const Message = styled.div`
-  padding: ${measurements.medium};
+  padding: ${measurements.large};
 `;

@@ -12,9 +12,11 @@ export const Menu = ({}: Props) => {
         <NavLink to="/">Customize</NavLink>
         <NavLink to="/button">Button</NavLink>
         <NavLink to="/input">Input</NavLink>
+        <NavLink to="/slider">Slider</NavLink>
         <NavLink to="/dropdown">Dropdown</NavLink>
         <NavLink to="/list">List</NavLink>
         <NavLink to="/card">Card</NavLink>
+        <NavLink to="/tick">Tick</NavLink>
         <NavLink to="/modal">Modal</NavLink>
         <NavLink to="/popup">Popup</NavLink>
         <NavLink to="/toaster">Toaster</NavLink>

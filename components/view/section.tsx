@@ -1,10 +1,5 @@
 import React, { ReactNode } from 'react';
-import styled from 'styled-components';
-import { measurements } from '../../helpers/stylehelpers';
-
-const StyledSection = styled.div<Props>`
-  padding: ${measurements.extraLarge} 0;
-`;
+import { StyledSection } from './view.style';
 
 type Props = {
   children: ReactNode;

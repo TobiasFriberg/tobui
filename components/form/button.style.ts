@@ -113,7 +113,7 @@ export const StyledButton = styled.button<ButtonProps>`
   letter-spacing: 0.05em;
   transition: 0.1s;
   border: 0;
-  padding: ${measurements.small} ${measurements.medium};
+  padding: ${measurements.medium} ${measurements.large};
   display: inline-flex;
   align-items: center;
   justify-content: center;

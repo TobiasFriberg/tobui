@@ -8,7 +8,7 @@ const App = () => {
   const { appState } = useAppState();
 
   return (
-    <ThemeProvider app customTheme={appState.theme}>
+    <ThemeProvider customTheme={appState.theme}>
       <Toaster />
       <Routing />
     </ThemeProvider>

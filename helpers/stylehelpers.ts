@@ -33,9 +33,9 @@ export const device = (theme: any) => ({
 });
 
 export const measurements = {
-  extraSmall: '4px',
-  small: '8px',
-  medium: '16px',
-  large: '24px',
-  extraLarge: '32px',
+  extraSmall: '0.2rem',
+  small: '0.5rem',
+  medium: '0.75rem',
+  large: '1.5rem',
+  extraLarge: '2rem',
 };

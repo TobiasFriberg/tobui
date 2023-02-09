@@ -28,6 +28,6 @@ export const CardView = () => {
   );
 
   return (
-    <DocumentationTemplate title="Views" description={description} example={example} code={txt} options={options} />
+    <DocumentationTemplate title="Cards" description={description} example={example} code={txt} options={options} />
   );
 };

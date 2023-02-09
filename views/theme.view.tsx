@@ -42,8 +42,13 @@ export default App;
   return (
     <>
       <DocumentationTemplate title="Theme/styling" description={description} example={example} options={options} />
-      <h4>Theme variables</h4>
-      <CodeEditor onChange={() => {}} readonly code={JSON.stringify(theme, null, 2)} />
+      <h4>Icons</h4>
+      <p>
+        For icons, tobUI used feather icons, you can find all the icons here{' '}
+        <a href="https://feathericons.com" target="_blank">
+          Feathericons.com
+        </a>
+      </p>
     </>
   );
 };

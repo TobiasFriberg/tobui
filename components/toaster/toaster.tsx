@@ -70,7 +70,7 @@ const ToasterMessage = ({ toaster, onDelete }: ToasterMessageProps) => {
     }
     return (
       <CloseButton className="tui-toaster-close-button" onClick={() => closeToaster()}>
-        <X size={14} />
+        <X />
       </CloseButton>
     );
   };

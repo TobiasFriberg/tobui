@@ -78,7 +78,7 @@ export const StyledInputField = styled.div<InputFieldProps>`
 `;
 
 export const InputLabel = styled.label`
-  padding: 8px 0 6px 0;
+  padding: ${measurements.small} 0 ${measurements.extraSmall} 0;
 `;
 
 export const ClearIcon = styled.div`
@@ -116,7 +116,7 @@ export const InputWrapper = styled.div<InputFieldProps>`
   input,
   textarea,
   select {
-    padding: ${measurements.small};
+    padding: ${measurements.medium};
     width: 100%;
     border: 0;
     resize: none;
@@ -127,10 +127,10 @@ export const InputWrapper = styled.div<InputFieldProps>`
 
     ${(props) =>
       props.iconPosition === 'right' &&
-      `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.small};`}
+      `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.medium};`}
     ${(props) =>
       props.iconPosition === 'left' &&
-      `padding-left: ${measurements.extraLarge}; padding-right: ${measurements.small};`}
+      `padding-left: ${measurements.extraLarge}; padding-right: ${measurements.medium};`}
 
     &:focus {
       outline: none;
@@ -193,8 +193,8 @@ export const CheckBoxContent = styled.div<{ active: boolean }>`
   align-items: center;
   justify-content: center;
   font-size: 10%;
-  height: ${measurements.medium};
-  width: ${measurements.medium};
+  height: calc(${measurements.medium} * 1.5);
+  width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
 

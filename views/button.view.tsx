@@ -5,6 +5,7 @@ import { Button } from '../components/form';
 import { List, ListItem } from '../components/list';
 import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
 import { LogIn } from 'react-feather';
+import { Flex } from '../components/view/view.style';
 
 export const ButtonView = () => {
   const description = `A button is a universal component, used in a lot of different cases. Return the promise function to have the button add a spinner while the function is running, to prevent calling for the function again.`;
@@ -13,7 +14,7 @@ export const ButtonView = () => {
     <List padding>
       <ListItem title="Regular buttons">
         <List padding>
-          <div>
+          <Flex $gap="5px" $breakpoint="tablet">
             <Button onClick={() => {}}>Default button</Button>
             <Button appearance="border" onClick={() => {}}>
               Bordered default button
@@ -24,8 +25,8 @@ export const ButtonView = () => {
             <Button size="small" onClick={() => {}}>
               Small default button
             </Button>
-          </div>
-          <div>
+          </Flex>
+          <Flex $gap="5px" $breakpoint="tablet">
             <Button variant="primary" onClick={() => {}}>
               Primary button
             </Button>
@@ -38,8 +39,8 @@ export const ButtonView = () => {
             <Button variant="primary" size="small" onClick={() => {}}>
               Small primary button
             </Button>
-          </div>
-          <div>
+          </Flex>
+          <Flex $gap="5px" $breakpoint="tablet">
             <Button variant="secondary" onClick={() => {}}>
               Secondary button
             </Button>
@@ -52,8 +53,8 @@ export const ButtonView = () => {
             <Button variant="secondary" size="small" onClick={() => {}}>
               Small secondary button
             </Button>
-          </div>
-          <div>
+          </Flex>
+          <Flex $gap="5px" $breakpoint="tablet">
             <Button variant="alternative" onClick={() => {}}>
               Alternative button
             </Button>
@@ -66,8 +67,8 @@ export const ButtonView = () => {
             <Button variant="alternative" size="small" onClick={() => {}}>
               Small alternative button
             </Button>
-          </div>
-          <div>
+          </Flex>
+          <Flex $gap="5px" $breakpoint="tablet">
             <Button onClick={() => {}} variant="gradient">
               Gradient button
             </Button>
@@ -80,8 +81,8 @@ export const ButtonView = () => {
             <Button size="small" variant="gradient" onClick={() => {}}>
               Small gradient button
             </Button>
-          </div>
-          <div>
+          </Flex>
+          <Flex $gap="5px" $breakpoint="tablet">
             <Button variant="danger" onClick={() => {}}>
               Danger button
             </Button>
@@ -94,7 +95,7 @@ export const ButtonView = () => {
             <Button variant="danger" size="small" onClick={() => {}}>
               Small danger button
             </Button>
-          </div>
+          </Flex>
         </List>
       </ListItem>
       <ListItem title="Button variants">
