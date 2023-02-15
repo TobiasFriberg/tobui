@@ -30,6 +30,7 @@ export const ModalView = () => {
       <List padding lines>
         <div>children*</div>
         <ListItem title="open*">boolean</ListItem>
+        <ListItem title="fillContent">boolean</ListItem>
         <ListItem title="onOpen">function </ListItem>
         <ListItem title="onClose">function</ListItem>
       </List>

@@ -3140,7 +3140,7 @@ const StyledButton = styled__default["default"].button `
       position: absolute;
     }
 
-    ${Icon}, ${Content$4} {
+    ${Icon}, ${Content$5} {
       opacity: 0.3;
     }
   `}
@@ -3149,7 +3149,7 @@ const Icon = styled__default["default"].div `
   display: flex;
   margin-right: ${measurements.small};
 `;
-const Content$4 = styled__default["default"].span `
+const Content$5 = styled__default["default"].span `
   display: flex;
   align-items: center;
 `;
@@ -3182,7 +3182,7 @@ const Button = ({ children, onClick, className = '', loading = false, icon, disa
     return (React__default["default"].createElement(StyledButton, { "data-test-id": testId, className: getClass(), disabled: disabled, onClick: () => handleClick(), "$loading": isLoading, ...props },
         renderLoader(),
         renderIcon(),
-        React__default["default"].createElement(Content$4, { className: "tui-button-content", "$loading": isLoading }, children)));
+        React__default["default"].createElement(Content$5, { className: "tui-button-content", "$loading": isLoading }, children)));
 };
 
 const getIconStyle = (props) => {
@@ -3715,7 +3715,7 @@ const StyledCard = styled__default["default"].div `
     width: 100%;
   }
 `;
-const Content$3 = styled__default["default"].div `
+const Content$4 = styled__default["default"].div `
   padding: ${measurements.medium};
 `;
 const ImageWrapper = styled__default["default"].div `
@@ -3732,7 +3732,7 @@ const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top'
         if (!children) {
             return null;
         }
-        return React__default["default"].createElement(Content$3, null, children);
+        return React__default["default"].createElement(Content$4, null, children);
     };
     const renderImage = () => {
         if (!image) {
@@ -4004,6 +4004,11 @@ const TransformWrapper = styled__default["default"].div `
   position: relative;
   cursor: pointer;
 
+  img,
+  svg {
+    pointer-events: none;
+  }
+
   ${(p) => p.$swipeDir === 'left' &&
     styled.css `
       animation-name: ${leftSwipe};
@@ -4019,7 +4024,7 @@ const TransformWrapper = styled__default["default"].div `
 const SwiperWrapper = styled__default["default"].div `
   position: relative;
 `;
-const Content$2 = styled__default["default"].div `
+const Content$3 = styled__default["default"].div `
   touch-action: none;
   width: 100%;
   position: absolute;
@@ -4099,9 +4104,9 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
     });
     return (React__default["default"].createElement(StyledSwiper, { ref: swiperRef, className: "tui-swiper" },
         React__default["default"].createElement(SwiperWrapper, { onPointerDown: (e) => test(e) },
-            React__default["default"].createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
+            React__default["default"].createElement(Content$3, { className: "tui-swiper-next-content" }, renderNextContent()),
             React__default["default"].createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
-                React__default["default"].createElement(Content$2, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
+                React__default["default"].createElement(Content$3, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
 };
 
 const modalAnimation = styled.keyframes `
@@ -4133,13 +4138,18 @@ const StyledModal = styled__default["default"].div `
 `;
 const CloseButton$1 = styled__default["default"].div `
   padding: ${measurements.medium};
+  z-index: 10;
   cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
 `;
+const Content$2 = styled__default["default"].div `
+  ${(p) => !p.$fill && `padding: ${measurements.medium}; margin-top: ${measurements.extraLarge};`}
+  z-index: 1;
+`;
 
-const Modal = ({ children, onClose, onOpen, open }) => {
+const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
     const [isClosing, setIsClosing] = React.useState(false);
     const [closed, setClosed] = React.useState(false);
     React.useEffect(() => {
@@ -4172,7 +4182,7 @@ const Modal = ({ children, onClose, onOpen, open }) => {
     }
     return (React__default["default"].createElement(StyledModal, { closing: isClosing, className: getClasses },
         renderCloseButton(),
-        React__default["default"].createElement("div", { className: "tui-modal-content" }, children)));
+        React__default["default"].createElement(Content$2, { "$fill": fillContent, className: "tui-modal-content" }, children)));
 };
 
 const getContent = (open) => {

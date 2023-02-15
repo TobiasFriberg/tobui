@@ -15,6 +15,11 @@ export const TransformWrapper = styled.div<{ $swipeDir: null | 'right' | 'left' 
   position: relative;
   cursor: pointer;
 
+  img,
+  svg {
+    pointer-events: none;
+  }
+
   ${(p) =>
     p.$swipeDir === 'left' &&
     css`

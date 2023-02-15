@@ -15,12 +15,11 @@ export const SwiperView = () => {
   const options = (
     <>
       <List padding lines>
-        <ListItem title="label">string</ListItem>
-        <ListItem title="min">number</ListItem>
-        <ListItem title="max">number</ListItem>
-        <ListItem title="showPercent">boolean</ListItem>
-        <ListItem title="showValue">boolean</ListItem>
-        <ListItem title="onChange">function</ListItem>
+        <ListItem title="views*">HTMLElement[]</ListItem>
+        <ListItem title="step">number</ListItem>
+        <ListItem title="loop">boolean</ListItem>
+        <ListItem title="sensitivity">number</ListItem>
+        <ListItem title="onSwiped">function</ListItem>
       </List>
       <span>* = required</span>
     </>

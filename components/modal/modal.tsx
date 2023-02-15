@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { X } from 'react-feather';
-import { StyledModal, CloseButton } from './modal.style';
+import { StyledModal, CloseButton, Content } from './modal.style';
 
 type ModalProps = {
   children: React.ReactNode;
   open: boolean;
+  fillContent?: boolean;
   onClose?: () => void;
   onOpen?: () => void;
 };
 
-export const Modal = ({ children, onClose, onOpen, open }: ModalProps) => {
+export const Modal = ({ children, onClose, onOpen, open, fillContent }: ModalProps) => {
   const [isClosing, setIsClosing] = useState(false);
   const [closed, setClosed] = useState(false);
 
@@ -54,7 +55,9 @@ export const Modal = ({ children, onClose, onOpen, open }: ModalProps) => {
   return (
     <StyledModal closing={isClosing} className={getClasses}>
       {renderCloseButton()}
-      <div className="tui-modal-content">{children}</div>
+      <Content $fill={fillContent} className="tui-modal-content">
+        {children}
+      </Content>
     </StyledModal>
   );
 };

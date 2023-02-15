@@ -39,8 +39,14 @@ export const StyledModal = styled.div<ModalProps>`
 
 export const CloseButton = styled.div`
   padding: ${measurements.medium};
+  z-index: 10;
   cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
+`;
+
+export const Content = styled.div<{ $fill?: boolean }>`
+  ${(p) => !p.$fill && `padding: ${measurements.medium}; margin-top: ${measurements.extraLarge};`}
+  z-index: 1;
 `;

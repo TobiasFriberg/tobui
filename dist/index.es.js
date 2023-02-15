@@ -3131,7 +3131,7 @@ const StyledButton = styled.button `
       position: absolute;
     }
 
-    ${Icon}, ${Content$4} {
+    ${Icon}, ${Content$5} {
       opacity: 0.3;
     }
   `}
@@ -3140,7 +3140,7 @@ const Icon = styled.div `
   display: flex;
   margin-right: ${measurements.small};
 `;
-const Content$4 = styled.span `
+const Content$5 = styled.span `
   display: flex;
   align-items: center;
 `;
@@ -3173,7 +3173,7 @@ const Button = ({ children, onClick, className = '', loading = false, icon, disa
     return (React.createElement(StyledButton, { "data-test-id": testId, className: getClass(), disabled: disabled, onClick: () => handleClick(), "$loading": isLoading, ...props },
         renderLoader(),
         renderIcon(),
-        React.createElement(Content$4, { className: "tui-button-content", "$loading": isLoading }, children)));
+        React.createElement(Content$5, { className: "tui-button-content", "$loading": isLoading }, children)));
 };
 
 const getIconStyle = (props) => {
@@ -3706,7 +3706,7 @@ const StyledCard = styled.div `
     width: 100%;
   }
 `;
-const Content$3 = styled.div `
+const Content$4 = styled.div `
   padding: ${measurements.medium};
 `;
 const ImageWrapper = styled.div `
@@ -3723,7 +3723,7 @@ const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top'
         if (!children) {
             return null;
         }
-        return React.createElement(Content$3, null, children);
+        return React.createElement(Content$4, null, children);
     };
     const renderImage = () => {
         if (!image) {
@@ -3995,6 +3995,11 @@ const TransformWrapper = styled.div `
   position: relative;
   cursor: pointer;
 
+  img,
+  svg {
+    pointer-events: none;
+  }
+
   ${(p) => p.$swipeDir === 'left' &&
     css `
       animation-name: ${leftSwipe};
@@ -4010,7 +4015,7 @@ const TransformWrapper = styled.div `
 const SwiperWrapper = styled.div `
   position: relative;
 `;
-const Content$2 = styled.div `
+const Content$3 = styled.div `
   touch-action: none;
   width: 100%;
   position: absolute;
@@ -4090,9 +4095,9 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
     });
     return (React.createElement(StyledSwiper, { ref: swiperRef, className: "tui-swiper" },
         React.createElement(SwiperWrapper, { onPointerDown: (e) => test(e) },
-            React.createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
+            React.createElement(Content$3, { className: "tui-swiper-next-content" }, renderNextContent()),
             React.createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
-                React.createElement(Content$2, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
+                React.createElement(Content$3, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
 };
 
 const modalAnimation = keyframes `
@@ -4124,13 +4129,18 @@ const StyledModal = styled.div `
 `;
 const CloseButton$1 = styled.div `
   padding: ${measurements.medium};
+  z-index: 10;
   cursor: pointer;
   position: absolute;
   top: 0;
   right: 0;
 `;
+const Content$2 = styled.div `
+  ${(p) => !p.$fill && `padding: ${measurements.medium}; margin-top: ${measurements.extraLarge};`}
+  z-index: 1;
+`;
 
-const Modal = ({ children, onClose, onOpen, open }) => {
+const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
     const [isClosing, setIsClosing] = useState(false);
     const [closed, setClosed] = useState(false);
     useEffect(() => {
@@ -4163,7 +4173,7 @@ const Modal = ({ children, onClose, onOpen, open }) => {
     }
     return (React.createElement(StyledModal, { closing: isClosing, className: getClasses },
         renderCloseButton(),
-        React.createElement("div", { className: "tui-modal-content" }, children)));
+        React.createElement(Content$2, { "$fill": fillContent, className: "tui-modal-content" }, children)));
 };
 
 const getContent = (open) => {
