@@ -20,6 +20,7 @@ import { ScrollToTop } from './scrollToTop';
 import { CardView } from '../views/card.view';
 import { TickView } from '../views/tick.view';
 import { SliderView } from '../views/slider.view';
+import { SwiperView } from '../views/swiper.view';
 
 const Routing = () => {
   const getContent = () => {
@@ -39,6 +40,7 @@ const Routing = () => {
                 <Route path="/tick" element={<TickView />} />
                 <Route path="/util" element={<UtilsView />} />
                 <Route path="/slider" element={<SliderView />} />
+                <Route path="/swiper" element={<SwiperView />} />
                 <Route path="/input" element={<InputView />} />
                 <Route path="/view" element={<ViewView />} />
                 <Route path="/list" element={<ListView />} />

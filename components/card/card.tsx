@@ -27,7 +27,7 @@ export const Card = ({ children, maxHeight, image, wrap = false, imagePlacement 
   };
 
   return (
-    <StyledCard $wrap={wrap} $imagePlacement={imagePlacement} style={{ maxHeight: maxHeight }}>
+    <StyledCard className="tui-card" $wrap={wrap} $imagePlacement={imagePlacement} style={{ maxHeight: maxHeight }}>
       {renderImage()}
       {renderContent()}
     </StyledCard>

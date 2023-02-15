@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { List } from '../../components/list';
-import { Button } from '../../components/form';
-import { Popup } from '../../components/popup';
+import { List, Button, Popup } from 'tobui';
 
 export const PopupExample = () => {
   const [isExamplePopupOpen, setIsExamplePopupOpen] = useState(false);

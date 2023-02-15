@@ -37,13 +37,13 @@ export const DocumentationTemplate = ({ title, description, example, code, optio
     );
   };
   return (
-    <Section>
+    <div>
       <h1>{title}</h1>
       <p>{description}</p>
       <h3>Example</h3>
       <Section>{example}</Section>
       {renderCode()}
       {renderArguments()}
-    </Section>
+    </div>
   );
 };

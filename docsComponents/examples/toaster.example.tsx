@@ -1,7 +1,5 @@
 import React from 'react';
-import { AddToaster } from '../../components/toaster';
-import { List } from '../../components/list';
-import { Button } from '../../components/form';
+import { List, Button, AddToaster } from 'tobui';
 
 export const ToasterExample = () => {
   return (

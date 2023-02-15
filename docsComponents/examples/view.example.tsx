@@ -1,5 +1,5 @@
 import React from 'react';
-import { Section, View } from '../../components/view';
+import { Section, View } from 'tobui';
 
 export const ViewExample = () => {
   return (

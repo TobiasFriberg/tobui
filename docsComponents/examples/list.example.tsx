@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem } from '../../components/list';
+import { List, ListItem } from 'tobui';
 
 export const ListExample = () => {
   return (

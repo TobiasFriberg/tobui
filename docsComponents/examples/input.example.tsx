@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Loader, Lock } from 'react-feather';
-import { List } from '../../components/list';
-import { InputField, SearchField, Select } from '../../components/form';
+import { InputField, SearchField, List } from 'tobui';
 
 let timer: NodeJS.Timeout;
 const searchable = ['John', 'Marie', 'Steve', 'Julie'];

@@ -87,6 +87,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
 article,
 aside,
 details,
@@ -100,18 +101,20 @@ nav,
 section {
   display: block;
 }
+
 body {
-  line-height: 1;
+  line-height: 1.25;
   font-family: 'Lato', sans-serif;
 }
-ol,
-ul {
+
+ol, ul {
   list-style: none;
 }
-blockquote,
-q {
+
+blockquote, q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -119,6 +122,7 @@ q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -134,6 +138,9 @@ b {
 
 p {
   padding: 10px 0;
+  line-height: 1.39;
+  letter-spacing: 0.2px;
+  margin: 6px 0;
 }
 
 b {
@@ -147,34 +154,12 @@ a:active {
   text-decoration: none;
 }
 
-p {
-  line-height: 1.39;
-  letter-spacing: 0.2px;
-  margin: 6px 0;
-}
-
 h1,
 h2,
 h3,
 h4 {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   font-weight: 700;
-}
-
-h1 {
-  font-size: 34px;
-}
-
-h2 {
-  font-size: 24px;
-}
-
-h3 {
-  font-size: 20px;
-}
-
-h4 {
-  font-size: 18px;
 }
 `;

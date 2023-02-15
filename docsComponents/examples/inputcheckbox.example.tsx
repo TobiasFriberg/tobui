@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckBox, Select } from '../../components/form';
+import { CheckBox } from 'tobui';
 
 export const CheckBoxExample = () => {
   const [checked, setChecked] = useState(false);

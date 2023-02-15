@@ -1,6 +1,6 @@
 import React from 'react';
-import { Tick } from '../../components/tick';
-import { Flex } from '../../components/view/view.style';
+import { Tick } from 'tobui/tick';
+import { Flex } from './tick.style';
 
 export const TickExample = () => {
   return (

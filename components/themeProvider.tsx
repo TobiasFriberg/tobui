@@ -21,6 +21,22 @@ export const ThemeProvider = ({ children, customTheme = {}, app }: Props) => {
     font-size: ${theme.fontSize};
   }
 
+  h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
   a {
     color: ${theme.colors.linkColor};
 

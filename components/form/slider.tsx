@@ -35,7 +35,7 @@ export const Slider = ({ label, min = 0, max = 100, value, showPercent, showValu
       return null;
     }
 
-    return <InputLabel className="tui-label">{label}</InputLabel>;
+    return <InputLabel className="tui-slider-label">{label}</InputLabel>;
   };
 
   const renderExtras = () => {
@@ -79,9 +79,9 @@ export const Slider = ({ label, min = 0, max = 100, value, showPercent, showValu
             onChange={(e) => updateValue(parseInt(e.target.value))}
             type="range"
           />
-          <TrackProgress style={{ width: `${progress}%` }} />
-          <Track />
-          <Thumb style={{ left: `calc(${progress}% - 10px)` }} />
+          <TrackProgress className="tui-slider-progress" style={{ width: `${progress}%` }} />
+          <Track className="tui-slider-track" />
+          <Thumb className="tui-slider-thumb" style={{ left: `calc(${progress}% - 10px)` }} />
         </Wrapper>
       </RelativeWrapper>
     </StyledInputField>

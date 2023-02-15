@@ -31,8 +31,8 @@ var colors = {
 	notificationSuccess: "#558b2f"
 };
 var roundness = "4px";
-var buttonRoundness = "24px";
-var inputRoundness = "8px";
+var buttonRoundness = "6px";
+var inputRoundness = "20px";
 var fontSize = "14px";
 var defaultTheme = {
 	colors: colors,
@@ -131,6 +131,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
 article,
 aside,
 details,
@@ -144,18 +145,20 @@ nav,
 section {
   display: block;
 }
+
 body {
-  line-height: 1;
+  line-height: 1.25;
   font-family: 'Lato', sans-serif;
 }
-ol,
-ul {
+
+ol, ul {
   list-style: none;
 }
-blockquote,
-q {
+
+blockquote, q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -163,6 +166,7 @@ q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -178,6 +182,9 @@ b {
 
 p {
   padding: 10px 0;
+  line-height: 1.39;
+  letter-spacing: 0.2px;
+  margin: 6px 0;
 }
 
 b {
@@ -191,35 +198,13 @@ a:active {
   text-decoration: none;
 }
 
-p {
-  line-height: 1.39;
-  letter-spacing: 0.2px;
-  margin: 6px 0;
-}
-
 h1,
 h2,
 h3,
 h4 {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   font-weight: 700;
-}
-
-h1 {
-  font-size: 34px;
-}
-
-h2 {
-  font-size: 24px;
-}
-
-h3 {
-  font-size: 20px;
-}
-
-h4 {
-  font-size: 18px;
 }
 `;
 
@@ -1302,6 +1287,22 @@ const ThemeProvider = ({ children, customTheme = {}, app }) => {
   body, input, button {
     font-size: ${theme.fontSize};
   }
+
+  h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
 
   a {
     color: ${theme.colors.linkColor};
@@ -2800,14 +2801,14 @@ const device = (theme) => ({
     desktop: `(min-width: ${size.desktop})`,
 });
 const measurements = {
-    extraSmall: '4px',
-    small: '8px',
-    medium: '16px',
-    large: '24px',
-    extraLarge: '32px',
+    extraSmall: '0.2rem',
+    small: '0.5rem',
+    medium: '0.75rem',
+    large: '1.5rem',
+    extraLarge: '2rem',
 };
 
-const getColor = (theme, type) => {
+const getColor$1 = (theme, type) => {
     const colors = [
         {
             name: 'error',
@@ -2836,24 +2837,24 @@ const StyledNotification = styled__default["default"].div `
   background-color: ${(props) => curriedLighten$1(0.5, props.theme.colors.backgroundColor)};
   color: ${(props) => props.theme.colors.textColorDark};
 
-  ${(props) => `border: 1px solid ${curriedDarken$1(0.02, getColor(props.theme, props.type))};`}
+  ${(props) => `border: 1px solid ${curriedDarken$1(0.02, getColor$1(props.theme, props.type))};`}
 `;
 const Icon$1 = styled__default["default"].div `
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5em;
-  width: calc(${measurements.extraLarge} * 1.5);
+  width: calc(${measurements.extraLarge} * 2);
   border-top-left-radius: calc(${(props) => props.theme.roundness} - 2);
   border-bottom-left-radius: calc(${(props) => props.theme.roundness} - 2);
 
   ${(props) => `
-    background-color: ${getColor(props.theme, props.type)};
-    color: ${getContrastColor(props.theme, getColor(props.theme, props.type))};
+    background-color: ${getColor$1(props.theme, props.type)};
+    color: ${getContrastColor(props.theme, getColor$1(props.theme, props.type))};
   `}
 `;
 const Message = styled__default["default"].div `
-  padding: ${measurements.medium};
+  padding: ${measurements.large};
 `;
 
 const Notification = ({ type, message, children }) => {
@@ -2925,7 +2926,7 @@ const Circle = styled__default["default"].div `
   animation-timing-function: linear;
   mask-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
   ${(props) => (props.light ? `border-left-color: ${props.theme.colors.textColorLight};` : '')}
-  ${(props) => (props.small ? `width: ${measurements.medium}; height: ${measurements.medium};` : '')}
+  ${(props) => props.small ? `width: calc(${measurements.medium} * 1.5); height: calc(${measurements.medium} * 1.5);` : ''}
 `;
 const CircleFaded = styled__default["default"].div `
   border-radius: 50%;
@@ -2933,7 +2934,7 @@ const CircleFaded = styled__default["default"].div `
   width: ${measurements.extraLarge};
   height: ${measurements.extraLarge};
   ${(props) => (props.light ? 'border-color: rgba(255, 255, 255, 0.1);' : '')}
-  ${(props) => (props.small ? `width: ${measurements.medium}; height: ${measurements.medium};` : '')}
+  ${(props) => props.small ? `width: calc(${measurements.medium} * 1.5); height: calc(${measurements.medium} * 1.5);` : ''}
 `;
 
 const Loader = ({ size, light = false, fillPage = false, testId = 'loader' }) => {
@@ -3111,7 +3112,7 @@ const StyledButton = styled__default["default"].button `
   letter-spacing: 0.05em;
   transition: 0.1s;
   border: 0;
-  padding: ${measurements.small} ${measurements.medium};
+  padding: ${measurements.medium} ${measurements.large};
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3139,7 +3140,7 @@ const StyledButton = styled__default["default"].button `
       position: absolute;
     }
 
-    ${Icon}, ${Content$3} {
+    ${Icon}, ${Content$4} {
       opacity: 0.3;
     }
   `}
@@ -3148,7 +3149,7 @@ const Icon = styled__default["default"].div `
   display: flex;
   margin-right: ${measurements.small};
 `;
-const Content$3 = styled__default["default"].span `
+const Content$4 = styled__default["default"].span `
   display: flex;
   align-items: center;
 `;
@@ -3181,7 +3182,7 @@ const Button = ({ children, onClick, className = '', loading = false, icon, disa
     return (React__default["default"].createElement(StyledButton, { "data-test-id": testId, className: getClass(), disabled: disabled, onClick: () => handleClick(), "$loading": isLoading, ...props },
         renderLoader(),
         renderIcon(),
-        React__default["default"].createElement(Content$3, { className: "tui-button-content", "$loading": isLoading }, children)));
+        React__default["default"].createElement(Content$4, { className: "tui-button-content", "$loading": isLoading }, children)));
 };
 
 const getIconStyle = (props) => {
@@ -3246,7 +3247,7 @@ const StyledInputField = styled__default["default"].div `
   ${(props) => getIconStyle(props)}
 `;
 const InputLabel = styled__default["default"].label `
-  padding: 8px 0 6px 0;
+  padding: ${measurements.small} 0 ${measurements.extraSmall} 0;
 `;
 const ClearIcon = styled__default["default"].div `
   cursor: pointer;
@@ -3281,7 +3282,7 @@ const InputWrapper = styled__default["default"].div `
   input,
   textarea,
   select {
-    padding: ${measurements.small};
+    padding: ${measurements.medium};
     width: 100%;
     border: 0;
     resize: none;
@@ -3291,9 +3292,9 @@ const InputWrapper = styled__default["default"].div `
     font-size: ${(props) => props.theme.fontSize};
 
     ${(props) => props.iconPosition === 'right' &&
-    `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.small};`}
+    `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.medium};`}
     ${(props) => props.iconPosition === 'left' &&
-    `padding-left: ${measurements.extraLarge}; padding-right: ${measurements.small};`}
+    `padding-left: ${measurements.extraLarge}; padding-right: ${measurements.medium};`}
 
     &:focus {
       outline: none;
@@ -3350,8 +3351,8 @@ const CheckBoxContent = styled__default["default"].div `
   align-items: center;
   justify-content: center;
   font-size: 10%;
-  height: ${measurements.medium};
-  width: ${measurements.medium};
+  height: calc(${measurements.medium} * 1.5);
+  width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
 
@@ -3410,12 +3411,10 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
             renderClearButton())));
 };
 
-let timer;
 const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, value = '', testId = 'search', }) => {
     const [searchString, setSearchString] = React.useState(value);
     const [lastValue, setLastValue] = React.useState(value);
     React.useEffect(() => {
-        clearTimeout(timer);
         if (searchString === lastValue) {
             return;
         }
@@ -3427,12 +3426,12 @@ const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, 
             handleSearch(searchString);
             return;
         }
-        timer = setTimeout(() => {
+        const timer = setTimeout(() => {
             setLastValue(searchString);
             handleSearch(searchString);
         }, delay);
         return () => {
-            clearTimeout();
+            clearTimeout(timer);
         };
     }, [searchString]);
     const handleChange = (value) => {
@@ -3478,6 +3477,174 @@ const CheckBox = ({ label = '', checked = false, onCheck }) => {
             renderLabel(),
             React__default["default"].createElement("input", { className: "tui-input tui-checkbox", type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
             React__default["default"].createElement(CheckBoxContent, { active: checked }, checked && React__default["default"].createElement(Check$1, null)))));
+};
+
+const StyledSection = styled__default["default"].div `
+  padding: ${measurements.extraLarge} 0;
+`;
+const StyledView = styled__default["default"].div `
+  background-color: ${(p) => p.theme.colors.backgroundColor};
+  display: flex;
+  flex-direction: column;
+`;
+const Flex = styled__default["default"].div `
+  display: flex;
+  align-items: baseline;
+  flex-direction: ${(p) => p.$direction || 'row'};
+  ${(p) => p.$gap && `gap: ${p.$gap};`}
+  ${(p) => p.$verticalAlign && `align-items: ${p.$verticalAlign};`}
+  ${(p) => p.$horizontalAlign && `justify-content: ${p.$horizontalAlign};`}
+
+  ${(p) => {
+    switch (p.$breakpoint) {
+        case 'tablet':
+            return `
+        @media ${device(p.theme).tablet} {
+          flex-direction: column;
+        }`;
+        case 'phone':
+            return `
+        @media ${device(p.theme).phone} {
+          flex-direction: column;
+        }`;
+        default:
+            return;
+    }
+}}
+`;
+
+const thumbStyling = (theme) => `
+  height: 0px;
+  width: 0px;
+`;
+const StyleSlider = styled__default["default"].input `
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  z-index: 3;
+  position: absolute;
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+  height: 30px;
+
+  ::-webkit-slider-thumb {
+    -webkit-appearance: none;
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  ::-ms-track {
+    width: 100%;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+
+  ::-webkit-slider-thumb {
+    ${(p) => thumbStyling(p.theme)}
+  }
+
+  ::-moz-range-thumb {
+    ${(p) => thumbStyling(p.theme)}
+  }
+
+  ::-ms-thumb {
+    ${(p) => thumbStyling(p.theme)}
+  }
+`;
+const Thumb = styled__default["default"].div `
+  position: absolute;
+  height: ${measurements.large};
+  width: ${measurements.large};
+  border-radius: 50%;
+  background: ${(p) => p.theme.colors.primary};
+  pointer-events: none;
+  z-index: 3;
+`;
+const Wrapper$1 = styled__default["default"].div `
+  display: flex;
+  height: ${measurements.extraLarge};
+  align-items: center;
+  position: relative;
+  width: 100%;
+`;
+const RelativeWrapper = styled__default["default"].div `
+  width: 100%;
+  padding: 0 ${measurements.medium};
+`;
+const Track = styled__default["default"].div `
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  background-color: ${(p) => p.theme.colors.grayLightMore};
+  height: 8px;
+  border-radius: 4px;
+`;
+const TrackProgress = styled__default["default"].div `
+  z-index: 2;
+  position: absolute;
+  background-color: ${(p) => p.theme.colors.primary};
+  height: 8px;
+  border-radius: 4px;
+`;
+const ThumbLabel = styled__default["default"].div `
+  font-size: calc(${(p) => p.theme.fontSize} / 1.4);
+`;
+
+const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onChange }) => {
+    const [progress, setProgress] = React.useState();
+    const [currentValue, setCurrentValue] = React.useState(value || min);
+    React.useEffect(() => {
+        updateValue(currentValue);
+    }, []);
+    const updateValue = (rangeValue) => {
+        const resetValue = rangeValue - min;
+        const reset = max - min;
+        const percentValue = Math.round((resetValue / reset) * 100);
+        setProgress(percentValue);
+        setCurrentValue(rangeValue);
+        onChange && onChange(percentValue, rangeValue);
+    };
+    const renderLabel = () => {
+        if (!label) {
+            return null;
+        }
+        return React__default["default"].createElement(InputLabel, { className: "tui-slider-label" }, label);
+    };
+    const renderExtras = () => {
+        if (!showPercent && !showValue) {
+            return null;
+        }
+        let value = '';
+        let percent = '';
+        let labelValue = '';
+        if (showPercent) {
+            percent = progress?.toString() || min.toString();
+            labelValue = percent;
+        }
+        if (showValue) {
+            value = currentValue?.toString() || min.toString();
+            labelValue = value;
+        }
+        if (showValue && showPercent) {
+            labelValue = `${percent}% | ${value}`;
+        }
+        return React__default["default"].createElement(ThumbLabel, null, labelValue);
+    };
+    return (React__default["default"].createElement(StyledInputField, { className: "tui-slider" },
+        React__default["default"].createElement(RelativeWrapper, null,
+            React__default["default"].createElement(Flex, { "$horizontalAlign": "space-between", "$verticalAlign": "center" },
+                renderLabel(),
+                renderExtras()),
+            React__default["default"].createElement(Wrapper$1, null,
+                React__default["default"].createElement(StyleSlider, { value: currentValue, max: max, min: min, onChange: (e) => updateValue(parseInt(e.target.value)), type: "range" }),
+                React__default["default"].createElement(TrackProgress, { className: "tui-slider-progress", style: { width: `${progress}%` } }),
+                React__default["default"].createElement(Track, { className: "tui-slider-track" }),
+                React__default["default"].createElement(Thumb, { className: "tui-slider-thumb", style: { left: `calc(${progress}% - 10px)` } })))));
 };
 
 const StyledList = styled__default["default"].div `
@@ -3548,7 +3715,7 @@ const StyledCard = styled__default["default"].div `
     width: 100%;
   }
 `;
-const Content$2 = styled__default["default"].div `
+const Content$3 = styled__default["default"].div `
   padding: ${measurements.medium};
 `;
 const ImageWrapper = styled__default["default"].div `
@@ -3565,7 +3732,7 @@ const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top'
         if (!children) {
             return null;
         }
-        return React__default["default"].createElement(Content$2, null, children);
+        return React__default["default"].createElement(Content$3, null, children);
     };
     const renderImage = () => {
         if (!image) {
@@ -3573,9 +3740,41 @@ const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top'
         }
         return React__default["default"].createElement(ImageWrapper, null, image);
     };
-    return (React__default["default"].createElement(StyledCard, { "$wrap": wrap, "$imagePlacement": imagePlacement, style: { maxHeight: maxHeight } },
+    return (React__default["default"].createElement(StyledCard, { className: "tui-card", "$wrap": wrap, "$imagePlacement": imagePlacement, style: { maxHeight: maxHeight } },
         renderImage(),
         renderContent()));
+};
+
+const getColor = (p) => {
+    let color = p.$variant || 'grayLightMore';
+    switch (p.$variant) {
+        case 'danger':
+            color = 'notificationError';
+            break;
+        case 'success':
+            color = 'notificationSuccess';
+            break;
+        case 'warning':
+            color = 'notificationWarning';
+            break;
+        case 'info':
+            color = 'notificationInfo';
+            break;
+    }
+    return getVariantColor(p.theme, color);
+};
+const StyledTick = styled__default["default"].div `
+  display: flex;
+  border-radius: 20px;
+  padding: ${measurements.extraSmall} ${measurements.small};
+  font-size: calc(${(p) => p.theme.fontSize} * 0.8);
+  width: fit-content;
+  background-color: ${(p) => getColor(p)};
+  color: ${(p) => getContrastColor(p.theme, getColor(p))};
+`;
+
+const Tick = ({ children, variant }) => {
+    return (React__default["default"].createElement(StyledTick, { className: "tui-tick", "$variant": variant }, children));
 };
 
 const useEventListener = (eventName, handler, element = typeof window === 'undefined' ? null : window) => {
@@ -3790,6 +3989,119 @@ const Dropdown = ({ children, content, position = 'down', mobileModal = false })
             React__default["default"].createElement(DropdownButton, { className: "tui-dropdown-trigger", onClick: () => setExpanded(!expanded) }, children),
             renderContent()),
         renderBlocker()));
+};
+
+const leftSwipe = styled.keyframes `
+  0% { opacity: 1; right: 0; }
+  100% { opacity: 0; right: 100%; }
+`;
+const rightSwipe = styled.keyframes `
+  0% { opacity: 1; left: 0; }
+  100% { opacity: 0; left: 100%; }
+`;
+const StyledSwiper = styled__default["default"].div ``;
+const TransformWrapper = styled__default["default"].div `
+  position: relative;
+  cursor: pointer;
+
+  ${(p) => p.$swipeDir === 'left' &&
+    styled.css `
+      animation-name: ${leftSwipe};
+      animation-duration: 0.2s;
+    `}
+
+  ${(p) => p.$swipeDir === 'right' &&
+    styled.css `
+      animation-name: ${rightSwipe};
+      animation-duration: 0.2s;
+    `}
+`;
+const SwiperWrapper = styled__default["default"].div `
+  position: relative;
+`;
+const Content$2 = styled__default["default"].div `
+  touch-action: none;
+  width: 100%;
+  position: absolute;
+`;
+
+const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
+    const contentRef = React.useRef(null);
+    const swiperRef = React.useRef(null);
+    const [currentStep, setCurrentStep] = React.useState(step);
+    const [mouseIsDown, setMouseIsDown] = React.useState(false);
+    const [startDragPoint, setStartDragPoint] = React.useState(0);
+    const [dragged, setDragged] = React.useState(0);
+    const [continueSwipe, setContinueSwipe] = React.useState(null);
+    React.useEffect(() => {
+        if (continueSwipe) {
+            setTimeout(() => {
+                let nextStep = currentStep + 1;
+                if (loop && nextStep >= views.length) {
+                    nextStep = 0;
+                }
+                setCurrentStep(nextStep);
+                setContinueSwipe(null);
+                setDragged(0);
+            }, 100);
+        }
+    }, [continueSwipe]);
+    React.useEffect(() => {
+        if (contentRef.current && swiperRef.current) {
+            swiperRef.current.style.height = `${contentRef.current.clientHeight}px`;
+        }
+    }, [contentRef.current]);
+    const test = (e) => {
+        setStartDragPoint(e.pageX);
+        setMouseIsDown(true);
+    };
+    const renderContent = () => {
+        let currentContent = views[currentStep];
+        if (!loop && currentStep >= views.length) {
+            return null;
+        }
+        if (currentStep > views.length - 1) {
+            currentContent = views[0];
+        }
+        return currentContent;
+    };
+    const renderNextContent = () => {
+        const nextStep = currentStep + 1;
+        if (!loop && nextStep >= views.length) {
+            return null;
+        }
+        let nextContent = views[nextStep];
+        if (nextStep >= views.length) {
+            nextContent = views[0];
+        }
+        return nextContent;
+    };
+    useEventListener('pointerup', () => {
+        if (mouseIsDown) {
+            if (dragged > sensitivity) {
+                setContinueSwipe('right');
+                onSwiped && onSwiped('right');
+            }
+            else if (dragged < -sensitivity) {
+                setContinueSwipe('left');
+                onSwiped && onSwiped('left');
+            }
+            else {
+                setDragged(0);
+            }
+            setMouseIsDown(false);
+        }
+    });
+    useEventListener('pointermove', (e) => {
+        if (mouseIsDown) {
+            setDragged((startDragPoint - e.pageX) * -1);
+        }
+    });
+    return (React__default["default"].createElement(StyledSwiper, { ref: swiperRef, className: "tui-swiper" },
+        React__default["default"].createElement(SwiperWrapper, { onPointerDown: (e) => test(e) },
+            React__default["default"].createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
+            React__default["default"].createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
+                React__default["default"].createElement(Content$2, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
 };
 
 const modalAnimation = styled.keyframes `
@@ -4071,7 +4383,7 @@ const StyledToaster = styled__default["default"].div `
   margin: ${measurements.small} 0;
   flex-grow: 1;
   transition: 0.2s;
-  padding: ${measurements.medium};
+  padding: ${measurements.large};
   border-radius: ${(props) => props.theme.roundness};
   position: relative;
   bottom: 0;
@@ -4101,6 +4413,8 @@ const CloseButton = styled__default["default"].div `
 
   svg {
     display: block;
+    width: calc(${(p) => p.theme.fontSize} * 1.3);
+    height: calc(${(p) => p.theme.fontSize} * 1.3);
   }
 `;
 const Content = styled__default["default"].div `
@@ -4151,7 +4465,7 @@ const ToasterMessage = ({ toaster, onDelete }) => {
             return null;
         }
         return (React__default["default"].createElement(CloseButton, { className: "tui-toaster-close-button", onClick: () => closeToaster() },
-            React__default["default"].createElement(X$1, { size: 14 })));
+            React__default["default"].createElement(X$1, null)));
     };
     return (React__default["default"].createElement(StyledToaster, { closed: closed, isClosing: isClosing, className: getClasses },
         React__default["default"].createElement(MessageGroup, null,
@@ -4209,18 +4523,10 @@ const Toaster = () => {
     return React__default["default"].createElement(Wrapper, { className: "tui-toaster" }, renderToasterMessage());
 };
 
-const StyledView = styled__default["default"].div `
-  background-color: ${(props) => props.theme.colors.backgroundColor};
-  display: flex;
-  flex-direction: column;
-`;
 const View = ({ children }) => {
     return React__default["default"].createElement(StyledView, { className: "tui-view" }, children);
 };
 
-const StyledSection = styled__default["default"].div `
-  padding: ${measurements.extraLarge} 0;
-`;
 const Section = ({ children }) => {
     return React__default["default"].createElement(StyledSection, { className: "tui-section" }, children);
 };
@@ -4243,7 +4549,10 @@ exports.Popup = Popup;
 exports.SearchField = SearchField;
 exports.Section = Section;
 exports.Select = Select;
+exports.Slider = Slider;
+exports.Swiper = Swiper;
 exports.ThemeProvider = ThemeProvider;
+exports.Tick = Tick;
 exports.Toaster = Toaster;
 exports.View = View;
 exports.sendPopupEvent = sendPopupEvent;

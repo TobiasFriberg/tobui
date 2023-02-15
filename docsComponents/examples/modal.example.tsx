@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '../../components/form';
-import { Modal } from '../../components/modal/modal';
+import { Button, Modal } from 'tobui';
 
 export const ModalExample = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

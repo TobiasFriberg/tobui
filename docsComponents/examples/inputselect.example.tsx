@@ -1,5 +1,5 @@
 import React from 'react';
-import { Select } from '../../components/form';
+import { Select } from 'tobui';
 
 export const InputSelectExample = () => (
   <Select

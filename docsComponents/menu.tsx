@@ -13,6 +13,7 @@ export const Menu = ({}: Props) => {
         <NavLink to="/button">Button</NavLink>
         <NavLink to="/input">Input</NavLink>
         <NavLink to="/slider">Slider</NavLink>
+        <NavLink to="/swiper">Swiper</NavLink>
         <NavLink to="/dropdown">Dropdown</NavLink>
         <NavLink to="/list">List</NavLink>
         <NavLink to="/card">Card</NavLink>

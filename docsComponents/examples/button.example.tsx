@@ -1,6 +1,5 @@
 import React from 'react';
-import { List, ListItem } from '../../components/list';
-import { Button } from '../../components/form';
+import { List, ListItem, Button } from 'tobui';
 
 export const ButtonExample = () => {
   return (

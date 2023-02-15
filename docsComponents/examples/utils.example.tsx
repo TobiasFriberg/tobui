@@ -1,7 +1,6 @@
 import React from 'react';
 import { Mail } from 'react-feather';
-import { List } from '../../components/list';
-import { Notification, Expander, Loader, Badge } from '../../components/utils';
+import { List, Notification, Expander, Loader, Badge } from 'tobui';
 
 export const UtilsExample = () => {
   return (

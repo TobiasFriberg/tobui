@@ -1,6 +1,5 @@
 import React from 'react';
-import { Dropdown } from '../../components/dropdown';
-import { List } from '../../components/list';
+import { List, Dropdown } from 'tobui';
 
 export const DropdownExample = () => {
   const getDropDownContent = () => <div style={{ padding: '20px' }}>Any content can go inside</div>;
