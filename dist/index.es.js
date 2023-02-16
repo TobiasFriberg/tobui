@@ -5,7 +5,7 @@ var colors = {
 	primary: "#118ab2",
 	secondary: "#ef476f",
 	alternative: "#073b4c",
-	linkColor: "#902785",
+	linkColor: "#118ab2",
 	textColorDark: "#303030",
 	textColorLight: "#fafafa",
 	backgroundColor: "#faf9f9",
