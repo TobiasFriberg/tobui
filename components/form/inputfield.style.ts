@@ -1,5 +1,5 @@
 import { device, getContrastColor, measurements } from '../../helpers/stylehelpers';
-import { darken, lighten, rgba } from 'polished';
+import { darken, lighten, transparentize } from 'polished';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
 
@@ -53,6 +53,10 @@ const getInvalid = (props: InputFieldProps) => {
       &:hover,
       &:focus-within {
         border-color: ${darken(0.15, props.theme.colors.notificationError)};
+      }
+
+      &:focus-within {
+        box-shadow: 0px 0px 0px 3px ${transparentize(0.55, props.theme.colors.notificationError)};
       }
   `;
 };
@@ -113,6 +117,10 @@ export const InputWrapper = styled.div<InputFieldProps>`
     border-color: ${(props) => props.theme.colors.grayDarkMore};
   }
 
+  &:focus-within {
+    box-shadow: 0px 0px 0px 3px ${(props) => transparentize(0.55, props.theme.colors.primary)};
+  }
+
   input,
   textarea,
   select {
@@ -123,7 +131,7 @@ export const InputWrapper = styled.div<InputFieldProps>`
     background-color: transparent;
     font-family: inherit;
     font-size: inherit;
-    font-size: ${(props) => props.theme.fontSize};
+    font-size: 100%;
 
     ${(props) =>
       props.iconPosition === 'right' &&

@@ -3,6 +3,7 @@ import { createGlobalStyle, ThemeProvider as Provider } from 'styled-components'
 import defaultTheme from './theme.json';
 import { GlobalStyle } from '../globalStyles';
 import { darken } from 'polished';
+import { device } from '../helpers/stylehelpers';
 
 let theme = defaultTheme;
 
@@ -19,23 +20,27 @@ export const ThemeProvider = ({ children, customTheme = {}, app }: Props) => {
   ${GlobalStyle}
   body, input, button {
     font-size: ${theme.fontSize};
+
+    @media ${(p) => device(theme).phone} {
+      font-size: calc(${theme.fontSize} * 1.15);
+    }
   }
 
   h1 {
-  font-size: 3rem;
-}
+    font-size: 3rem;
+  }
 
-h2 {
-  font-size: 2rem;
-}
+  h2 {
+    font-size: 2rem;
+  }
 
-h3 {
-  font-size: 1.5rem;
-}
+  h3 {
+    font-size: 1.5rem;
+  }
 
-h4 {
-  font-size: 1.2rem;
-}
+  h4 {
+    font-size: 1.2rem;
+  }
 
   a {
     color: ${theme.colors.linkColor};

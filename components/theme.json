@@ -1,16 +1,12 @@
 {
   "colors": {
-    "primary": "#902785",
-    "secondary": "#ed6b2f",
+    "primary": "#118ab2",
+    "secondary": "#ef476f",
     "alternative": "#073b4c",
-
     "linkColor": "#902785",
-
     "textColorDark": "#303030",
     "textColorLight": "#fafafa",
-
     "backgroundColor": "#faf9f9",
-
     "grayLightEvenMore": "#eeeeee",
     "grayLightMore": "#e0e0e0",
     "grayLight": "#bdbdbd",
@@ -18,14 +14,13 @@
     "grayDark": "#757575",
     "grayDarkMore": "#424242",
     "grayDarkEvenMore": "#212121",
-
-    "notificationError": "#e53935",
-    "notificationWarning": "#ffb300",
-    "notificationInfo": "#0277bd",
-    "notificationSuccess": "#558b2f"
+    "notificationError": "#db3a34",
+    "notificationWarning": "#f7b801",
+    "notificationInfo": "#1a659e",
+    "notificationSuccess": "#6a994e"
   },
   "roundness": "4px",
   "buttonRoundness": "6px",
-  "inputRoundness": "20px",
+  "inputRoundness": "6px",
   "fontSize": "14px"
 }

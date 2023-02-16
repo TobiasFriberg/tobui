@@ -2,8 +2,8 @@ import React, { forwardRef, useState, cloneElement, useEffect, useRef } from 're
 import styled, { createGlobalStyle, ThemeProvider as ThemeProvider$1, keyframes, css } from 'styled-components';
 
 var colors = {
-	primary: "#902785",
-	secondary: "#ed6b2f",
+	primary: "#118ab2",
+	secondary: "#ef476f",
 	alternative: "#073b4c",
 	linkColor: "#902785",
 	textColorDark: "#303030",
@@ -16,14 +16,14 @@ var colors = {
 	grayDark: "#757575",
 	grayDarkMore: "#424242",
 	grayDarkEvenMore: "#212121",
-	notificationError: "#e53935",
-	notificationWarning: "#ffb300",
-	notificationInfo: "#0277bd",
-	notificationSuccess: "#558b2f"
+	notificationError: "#db3a34",
+	notificationWarning: "#f7b801",
+	notificationInfo: "#1a659e",
+	notificationSuccess: "#6a994e"
 };
 var roundness = "4px";
 var buttonRoundness = "6px";
-var inputRoundness = "20px";
+var inputRoundness = "6px";
 var fontSize = "14px";
 var defaultTheme = {
 	colors: colors,
@@ -1269,6 +1269,81 @@ var curriedLighten = /*#__PURE__*/curry
 (lighten);
 var curriedLighten$1 = curriedLighten;
 
+/**
+ * Decreases the opacity of a color. Its range for the amount is between 0 to 1.
+ *
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: transparentize(0.1, '#fff'),
+ *   background: transparentize(0.2, 'hsl(0, 0%, 100%)'),
+ *   background: transparentize('0.5', 'rgba(255, 0, 0, 0.8)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${transparentize(0.1, '#fff')};
+ *   background: ${transparentize(0.2, 'hsl(0, 0%, 100%)')};
+ *   background: ${transparentize('0.5', 'rgba(255, 0, 0, 0.8)')};
+ * `
+ *
+ * // CSS in JS Output
+ *
+ * element {
+ *   background: "rgba(255,255,255,0.9)";
+ *   background: "rgba(255,255,255,0.8)";
+ *   background: "rgba(255,0,0,0.3)";
+ * }
+ */
+
+function transparentize(amount, color) {
+  if (color === 'transparent') return color;
+  var parsedColor = parseToRgb(color);
+  var alpha = typeof parsedColor.alpha === 'number' ? parsedColor.alpha : 1;
+
+  var colorWithAlpha = _extends$9({}, parsedColor, {
+    alpha: guard(0, 1, +(alpha * 100 - parseFloat(amount) * 100).toFixed(2) / 100)
+  });
+
+  return rgba(colorWithAlpha);
+} // prettier-ignore
+
+
+var curriedTransparentize = /*#__PURE__*/curry
+/* ::<number | string, string, string> */
+(transparentize);
+var curriedTransparentize$1 = curriedTransparentize;
+
+const getVariantColor = (theme, variant) => {
+    return theme.colors[variant];
+};
+const getContrastColor = (theme, color, light = theme.colors.textColorLight, dark = theme.colors.textColorDark) => {
+    const contrastRatio = getContrast(color, dark);
+    if (contrastRatio > 5) {
+        return dark;
+    }
+    return light;
+};
+const size = {
+    phone: '640px',
+    tablet: '950px',
+    desktop: '1024px',
+};
+const device = (theme) => ({
+    phone: `(max-width: ${theme.app ? '100vw' : size.phone})`,
+    tablet: `(max-width: ${size.tablet})`,
+    tabletOnly: `(min-width: ${size.phone}) AND (max-width: ${size.tablet})`,
+    desktop: `(min-width: ${size.desktop})`,
+});
+const measurements = {
+    extraSmall: '0.2rem',
+    small: '0.5rem',
+    medium: '0.75rem',
+    large: '1.5rem',
+    extraLarge: '2rem',
+};
+
 let theme = defaultTheme;
 const ThemeProvider = ({ children, customTheme = {}, app }) => {
     theme = { ...defaultTheme, ...customTheme, app: app };
@@ -1277,23 +1352,27 @@ const ThemeProvider = ({ children, customTheme = {}, app }) => {
   ${GlobalStyle}
   body, input, button {
     font-size: ${theme.fontSize};
+
+    @media ${(p) => device(theme).phone} {
+      font-size: calc(${theme.fontSize} * 1.15);
+    }
   }
 
   h1 {
-  font-size: 3rem;
-}
+    font-size: 3rem;
+  }
 
-h2 {
-  font-size: 2rem;
-}
+  h2 {
+    font-size: 2rem;
+  }
 
-h3 {
-  font-size: 1.5rem;
-}
+  h3 {
+    font-size: 1.5rem;
+  }
 
-h4 {
-  font-size: 1.2rem;
-}
+  h4 {
+    font-size: 1.2rem;
+  }
 
   a {
     color: ${theme.colors.linkColor};
@@ -2770,35 +2849,6 @@ X.propTypes = {
 X.displayName = 'X';
 var X$1 = X;
 
-const getVariantColor = (theme, variant) => {
-    return theme.colors[variant];
-};
-const getContrastColor = (theme, color, light = theme.colors.textColorLight, dark = theme.colors.textColorDark) => {
-    const contrastRatio = getContrast(color, dark);
-    if (contrastRatio > 5) {
-        return dark;
-    }
-    return light;
-};
-const size = {
-    phone: '640px',
-    tablet: '950px',
-    desktop: '1024px',
-};
-const device = (theme) => ({
-    phone: `(max-width: ${theme.app ? '100vw' : size.phone})`,
-    tablet: `(max-width: ${size.tablet})`,
-    tabletOnly: `(min-width: ${size.phone}) AND (max-width: ${size.tablet})`,
-    desktop: `(min-width: ${size.desktop})`,
-});
-const measurements = {
-    extraSmall: '0.2rem',
-    small: '0.5rem',
-    medium: '0.75rem',
-    large: '1.5rem',
-    extraLarge: '2rem',
-};
-
 const getColor$1 = (theme, type) => {
     const colors = [
         {
@@ -3060,6 +3110,12 @@ const generateVariantColor = (props) => {
           ${curriedDarken$1(0.05, props.theme.colors.primary)} 100%
         );
       }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0px 0px 0px 3px ${curriedTransparentize$1(0.55, props.theme.colors.primary)};
+      }
+
       ${props.appearance && props.appearance !== 'button'
             ? getAppearance(props.appearance, props.theme.colors.primary)
             : ''}
@@ -3072,6 +3128,11 @@ const generateVariantColor = (props) => {
     return `
       color: ${getContrastColor(props.theme, backgroundColor)};
       ${getAppearance(props.appearance, backgroundColor)}
+
+      &:focus {
+        outline: none;
+        box-shadow: 0px 0px 0px 3px ${curriedTransparentize$1(0.55, backgroundColor)};
+      }
 
       ${StyledLoader}{
           div:first-child {
@@ -3121,6 +3182,10 @@ const StyledButton = styled.button `
   &:disabled {
     cursor: not-allowed;
     opacity: 0.3;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   ${(p) => p.$loading &&
@@ -3223,6 +3288,10 @@ const getInvalid = (props) => {
       &:focus-within {
         border-color: ${curriedDarken$1(0.15, props.theme.colors.notificationError)};
       }
+
+      &:focus-within {
+        box-shadow: 0px 0px 0px 3px ${curriedTransparentize$1(0.55, props.theme.colors.notificationError)};
+      }
   `;
 };
 const StyledInputField = styled.div `
@@ -3270,6 +3339,10 @@ const InputWrapper = styled.div `
     border-color: ${(props) => props.theme.colors.grayDarkMore};
   }
 
+  &:focus-within {
+    box-shadow: 0px 0px 0px 3px ${(props) => curriedTransparentize$1(0.55, props.theme.colors.primary)};
+  }
+
   input,
   textarea,
   select {
@@ -3280,7 +3353,7 @@ const InputWrapper = styled.div `
     background-color: transparent;
     font-family: inherit;
     font-size: inherit;
-    font-size: ${(props) => props.theme.fontSize};
+    font-size: 100%;
 
     ${(props) => props.iconPosition === 'right' &&
     `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.medium};`}

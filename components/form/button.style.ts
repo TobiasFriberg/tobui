@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken, rgba } from 'polished';
+import { darken, rgba, transparentize } from 'polished';
 import { device, getContrastColor, getVariantColor, measurements } from '../../helpers/stylehelpers';
 import { ReactNode } from 'react';
 import { StyledLoader } from '../utils/loader.style';
@@ -42,6 +42,12 @@ const generateVariantColor = (props: ButtonProps) => {
           ${darken(0.05, props.theme.colors.primary)} 100%
         );
       }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0px 0px 0px 3px ${transparentize(0.55, props.theme.colors.primary)};
+      }
+
       ${
         props.appearance && props.appearance !== 'button'
           ? getAppearance(props.appearance, props.theme.colors.primary)
@@ -59,6 +65,11 @@ const generateVariantColor = (props: ButtonProps) => {
   return `
       color: ${getContrastColor(props.theme, backgroundColor)};
       ${getAppearance(props.appearance, backgroundColor)}
+
+      &:focus {
+        outline: none;
+        box-shadow: 0px 0px 0px 3px ${transparentize(0.55, backgroundColor)};
+      }
 
       ${StyledLoader}{
           div:first-child {
@@ -131,6 +142,10 @@ export const StyledButton = styled.button<ButtonProps>`
   &:disabled {
     cursor: not-allowed;
     opacity: 0.3;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   ${(p) =>
