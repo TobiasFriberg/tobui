@@ -3708,7 +3708,7 @@ const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, 
 
 const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', }) => {
     const [selectedValue, setSelectedValue] = useState(value);
-    const renderOptions = items.map((item, i) => (React.createElement("option", { key: i, value: item.value, selected: item.value === selectedValue }, item.label)));
+    const renderOptions = items.map((item, i) => (React.createElement("option", { key: i, value: item.value }, item.label)));
     const renderLabel = () => {
         if (!label) {
             return null;

@@ -29,7 +29,7 @@ export const Select = ({
 }: SelectProps) => {
   const [selectedValue, setSelectedValue] = useState(value);
   const renderOptions = items.map((item, i) => (
-    <option key={i} value={item.value} selected={item.value === selectedValue}>
+    <option key={i} value={item.value}>
       {item.label}
     </option>
   ));
