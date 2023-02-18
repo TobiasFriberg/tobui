@@ -1,5 +1,4 @@
 import { ThemeProvider } from './components/themeProvider';
-import { Toaster } from './components/toaster';
 import { useAppState } from './docsComponents/appContext';
 import Routing from './docsComponents/routing';
 import React from 'react';
@@ -9,7 +8,6 @@ const App = () => {
 
   return (
     <ThemeProvider customTheme={appState.theme}>
-      <Toaster />
       <Routing />
     </ThemeProvider>
   );

@@ -4,6 +4,7 @@ import defaultTheme from './theme.json';
 import { GlobalStyle } from '../globalStyles';
 import { darken } from 'polished';
 import { device } from '../helpers/stylehelpers';
+import { Toaster } from './toaster';
 
 let theme = defaultTheme;
 
@@ -52,6 +53,7 @@ export const ThemeProvider = ({ children, customTheme = {}, app }: Props) => {
   `;
   return (
     <Provider theme={theme}>
+      <Toaster />
       <GlobalStyling />
       {children}
     </Provider>

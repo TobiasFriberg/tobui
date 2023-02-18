@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ChevronDown } from 'react-feather';
 import { InputLabel, InputWrapper, SelectIcon, StyledInputField } from './inputfield.style';
 
@@ -12,7 +12,7 @@ type SelectProps = {
   items: ISelectItem[];
   label?: string;
   width?: string;
-  defaultValue?: string;
+  value?: string;
   onChange: (item: ISelectItem) => void;
   disabled?: boolean;
   testId?: string;
@@ -20,15 +20,16 @@ type SelectProps = {
 
 export const Select = ({
   items = [],
-  defaultValue,
+  value,
   onChange,
   width = 'auto',
   label,
   disabled = false,
   testId = 'select',
 }: SelectProps) => {
+  const [selectedValue, setSelectedValue] = useState(value);
   const renderOptions = items.map((item, i) => (
-    <option key={i} value={item.value}>
+    <option key={i} value={item.value} selected={item.value === selectedValue}>
       {item.label}
     </option>
   ));
@@ -47,8 +48,12 @@ export const Select = ({
       <InputWrapper className="tui-input tui-select">
         <select
           disabled={disabled}
-          defaultValue={defaultValue}
-          onChange={(e) => onChange(items[e.target.selectedIndex])}
+          value={selectedValue}
+          onChange={(e) => {
+            const valueSelected = items[e.target.selectedIndex];
+            setSelectedValue(valueSelected.value);
+            onChange(valueSelected);
+          }}
         >
           {renderOptions}
         </select>
