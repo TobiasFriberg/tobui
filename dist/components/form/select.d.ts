@@ -8,10 +8,10 @@ declare type SelectProps = {
     items: ISelectItem[];
     label?: string;
     width?: string;
-    defaultValue?: string;
+    value?: string;
     onChange: (item: ISelectItem) => void;
     disabled?: boolean;
     testId?: string;
 };
-export declare const Select: ({ items, defaultValue, onChange, width, label, disabled, testId, }: SelectProps) => JSX.Element;
+export declare const Select: ({ items, value, onChange, width, label, disabled, testId, }: SelectProps) => JSX.Element;
 export {};

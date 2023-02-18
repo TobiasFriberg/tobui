@@ -1,5 +1,5 @@
-import React, { forwardRef, useState, cloneElement, useEffect, useRef } from 'react';
-import styled, { createGlobalStyle, ThemeProvider as ThemeProvider$1, keyframes, css } from 'styled-components';
+import React, { useRef, useEffect, forwardRef, useState, cloneElement } from 'react';
+import styled, { keyframes, createGlobalStyle, ThemeProvider as ThemeProvider$1, css } from 'styled-components';
 
 var colors = {
 	primary: "#118ab2",
@@ -1345,47 +1345,22 @@ const measurements = {
     extraExtraLarge: '3rem',
 };
 
-let theme = defaultTheme;
-const ThemeProvider = ({ children, customTheme = {}, app }) => {
-    theme = { ...defaultTheme, ...customTheme, app: app };
-    theme.colors = { ...defaultTheme.colors, ...(customTheme.colors || {}) };
-    const GlobalStyling = createGlobalStyle `
-  ${GlobalStyle}
-  body, input, button {
-    font-size: ${theme.fontSize};
-
-    @media ${(p) => device(theme).phone} {
-      font-size: calc(${theme.fontSize} * 1.15);
-    }
-  }
-
-  h1 {
-    font-size: 3rem;
-  }
-
-  h2 {
-    font-size: 2rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
-  }
-
-  h4 {
-    font-size: 1.2rem;
-  }
-
-  a {
-    color: ${theme.colors.linkColor};
-
-    &:hover {
-      color: ${curriedDarken$1(0.2, theme.colors.linkColor)};
-    }
-  }
-  `;
-    return (React.createElement(ThemeProvider$1, { theme: theme },
-        React.createElement(GlobalStyling, null),
-        children));
+const useEventListener = (eventName, handler, element = typeof window === 'undefined' ? null : window) => {
+    const savedHandler = useRef(() => { });
+    useEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
+    useEffect(() => {
+        const isSupported = element && element.addEventListener;
+        if (!isSupported) {
+            return () => { };
+        }
+        const eventListener = (event) => savedHandler.current(event);
+        element.addEventListener(eventName, eventListener);
+        return () => {
+            element.removeEventListener(eventName, eventListener);
+        };
+    }, [eventName, element]);
 };
 
 var propTypes = {exports: {}};
@@ -2850,6 +2825,216 @@ X.propTypes = {
 X.displayName = 'X';
 var X$1 = X;
 
+const toasterAnimation = keyframes `
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+const Wrapper$1 = styled.div `
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  pointer-events: none;
+  padding: 0 ${measurements.large};
+  box-sizing: border-box;
+  display: flex;
+  bottom: 100px;
+  flex-direction: column-reverse;
+`;
+const StyledToaster = styled.div `
+  display: flex;
+  margin: ${measurements.small} 0;
+  flex-grow: 1;
+  transition: 0.2s;
+  padding: ${measurements.large};
+  border-radius: ${(props) => props.theme.roundness};
+  position: relative;
+  bottom: 0;
+  right: 0;
+  background-color: ${(props) => props.theme.colors.grayDarkMore};
+  color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 1.25;
+  align-items: center;
+  justify-content: space-between;
+
+  animation-name: ${toasterAnimation};
+  animation-duration: 0.12s;
+  animation-timing-function: linear;
+
+  ${(props) => (props.isClosing ? `transform: translateX(100%); opacity: 0;` : '')}
+  ${(props) => (props.closed ? `display: none;` : '')}
+`;
+const MessageGroup = styled.div `
+  display: flex;
+  align-items: center;
+  gap: ${measurements.medium};
+`;
+const CloseButton$1 = styled.div `
+  pointer-events: all;
+  cursor: pointer;
+
+  svg {
+    display: block;
+    width: calc(${(p) => p.theme.fontSize} * 1.3);
+    height: calc(${(p) => p.theme.fontSize} * 1.3);
+  }
+`;
+const Content$5 = styled.div `
+  display: flex;
+  align-items: center;
+`;
+
+const ToasterMessage = ({ toaster, onDelete }) => {
+    const [isClosing, setIsClosing] = useState(false);
+    const [closed, setClosed] = useState(false);
+    useEffect(() => {
+        if (!toaster.sticky) {
+            setTimeout(() => {
+                closeToaster();
+            }, toaster.timeout || 3500);
+        }
+    }, []);
+    const closeToaster = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            setClosed(true);
+            onDelete(toaster);
+        }, 250);
+    };
+    const getClasses = [
+        'tui-message',
+        isClosing ? 'tui-toaster-closing' : '',
+        closed ? 'tui-toaster-closed' : '',
+        toaster.variant ? `tui-toaster-${toaster.variant}` : '',
+    ].join(' ');
+    const getIcon = () => {
+        let icon = null;
+        switch (toaster.variant) {
+            case 'success':
+                icon = React.createElement(CheckCircle$1, { className: "tui-toaster-icon", size: "16" });
+                break;
+            case 'error':
+                icon = React.createElement(AlertCircle$1, { className: "tui-toaster-icon", size: "16" });
+                break;
+            case 'info':
+                icon = React.createElement(Info$1, { className: "tui-toaster-icon", size: "16" });
+                break;
+        }
+        return icon;
+    };
+    const renderCloseButton = () => {
+        if (!toaster.sticky) {
+            return null;
+        }
+        return (React.createElement(CloseButton$1, { className: "tui-toaster-close-button", onClick: () => closeToaster() },
+            React.createElement(X$1, null)));
+    };
+    return (React.createElement(StyledToaster, { closed: closed, isClosing: isClosing, className: getClasses },
+        React.createElement(MessageGroup, null,
+            getIcon(),
+            React.createElement(Content$5, { className: "tui-toaster-content" }, toaster.text)),
+        renderCloseButton()));
+};
+const AddToaster = (props) => {
+    const event = new CustomEvent('toaster', { detail: props });
+    dispatchEvent(event);
+};
+const Toaster = () => {
+    const [messages, setMessages] = useState([]);
+    const stateRef = useRef([]);
+    useEffect(() => {
+        if (messages.length <= 0) {
+            return;
+        }
+        stateRef.current = messages;
+        const visibleMessages = messages.filter((message) => message.visible);
+        if (visibleMessages.length <= 0) {
+            setMessages([]);
+        }
+    }, [messages]);
+    const addToaster = (toaster) => {
+        const toast = {
+            id: Date.now() + Math.random() * 2000,
+            ...toaster.detail,
+        };
+        const newToastToAdd = {
+            toaster: toast,
+            visible: true,
+        };
+        setMessages((messages) => [...messages, newToastToAdd]);
+    };
+    useEventListener('toaster', addToaster);
+    const removeToaster = (toaster) => {
+        if (!stateRef.current) {
+            return;
+        }
+        const newMessages = stateRef.current.map((message) => {
+            if (message.toaster.id === toaster.id) {
+                message.visible = false;
+            }
+            return message;
+        });
+        setMessages(newMessages);
+    };
+    const renderToasterMessage = () => {
+        if (messages.length <= 0) {
+            return null;
+        }
+        return messages.map((message) => (React.createElement(ToasterMessage, { key: message.toaster.id, toaster: message.toaster, onDelete: (toaster) => removeToaster(toaster) })));
+    };
+    return React.createElement(Wrapper$1, { className: "tui-toaster" }, renderToasterMessage());
+};
+
+let theme = defaultTheme;
+const ThemeProvider = ({ children, customTheme = {}, app }) => {
+    theme = { ...defaultTheme, ...customTheme, app: app };
+    theme.colors = { ...defaultTheme.colors, ...(customTheme.colors || {}) };
+    const GlobalStyling = createGlobalStyle `
+  ${GlobalStyle}
+  body, input, button {
+    font-size: ${theme.fontSize};
+
+    @media ${(p) => device(theme).phone} {
+      font-size: calc(${theme.fontSize} * 1.15);
+    }
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  a {
+    color: ${theme.colors.linkColor};
+
+    &:hover {
+      color: ${curriedDarken$1(0.2, theme.colors.linkColor)};
+    }
+  }
+  `;
+    return (React.createElement(ThemeProvider$1, { theme: theme },
+        React.createElement(Toaster, null),
+        React.createElement(GlobalStyling, null),
+        children));
+};
+
 const getColor$1 = (theme, type) => {
     const colors = [
         {
@@ -3197,7 +3382,7 @@ const StyledButton = styled.button `
       position: absolute;
     }
 
-    ${Icon}, ${Content$5} {
+    ${Icon}, ${Content$4} {
       opacity: 0.3;
     }
   `}
@@ -3206,7 +3391,7 @@ const Icon = styled.div `
   display: flex;
   margin-right: ${measurements.small};
 `;
-const Content$5 = styled.span `
+const Content$4 = styled.span `
   display: flex;
   align-items: center;
 `;
@@ -3239,7 +3424,7 @@ const Button = ({ children, onClick, className = '', loading = false, icon, disa
     return (React.createElement(StyledButton, { "data-test-id": testId, className: getClass(), disabled: disabled, onClick: () => handleClick(), "$loading": isLoading, ...props },
         renderLoader(),
         renderIcon(),
-        React.createElement(Content$5, { className: "tui-button-content", "$loading": isLoading }, children)));
+        React.createElement(Content$4, { className: "tui-button-content", "$loading": isLoading }, children)));
 };
 
 const getIconStyle = (props) => {
@@ -3521,8 +3706,9 @@ const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, 
     return (React.createElement(InputField, { icon: React.createElement(Search$1, null), value: searchString, placeholder: placeholder, label: label, onChange: (e) => handleChange(e), onClear: () => handleClear(), testId: testId }));
 };
 
-const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, disabled = false, testId = 'select', }) => {
-    const renderOptions = items.map((item, i) => (React.createElement("option", { key: i, value: item.value }, item.label)));
+const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', }) => {
+    const [selectedValue, setSelectedValue] = useState(value);
+    const renderOptions = items.map((item, i) => (React.createElement("option", { key: i, value: item.value, selected: item.value === selectedValue }, item.label)));
     const renderLabel = () => {
         if (!label) {
             return null;
@@ -3532,7 +3718,11 @@ const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, dis
     return (React.createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId },
         renderLabel(),
         React.createElement(InputWrapper, { className: "tui-input tui-select" },
-            React.createElement("select", { disabled: disabled, defaultValue: defaultValue, onChange: (e) => onChange(items[e.target.selectedIndex]) }, renderOptions),
+            React.createElement("select", { disabled: disabled, value: selectedValue, onChange: (e) => {
+                    const valueSelected = items[e.target.selectedIndex];
+                    setSelectedValue(valueSelected.value);
+                    onChange(valueSelected);
+                } }, renderOptions),
             React.createElement(SelectIcon, null,
                 React.createElement(ChevronDown$1, { className: "tui-icon" })))));
 };
@@ -3638,7 +3828,7 @@ const Thumb = styled.div `
   pointer-events: none;
   z-index: 3;
 `;
-const Wrapper$1 = styled.div `
+const Wrapper = styled.div `
   display: flex;
   height: ${measurements.extraLarge};
   align-items: center;
@@ -3713,7 +3903,7 @@ const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units
             React.createElement(Flex, { "$horizontalAlign": "space-between", "$verticalAlign": "center" },
                 renderLabel(),
                 renderExtras()),
-            React.createElement(Wrapper$1, null,
+            React.createElement(Wrapper, null,
                 React.createElement(StyleRange, { value: currentValue, max: max, min: min, onChange: (e) => updateValue(parseInt(e.target.value)), type: "range" }),
                 React.createElement(TrackProgress, { className: "tui-slider-progress", style: { width: `${progress}%` } }),
                 React.createElement(Track, { className: "tui-slider-track" }),
@@ -3788,7 +3978,7 @@ const StyledCard = styled.div `
     width: 100%;
   }
 `;
-const Content$4 = styled.div `
+const Content$3 = styled.div `
   padding: ${measurements.medium};
 `;
 const ImageWrapper = styled.div `
@@ -3805,7 +3995,7 @@ const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top'
         if (!children) {
             return null;
         }
-        return React.createElement(Content$4, null, children);
+        return React.createElement(Content$3, null, children);
     };
     const renderImage = () => {
         if (!image) {
@@ -3848,24 +4038,6 @@ const StyledTick = styled.div `
 
 const Tick = ({ children, variant }) => {
     return (React.createElement(StyledTick, { className: "tui-tick", "$variant": variant }, children));
-};
-
-const useEventListener = (eventName, handler, element = typeof window === 'undefined' ? null : window) => {
-    const savedHandler = useRef(() => { });
-    useEffect(() => {
-        savedHandler.current = handler;
-    }, [handler]);
-    useEffect(() => {
-        const isSupported = element && element.addEventListener;
-        if (!isSupported) {
-            return () => { };
-        }
-        const eventListener = (event) => savedHandler.current(event);
-        element.addEventListener(eventName, eventListener);
-        return () => {
-            element.removeEventListener(eventName, eventListener);
-        };
-    }, [eventName, element]);
 };
 
 const getModalForDropdown = (props, isModal) => {
@@ -4097,7 +4269,7 @@ const TransformWrapper = styled.div `
 const SwiperWrapper = styled.div `
   position: relative;
 `;
-const Content$3 = styled.div `
+const Content$2 = styled.div `
   touch-action: none;
   width: 100%;
   position: absolute;
@@ -4177,9 +4349,9 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
     });
     return (React.createElement(StyledSwiper, { ref: swiperRef, className: "tui-swiper" },
         React.createElement(SwiperWrapper, { onPointerDown: (e) => test(e) },
-            React.createElement(Content$3, { className: "tui-swiper-next-content" }, renderNextContent()),
+            React.createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
             React.createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
-                React.createElement(Content$3, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
+                React.createElement(Content$2, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
 };
 
 const modalAnimation = keyframes `
@@ -4209,7 +4381,7 @@ const StyledModal = styled.div `
 
   ${(props) => props.closing && `transform: translateY(100%); opacity: 0;`}
 `;
-const CloseButton$1 = styled.div `
+const CloseButton = styled.div `
   padding: ${measurements.medium};
   z-index: 10;
   cursor: pointer;
@@ -4217,7 +4389,7 @@ const CloseButton$1 = styled.div `
   top: 0;
   right: 0;
 `;
-const Content$2 = styled.div `
+const Content$1 = styled.div `
   ${(p) => !p.$fill && `padding: ${measurements.medium}; padding-top: ${measurements.extraExtraLarge};`}
   height: 100%;
   z-index: 1;
@@ -4247,7 +4419,7 @@ const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
         if (!onClose) {
             return null;
         }
-        return (React.createElement(CloseButton$1, { className: "tui-modal-close", onClick: () => closeModal() },
+        return (React.createElement(CloseButton, { className: "tui-modal-close", onClick: () => closeModal() },
             React.createElement(X$1, null)));
     };
     const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : ''].join(' ');
@@ -4256,7 +4428,7 @@ const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
     }
     return (React.createElement(StyledModal, { closing: isClosing, className: getClasses },
         renderCloseButton(),
-        React.createElement(Content$2, { "$fill": fillContent, className: "tui-modal-content" }, children)));
+        React.createElement(Content$1, { "$fill": fillContent, className: "tui-modal-content" }, children)));
 };
 
 const getContent = (open) => {
@@ -4293,13 +4465,13 @@ const StyledPopup = styled.div `
   ${(p) => p.$fullscreen &&
     `
     padding: 0;
-    ${Content$1} {
+    ${Content} {
       min-width: 100vw;
       min-height: -webkit-fill-available;
     }
   `}
 `;
-const Content$1 = styled.div `
+const Content = styled.div `
   z-index: 900;
   transition: 0.1s;
   max-width: 80%;
@@ -4424,7 +4596,7 @@ const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, ch
             return null;
         }
         return (React.createElement(StyledPopup, { className: getClasses(), "$fullscreen": fullscreen, open: isOpen },
-            React.createElement(Content$1, { className: "tui-popup-content", style: { width: width } },
+            React.createElement(Content, { className: "tui-popup-content", style: { width: width } },
                 React.createElement(TopBar, { className: "tui-popup-top-bar" },
                     React.createElement(Title, { className: "tui-popup-title" }, title),
                     React.createElement("div", null, renderCloseButton())),
@@ -4439,172 +4611,6 @@ const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, ch
 const sendPopupEvent = (name, open = true) => {
     const event = new CustomEvent('popup', { detail: { open: open, name: name } });
     dispatchEvent(event);
-};
-
-const toasterAnimation = keyframes `
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
-const Wrapper = styled.div `
-  z-index: 99999;
-  position: fixed;
-  width: 100%;
-  pointer-events: none;
-  padding: 0 ${measurements.large};
-  box-sizing: border-box;
-  display: flex;
-  bottom: 100px;
-  flex-direction: column-reverse;
-`;
-const StyledToaster = styled.div `
-  display: flex;
-  margin: ${measurements.small} 0;
-  flex-grow: 1;
-  transition: 0.2s;
-  padding: ${measurements.large};
-  border-radius: ${(props) => props.theme.roundness};
-  position: relative;
-  bottom: 0;
-  right: 0;
-  background-color: ${(props) => props.theme.colors.grayDarkMore};
-  color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  line-height: 1.25;
-  align-items: center;
-  justify-content: space-between;
-
-  animation-name: ${toasterAnimation};
-  animation-duration: 0.12s;
-  animation-timing-function: linear;
-
-  ${(props) => (props.isClosing ? `transform: translateX(100%); opacity: 0;` : '')}
-  ${(props) => (props.closed ? `display: none;` : '')}
-`;
-const MessageGroup = styled.div `
-  display: flex;
-  align-items: center;
-  gap: ${measurements.medium};
-`;
-const CloseButton = styled.div `
-  pointer-events: all;
-  cursor: pointer;
-
-  svg {
-    display: block;
-    width: calc(${(p) => p.theme.fontSize} * 1.3);
-    height: calc(${(p) => p.theme.fontSize} * 1.3);
-  }
-`;
-const Content = styled.div `
-  display: flex;
-  align-items: center;
-`;
-
-const ToasterMessage = ({ toaster, onDelete }) => {
-    const [isClosing, setIsClosing] = useState(false);
-    const [closed, setClosed] = useState(false);
-    useEffect(() => {
-        if (!toaster.sticky) {
-            setTimeout(() => {
-                closeToaster();
-            }, toaster.timeout || 3500);
-        }
-    }, []);
-    const closeToaster = () => {
-        setIsClosing(true);
-        setTimeout(() => {
-            setClosed(true);
-            onDelete(toaster);
-        }, 250);
-    };
-    const getClasses = [
-        'tui-message',
-        isClosing ? 'tui-toaster-closing' : '',
-        closed ? 'tui-toaster-closed' : '',
-        toaster.variant ? `tui-toaster-${toaster.variant}` : '',
-    ].join(' ');
-    const getIcon = () => {
-        let icon = null;
-        switch (toaster.variant) {
-            case 'success':
-                icon = React.createElement(CheckCircle$1, { className: "tui-toaster-icon", size: "16" });
-                break;
-            case 'error':
-                icon = React.createElement(AlertCircle$1, { className: "tui-toaster-icon", size: "16" });
-                break;
-            case 'info':
-                icon = React.createElement(Info$1, { className: "tui-toaster-icon", size: "16" });
-                break;
-        }
-        return icon;
-    };
-    const renderCloseButton = () => {
-        if (!toaster.sticky) {
-            return null;
-        }
-        return (React.createElement(CloseButton, { className: "tui-toaster-close-button", onClick: () => closeToaster() },
-            React.createElement(X$1, null)));
-    };
-    return (React.createElement(StyledToaster, { closed: closed, isClosing: isClosing, className: getClasses },
-        React.createElement(MessageGroup, null,
-            getIcon(),
-            React.createElement(Content, { className: "tui-toaster-content" }, toaster.text)),
-        renderCloseButton()));
-};
-const AddToaster = (props) => {
-    const event = new CustomEvent('toaster', { detail: props });
-    dispatchEvent(event);
-};
-const Toaster = () => {
-    const [messages, setMessages] = useState([]);
-    const stateRef = useRef([]);
-    useEffect(() => {
-        if (messages.length <= 0) {
-            return;
-        }
-        stateRef.current = messages;
-        const visibleMessages = messages.filter((message) => message.visible);
-        if (visibleMessages.length <= 0) {
-            setMessages([]);
-        }
-    }, [messages]);
-    const addToaster = (toaster) => {
-        const toast = {
-            id: Date.now() + Math.random() * 2000,
-            ...toaster.detail,
-        };
-        const newToastToAdd = {
-            toaster: toast,
-            visible: true,
-        };
-        setMessages((messages) => [...messages, newToastToAdd]);
-    };
-    useEventListener('toaster', addToaster);
-    const removeToaster = (toaster) => {
-        if (!stateRef.current) {
-            return;
-        }
-        const newMessages = stateRef.current.map((message) => {
-            if (message.toaster.id === toaster.id) {
-                message.visible = false;
-            }
-            return message;
-        });
-        setMessages(newMessages);
-    };
-    const renderToasterMessage = () => {
-        if (messages.length <= 0) {
-            return null;
-        }
-        return messages.map((message) => (React.createElement(ToasterMessage, { key: message.toaster.id, toaster: message.toaster, onDelete: (toaster) => removeToaster(toaster) })));
-    };
-    return React.createElement(Wrapper, { className: "tui-toaster" }, renderToasterMessage());
 };
 
 const View = ({ children }) => {
