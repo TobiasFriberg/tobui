@@ -12,4 +12,5 @@ export declare const measurements: {
     medium: string;
     large: string;
     extraLarge: string;
+    extraExtraLarge: string;
 };

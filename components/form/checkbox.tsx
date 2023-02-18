@@ -6,9 +6,10 @@ type Props = {
   label?: string;
   checked: boolean;
   onCheck: (newValue: boolean) => void;
+  checkboxPlacement?: 'left' | 'right';
 };
 
-export const CheckBox = ({ label = '', checked = false, onCheck }: Props) => {
+export const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right' }: Props) => {
   const renderLabel = () => {
     if (!label) {
       return null;
@@ -17,9 +18,9 @@ export const CheckBox = ({ label = '', checked = false, onCheck }: Props) => {
     return <span>{label}</span>;
   };
   return (
-    <CheckBoxWrapper>
+    <CheckBoxWrapper $location={checkboxPlacement}>
       <label>
-        {renderLabel()}
+        {checkboxPlacement === 'right' && renderLabel()}
         <input
           className="tui-input tui-checkbox"
           type="checkbox"
@@ -28,6 +29,7 @@ export const CheckBox = ({ label = '', checked = false, onCheck }: Props) => {
           onChange={(e) => onCheck(e.target.checked)}
         />
         <CheckBoxContent active={checked}>{checked && <Check />}</CheckBoxContent>
+        {checkboxPlacement === 'left' && renderLabel()}
       </label>
     </CheckBoxWrapper>
   );

@@ -1,19 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex } from '../view/view.style';
 import { InputLabel, StyledInputField } from './inputfield.style';
-import { StyleSlider, Thumb, ThumbLabel, Track, TrackProgress, Wrapper, RelativeWrapper } from './slider.style';
+import { StyleRange, Thumb, ThumbLabel, Track, TrackProgress, Wrapper, RelativeWrapper } from './range.style';
 
-type SliderProps = {
+type RangeProps = {
   label?: string;
   min?: number;
   max?: number;
   value?: number;
   showPercent?: boolean;
   showValue?: boolean;
+  units?: string;
   onChange?: (percent: number, value: number) => void;
 };
 
-export const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onChange }: SliderProps) => {
+export const Range = ({
+  label,
+  min = 0,
+  max = 100,
+  value,
+  showPercent,
+  showValue,
+  units = '',
+  onChange,
+}: RangeProps) => {
   const [progress, setProgress] = useState<number>();
   const [currentValue, setCurrentValue] = useState(value || min);
 
@@ -35,7 +45,7 @@ export const Slider = ({ label, min = 0, max = 100, value, showPercent, showValu
       return null;
     }
 
-    return <InputLabel className="tui-slider-label">{label}</InputLabel>;
+    return <InputLabel className="tui-label">{label}</InputLabel>;
   };
 
   const renderExtras = () => {
@@ -54,11 +64,11 @@ export const Slider = ({ label, min = 0, max = 100, value, showPercent, showValu
 
     if (showValue) {
       value = currentValue?.toString() || min.toString();
-      labelValue = value;
+      labelValue = `${value} ${units}`;
     }
 
     if (showValue && showPercent) {
-      labelValue = `${percent}% | ${value}`;
+      labelValue = `${percent}% | ${value} ${units}`;
     }
 
     return <ThumbLabel>{labelValue}</ThumbLabel>;
@@ -72,7 +82,7 @@ export const Slider = ({ label, min = 0, max = 100, value, showPercent, showValu
           {renderExtras()}
         </Flex>
         <Wrapper>
-          <StyleSlider
+          <StyleRange
             value={currentValue}
             max={max}
             min={min}

@@ -1,5 +1,5 @@
 export { ThemeProvider } from './components/themeProvider';
-export { Button, InputField, SearchField, Select, CheckBox, Slider } from './components/form';
+export { Button, InputField, SearchField, Select, CheckBox, Range } from './components/form';
 export { List, ListItem } from './components/list';
 export { Card } from './components/card';
 export { Tick } from './components/tick';

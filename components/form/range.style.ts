@@ -6,7 +6,7 @@ const thumbStyling = (theme: any) => `
   width: 0px;
 `;
 
-export const StyleSlider = styled.input`
+export const StyleRange = styled.input`
   cursor: pointer;
   padding: 0;
   margin: 0;
@@ -61,12 +61,12 @@ export const Wrapper = styled.div`
   height: ${measurements.extraLarge};
   align-items: center;
   position: relative;
-  width: 100%;
+  width: calc(100% - (${measurements.medium} * 2));
+  margin: 0 ${measurements.medium};
 `;
 
 export const RelativeWrapper = styled.div`
   width: 100%;
-  padding: 0 ${measurements.medium};
 `;
 
 export const Track = styled.div`

@@ -12,7 +12,9 @@ export declare const InputIcon: import("styled-components").StyledComponent<"div
     position?: "left" | "right" | undefined;
 }, never>;
 export declare const InputWrapper: import("styled-components").StyledComponent<"div", any, InputFieldProps, never>;
-export declare const CheckBoxWrapper: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const CheckBoxWrapper: import("styled-components").StyledComponent<"div", any, {
+    $location: 'left' | 'right';
+}, never>;
 export declare const SelectWrapper: import("styled-components").StyledComponent<"div", any, {}, never>;
 export declare const SelectIcon: import("styled-components").StyledComponent<"div", any, {}, never>;
 export declare const CheckBoxContent: import("styled-components").StyledComponent<"div", any, {

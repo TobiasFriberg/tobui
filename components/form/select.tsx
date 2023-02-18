@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronDown } from 'react-feather';
-import { InputWrapper, SelectIcon, SelectWrapper, StyledInputField } from './inputfield.style';
+import { InputLabel, InputWrapper, SelectIcon, StyledInputField } from './inputfield.style';
 
 export interface ISelectItem {
   id?: string | number;
@@ -38,7 +38,7 @@ export const Select = ({
       return null;
     }
 
-    return <label className="tui-label">{label}</label>;
+    return <InputLabel className="tui-label">{label}</InputLabel>;
   };
 
   return (

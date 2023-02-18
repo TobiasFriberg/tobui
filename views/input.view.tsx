@@ -165,6 +165,7 @@ export const InputView = () => {
         <ListItem title="label">string</ListItem>
         <ListItem title="checked*">boolean</ListItem>
         <ListItem title="onCheck*">function</ListItem>
+        <ListItem title="checkboxPlacement">'left' | 'right'</ListItem>
       </List>
       <span>* = required</span>
     </>

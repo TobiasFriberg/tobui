@@ -19,7 +19,7 @@ import { DropdownView } from '../views/dropdown.view';
 import { ScrollToTop } from './scrollToTop';
 import { CardView } from '../views/card.view';
 import { TickView } from '../views/tick.view';
-import { SliderView } from '../views/slider.view';
+import { RangeView } from '../views/range.view';
 import { SwiperView } from '../views/swiper.view';
 
 const Routing = () => {
@@ -39,7 +39,7 @@ const Routing = () => {
                 <Route path="/modal" element={<ModalView />} />
                 <Route path="/tick" element={<TickView />} />
                 <Route path="/util" element={<UtilsView />} />
-                <Route path="/slider" element={<SliderView />} />
+                <Route path="/range" element={<RangeView />} />
                 <Route path="/swiper" element={<SwiperView />} />
                 <Route path="/input" element={<InputView />} />
                 <Route path="/view" element={<ViewView />} />

@@ -38,4 +38,5 @@ export const measurements = {
   medium: '0.75rem',
   large: '1.5rem',
   extraLarge: '2rem',
+  extraExtraLarge: '3rem',
 };

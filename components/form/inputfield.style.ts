@@ -165,7 +165,7 @@ const getCheckBoxContent = (props: any) => {
   `;
 };
 
-export const CheckBoxWrapper = styled.div`
+export const CheckBoxWrapper = styled.div<{ $location: 'left' | 'right' }>`
   margin-bottom: ${measurements.extraSmall};
 
   label {
@@ -174,7 +174,8 @@ export const CheckBoxWrapper = styled.div`
     cursor: pointer;
 
     > span {
-      margin-right: ${measurements.small};
+      ${(p) =>
+        p.$location === 'right' ? `margin-right: ${measurements.small};` : `margin-left: ${measurements.small};`}
     }
   }
 `;
@@ -190,6 +191,7 @@ export const SelectWrapper = styled.div`
 
 export const SelectIcon = styled.div`
   position: absolute;
+  height: 24px;
   right: 0;
   margin-right: ${measurements.small};
   pointer-events: none;
@@ -205,6 +207,12 @@ export const CheckBoxContent = styled.div<{ active: boolean }>`
   width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
+
+  > svg {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+  }
 
   @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};

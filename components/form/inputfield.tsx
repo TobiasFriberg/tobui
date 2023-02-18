@@ -20,13 +20,6 @@ type Props = {
   testId?: string;
 };
 
-interface WrapperProps {
-  active: boolean;
-  children: ReactNode[];
-  className: string;
-  testId?: string;
-}
-
 export const InputField = ({
   type = 'text',
   multiline = false,

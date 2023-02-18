@@ -47,6 +47,7 @@ export const CloseButton = styled.div`
 `;
 
 export const Content = styled.div<{ $fill?: boolean }>`
-  ${(p) => !p.$fill && `padding: ${measurements.medium}; margin-top: ${measurements.extraLarge};`}
+  ${(p) => !p.$fill && `padding: ${measurements.medium}; padding-top: ${measurements.extraExtraLarge};`}
+  height: 100%;
   z-index: 1;
 `;

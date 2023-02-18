@@ -1351,6 +1351,7 @@ const measurements = {
     medium: '0.75rem',
     large: '1.5rem',
     extraLarge: '2rem',
+    extraExtraLarge: '3rem',
 };
 
 let theme = defaultTheme;
@@ -3400,7 +3401,7 @@ const CheckBoxWrapper = styled__default["default"].div `
     cursor: pointer;
 
     > span {
-      margin-right: ${measurements.small};
+      ${(p) => p.$location === 'right' ? `margin-right: ${measurements.small};` : `margin-left: ${measurements.small};`}
     }
   }
 `;
@@ -3414,6 +3415,7 @@ styled__default["default"].div `
 `;
 const SelectIcon = styled__default["default"].div `
   position: absolute;
+  height: 24px;
   right: 0;
   margin-right: ${measurements.small};
   pointer-events: none;
@@ -3428,6 +3430,12 @@ const CheckBoxContent = styled__default["default"].div `
   width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
+
+  > svg {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+  }
 
   @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};
@@ -3528,7 +3536,7 @@ const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, dis
         if (!label) {
             return null;
         }
-        return React__default["default"].createElement("label", { className: "tui-label" }, label);
+        return React__default["default"].createElement(InputLabel, { className: "tui-label" }, label);
     };
     return (React__default["default"].createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId },
         renderLabel(),
@@ -3538,18 +3546,19 @@ const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, dis
                 React__default["default"].createElement(ChevronDown$1, { className: "tui-icon" })))));
 };
 
-const CheckBox = ({ label = '', checked = false, onCheck }) => {
+const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right' }) => {
     const renderLabel = () => {
         if (!label) {
             return null;
         }
         return React__default["default"].createElement("span", null, label);
     };
-    return (React__default["default"].createElement(CheckBoxWrapper, null,
+    return (React__default["default"].createElement(CheckBoxWrapper, { "$location": checkboxPlacement },
         React__default["default"].createElement("label", null,
-            renderLabel(),
+            checkboxPlacement === 'right' && renderLabel(),
             React__default["default"].createElement("input", { className: "tui-input tui-checkbox", type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
-            React__default["default"].createElement(CheckBoxContent, { active: checked }, checked && React__default["default"].createElement(Check$1, null)))));
+            React__default["default"].createElement(CheckBoxContent, { active: checked }, checked && React__default["default"].createElement(Check$1, null)),
+            checkboxPlacement === 'left' && renderLabel())));
 };
 
 const StyledSection = styled__default["default"].div `
@@ -3590,7 +3599,7 @@ const thumbStyling = (theme) => `
   height: 0px;
   width: 0px;
 `;
-const StyleSlider = styled__default["default"].input `
+const StyleRange = styled__default["default"].input `
   cursor: pointer;
   padding: 0;
   margin: 0;
@@ -3643,11 +3652,11 @@ const Wrapper$1 = styled__default["default"].div `
   height: ${measurements.extraLarge};
   align-items: center;
   position: relative;
-  width: 100%;
+  width: calc(100% - (${measurements.medium} * 2));
+  margin: 0 ${measurements.medium};
 `;
 const RelativeWrapper = styled__default["default"].div `
   width: 100%;
-  padding: 0 ${measurements.medium};
 `;
 const Track = styled__default["default"].div `
   z-index: 1;
@@ -3668,7 +3677,7 @@ const ThumbLabel = styled__default["default"].div `
   font-size: calc(${(p) => p.theme.fontSize} / 1.4);
 `;
 
-const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onChange }) => {
+const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units = '', onChange, }) => {
     const [progress, setProgress] = React.useState();
     const [currentValue, setCurrentValue] = React.useState(value || min);
     React.useEffect(() => {
@@ -3686,7 +3695,7 @@ const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onCh
         if (!label) {
             return null;
         }
-        return React__default["default"].createElement(InputLabel, { className: "tui-slider-label" }, label);
+        return React__default["default"].createElement(InputLabel, { className: "tui-label" }, label);
     };
     const renderExtras = () => {
         if (!showPercent && !showValue) {
@@ -3701,10 +3710,10 @@ const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onCh
         }
         if (showValue) {
             value = currentValue?.toString() || min.toString();
-            labelValue = value;
+            labelValue = `${value} ${units}`;
         }
         if (showValue && showPercent) {
-            labelValue = `${percent}% | ${value}`;
+            labelValue = `${percent}% | ${value} ${units}`;
         }
         return React__default["default"].createElement(ThumbLabel, null, labelValue);
     };
@@ -3714,7 +3723,7 @@ const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onCh
                 renderLabel(),
                 renderExtras()),
             React__default["default"].createElement(Wrapper$1, null,
-                React__default["default"].createElement(StyleSlider, { value: currentValue, max: max, min: min, onChange: (e) => updateValue(parseInt(e.target.value)), type: "range" }),
+                React__default["default"].createElement(StyleRange, { value: currentValue, max: max, min: min, onChange: (e) => updateValue(parseInt(e.target.value)), type: "range" }),
                 React__default["default"].createElement(TrackProgress, { className: "tui-slider-progress", style: { width: `${progress}%` } }),
                 React__default["default"].createElement(Track, { className: "tui-slider-track" }),
                 React__default["default"].createElement(Thumb, { className: "tui-slider-thumb", style: { left: `calc(${progress}% - 10px)` } })))));
@@ -4218,7 +4227,8 @@ const CloseButton$1 = styled__default["default"].div `
   right: 0;
 `;
 const Content$2 = styled__default["default"].div `
-  ${(p) => !p.$fill && `padding: ${measurements.medium}; margin-top: ${measurements.extraLarge};`}
+  ${(p) => !p.$fill && `padding: ${measurements.medium}; padding-top: ${measurements.extraExtraLarge};`}
+  height: 100%;
   z-index: 1;
 `;
 
@@ -4629,10 +4639,10 @@ exports.Loader = Loader;
 exports.Modal = Modal;
 exports.Notification = Notification;
 exports.Popup = Popup;
+exports.Range = Range;
 exports.SearchField = SearchField;
 exports.Section = Section;
 exports.Select = Select;
-exports.Slider = Slider;
 exports.Swiper = Swiper;
 exports.ThemeProvider = ThemeProvider;
 exports.Tick = Tick;

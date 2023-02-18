@@ -1342,6 +1342,7 @@ const measurements = {
     medium: '0.75rem',
     large: '1.5rem',
     extraLarge: '2rem',
+    extraExtraLarge: '3rem',
 };
 
 let theme = defaultTheme;
@@ -3391,7 +3392,7 @@ const CheckBoxWrapper = styled.div `
     cursor: pointer;
 
     > span {
-      margin-right: ${measurements.small};
+      ${(p) => p.$location === 'right' ? `margin-right: ${measurements.small};` : `margin-left: ${measurements.small};`}
     }
   }
 `;
@@ -3405,6 +3406,7 @@ styled.div `
 `;
 const SelectIcon = styled.div `
   position: absolute;
+  height: 24px;
   right: 0;
   margin-right: ${measurements.small};
   pointer-events: none;
@@ -3419,6 +3421,12 @@ const CheckBoxContent = styled.div `
   width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
+
+  > svg {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+  }
 
   @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};
@@ -3519,7 +3527,7 @@ const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, dis
         if (!label) {
             return null;
         }
-        return React.createElement("label", { className: "tui-label" }, label);
+        return React.createElement(InputLabel, { className: "tui-label" }, label);
     };
     return (React.createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId },
         renderLabel(),
@@ -3529,18 +3537,19 @@ const Select = ({ items = [], defaultValue, onChange, width = 'auto', label, dis
                 React.createElement(ChevronDown$1, { className: "tui-icon" })))));
 };
 
-const CheckBox = ({ label = '', checked = false, onCheck }) => {
+const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right' }) => {
     const renderLabel = () => {
         if (!label) {
             return null;
         }
         return React.createElement("span", null, label);
     };
-    return (React.createElement(CheckBoxWrapper, null,
+    return (React.createElement(CheckBoxWrapper, { "$location": checkboxPlacement },
         React.createElement("label", null,
-            renderLabel(),
+            checkboxPlacement === 'right' && renderLabel(),
             React.createElement("input", { className: "tui-input tui-checkbox", type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
-            React.createElement(CheckBoxContent, { active: checked }, checked && React.createElement(Check$1, null)))));
+            React.createElement(CheckBoxContent, { active: checked }, checked && React.createElement(Check$1, null)),
+            checkboxPlacement === 'left' && renderLabel())));
 };
 
 const StyledSection = styled.div `
@@ -3581,7 +3590,7 @@ const thumbStyling = (theme) => `
   height: 0px;
   width: 0px;
 `;
-const StyleSlider = styled.input `
+const StyleRange = styled.input `
   cursor: pointer;
   padding: 0;
   margin: 0;
@@ -3634,11 +3643,11 @@ const Wrapper$1 = styled.div `
   height: ${measurements.extraLarge};
   align-items: center;
   position: relative;
-  width: 100%;
+  width: calc(100% - (${measurements.medium} * 2));
+  margin: 0 ${measurements.medium};
 `;
 const RelativeWrapper = styled.div `
   width: 100%;
-  padding: 0 ${measurements.medium};
 `;
 const Track = styled.div `
   z-index: 1;
@@ -3659,7 +3668,7 @@ const ThumbLabel = styled.div `
   font-size: calc(${(p) => p.theme.fontSize} / 1.4);
 `;
 
-const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onChange }) => {
+const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units = '', onChange, }) => {
     const [progress, setProgress] = useState();
     const [currentValue, setCurrentValue] = useState(value || min);
     useEffect(() => {
@@ -3677,7 +3686,7 @@ const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onCh
         if (!label) {
             return null;
         }
-        return React.createElement(InputLabel, { className: "tui-slider-label" }, label);
+        return React.createElement(InputLabel, { className: "tui-label" }, label);
     };
     const renderExtras = () => {
         if (!showPercent && !showValue) {
@@ -3692,10 +3701,10 @@ const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onCh
         }
         if (showValue) {
             value = currentValue?.toString() || min.toString();
-            labelValue = value;
+            labelValue = `${value} ${units}`;
         }
         if (showValue && showPercent) {
-            labelValue = `${percent}% | ${value}`;
+            labelValue = `${percent}% | ${value} ${units}`;
         }
         return React.createElement(ThumbLabel, null, labelValue);
     };
@@ -3705,7 +3714,7 @@ const Slider = ({ label, min = 0, max = 100, value, showPercent, showValue, onCh
                 renderLabel(),
                 renderExtras()),
             React.createElement(Wrapper$1, null,
-                React.createElement(StyleSlider, { value: currentValue, max: max, min: min, onChange: (e) => updateValue(parseInt(e.target.value)), type: "range" }),
+                React.createElement(StyleRange, { value: currentValue, max: max, min: min, onChange: (e) => updateValue(parseInt(e.target.value)), type: "range" }),
                 React.createElement(TrackProgress, { className: "tui-slider-progress", style: { width: `${progress}%` } }),
                 React.createElement(Track, { className: "tui-slider-track" }),
                 React.createElement(Thumb, { className: "tui-slider-thumb", style: { left: `calc(${progress}% - 10px)` } })))));
@@ -4209,7 +4218,8 @@ const CloseButton$1 = styled.div `
   right: 0;
 `;
 const Content$2 = styled.div `
-  ${(p) => !p.$fill && `padding: ${measurements.medium}; margin-top: ${measurements.extraLarge};`}
+  ${(p) => !p.$fill && `padding: ${measurements.medium}; padding-top: ${measurements.extraExtraLarge};`}
+  height: 100%;
   z-index: 1;
 `;
 
@@ -4605,5 +4615,5 @@ const Section = ({ children }) => {
     return React.createElement(StyledSection, { className: "tui-section" }, children);
 };
 
-export { AddToaster, Badge, Button, Card, CheckBox, Dropdown, Expander, GlobalStyle, InputField, List, ListItem, Loader, Modal, Notification, Popup, SearchField, Section, Select, Slider, Swiper, ThemeProvider, Tick, Toaster, View, sendPopupEvent, useEventListener };
+export { AddToaster, Badge, Button, Card, CheckBox, Dropdown, Expander, GlobalStyle, InputField, List, ListItem, Loader, Modal, Notification, Popup, Range, SearchField, Section, Select, Swiper, ThemeProvider, Tick, Toaster, View, sendPopupEvent, useEventListener };
 //# sourceMappingURL=index.es.js.map

@@ -3,12 +3,12 @@ import React from 'react';
 import txt from '../docsComponents/examples/slider.example';
 import { List, ListItem } from '../components/list';
 import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
-import { Slider } from '../components/form';
+import { Range } from '../components/form';
 
-export const SliderView = () => {
-  const description = `Slider component`;
+export const RangeView = () => {
+  const description = `Range component`;
 
-  const example = <Slider label="testlabel" max={400} showValue />;
+  const example = <Range label="testlabel" max={200} showValue />;
 
   const options = (
     <>
@@ -18,6 +18,7 @@ export const SliderView = () => {
         <ListItem title="max">number</ListItem>
         <ListItem title="showPercent">boolean</ListItem>
         <ListItem title="showValue">boolean</ListItem>
+        <ListItem title="units">string</ListItem>
         <ListItem title="onChange">function</ListItem>
       </List>
       <span>* = required</span>
@@ -25,6 +26,6 @@ export const SliderView = () => {
   );
 
   return (
-    <DocumentationTemplate title="Slider" description={description} example={example} code={txt} options={options} />
+    <DocumentationTemplate title="Range" description={description} example={example} code={txt} options={options} />
   );
 };
