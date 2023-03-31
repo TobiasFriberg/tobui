@@ -21,6 +21,7 @@ import { CardView } from '../views/card.view';
 import { TickView } from '../views/tick.view';
 import { RangeView } from '../views/range.view';
 import { SwiperView } from '../views/swiper.view';
+import { Footer } from './footer';
 
 const Routing = () => {
   const getContent = () => {
@@ -51,6 +52,7 @@ const Routing = () => {
               </Routes>
               <ScrollToTop />
             </Page>
+            <Footer />
           </PageContent>
         </ViewContent>
       </BrowserRouter>

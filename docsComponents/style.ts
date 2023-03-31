@@ -14,6 +14,12 @@ export const StyledHeader = styled.div`
   color: ${(p) => getContrastColor(p.theme, p.theme.colors.primary)};
 `;
 
+export const StyledFooter = styled.div`
+  background-color: ${(p) => p.theme.colors.grayLightEvenMore};
+  padding: 20px;
+  color: ${(p) => getContrastColor(p.theme, p.theme.colors.grayLightEvenMore)};
+`;
+
 export const StyledMenu = styled.div`
   min-width: 200px;
   background-color: ${(p) => p.theme.colors.grayLightEvenMore};
