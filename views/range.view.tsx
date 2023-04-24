@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import txt from '../docsComponents/examples/slider.example';
+import txt from '../docsComponents/examples/stepper.example';
 import { List, ListItem } from '../components/list';
 import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
 import { Range } from '../components/form';

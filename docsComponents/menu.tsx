@@ -14,6 +14,7 @@ export const Menu = ({}: Props) => {
         <NavLink to="/input">Input</NavLink>
         <NavLink to="/range">Range</NavLink>
         <NavLink to="/swiper">Swiper</NavLink>
+        <NavLink to="/stepper">Stepper</NavLink>
         <NavLink to="/dropdown">Dropdown</NavLink>
         <NavLink to="/list">List</NavLink>
         <NavLink to="/card">Card</NavLink>

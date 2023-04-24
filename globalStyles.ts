@@ -1,4 +1,53 @@
+import LatoBold from './assets/fonts/Lato-Bold.ttf';
+import LatoBoldItalic from './assets/fonts/Lato-BoldItalic.ttf';
+
+import LatoRegular from './assets/fonts/Lato-Regular.ttf';
+import LatoRegularItalic from './assets/fonts/Lato-Italic.ttf';
+
+import LatoLight from './assets/fonts/Lato-Light.ttf';
+import LatoLightItalic from './assets/fonts/Lato-LightItalic.ttf';
+
 export const GlobalStyle = `
+
+@font-face {
+  font-family: Lato;
+  src: url(${LatoBold});
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(${LatoBoldItalic});
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(${LatoRegular});
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(${LatoRegularItalic});
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(${LatoLight});
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Lato;
+  src: url(${LatoLightItalic});
+  font-weight: 300;
+  font-style: italic;
+}
+
 html,
 body,
 div,

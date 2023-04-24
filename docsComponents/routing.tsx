@@ -22,6 +22,7 @@ import { TickView } from '../views/tick.view';
 import { RangeView } from '../views/range.view';
 import { SwiperView } from '../views/swiper.view';
 import { Footer } from './footer';
+import { StepperView } from '../views/stepper.view';
 
 const Routing = () => {
   const getContent = () => {
@@ -42,6 +43,7 @@ const Routing = () => {
                 <Route path="/util" element={<UtilsView />} />
                 <Route path="/range" element={<RangeView />} />
                 <Route path="/swiper" element={<SwiperView />} />
+                <Route path="/stepper" element={<StepperView />} />
                 <Route path="/input" element={<InputView />} />
                 <Route path="/view" element={<ViewView />} />
                 <Route path="/list" element={<ListView />} />

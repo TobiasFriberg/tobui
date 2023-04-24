@@ -6,6 +6,7 @@ export { Tick } from './components/tick';
 export { Dropdown } from './components/dropdown';
 export { Swiper } from './components/swiper';
 export { Modal } from './components/modal';
+export { Stepper } from './components/stepper';
 export { Popup, sendPopupEvent } from './components/popup';
 export { Toaster, AddToaster } from './components/toaster';
 export { Notification, NotificationTypes, Loader, Expander, Badge } from './components/utils';

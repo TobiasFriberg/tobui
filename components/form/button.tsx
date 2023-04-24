@@ -3,13 +3,14 @@ import { Loader } from '../utils';
 import { StyledButton, Icon, Content } from './button.style';
 
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
   onClick: () => void | Promise<any>;
   variant?: 'primary' | 'secondary' | 'alternative' | 'danger' | 'gradient';
   className?: string;
   appearance?: 'button' | 'text' | 'border';
   size?: 'small' | 'medium' | 'large';
   loading?: boolean;
+  iconOnly?: boolean;
   icon?: ReactElement | null;
   disabled?: boolean;
   testId?: string;
@@ -22,6 +23,7 @@ export const Button = ({
   loading = false,
   icon,
   disabled = false,
+  iconOnly = false,
   testId = 'button',
   ...props
 }: Props) => {
@@ -32,9 +34,13 @@ export const Button = ({
       return;
     }
 
-    setIsLoading(true);
-    await onClick();
-    setIsLoading(false);
+    if (onClick() instanceof Promise) {
+      setIsLoading(true);
+      await onClick();
+      setIsLoading(false);
+    } else {
+      onClick();
+    }
   };
 
   const renderLoader = () => {
@@ -50,7 +56,22 @@ export const Button = ({
       return null;
     }
 
-    return <Icon className="tui-button-icon">{cloneElement(icon, { size: 14 })}</Icon>;
+    let iconSize = 14;
+
+    switch (props.size) {
+      case 'small':
+        iconSize = 11;
+        break;
+      case 'large':
+        iconSize = 22;
+        break;
+    }
+
+    return (
+      <Icon className="tui-button-icon" $iconOnly={iconOnly}>
+        {cloneElement(icon, { size: iconSize })}
+      </Icon>
+    );
   };
 
   const getClass = () => {
@@ -64,6 +85,7 @@ export const Button = ({
       disabled={disabled}
       onClick={() => handleClick()}
       $loading={isLoading}
+      iconOnly={iconOnly}
       {...props}
     >
       {renderLoader()}

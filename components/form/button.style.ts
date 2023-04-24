@@ -95,14 +95,14 @@ const generateVariantColor = (props: ButtonProps) => {
 const generateButtonSize = (props: ButtonProps) => {
   if (props.size === 'small') {
     return `
-      padding: ${measurements.extraSmall} ${measurements.medium};
+      ${!props.iconOnly && `padding: ${measurements.extraSmall} ${measurements.medium};`}
       font-size: calc(${props.theme.fontSize} * 0.8);
     `;
   }
 
   if (props.size === 'large') {
     return `
-      padding: ${measurements.medium} ${measurements.large};
+      ${!props.iconOnly && `padding: ${measurements.medium} ${measurements.large};`}
       font-size: calc(${props.theme.fontSize} * 1.2);
     `;
   }
@@ -116,6 +116,7 @@ type ButtonProps = {
   theme?: any;
   children: ReactNode;
   $loading: boolean;
+  iconOnly?: boolean;
 };
 
 export const StyledButton = styled.button<ButtonProps>`
@@ -124,7 +125,7 @@ export const StyledButton = styled.button<ButtonProps>`
   letter-spacing: 0.05em;
   transition: 0.1s;
   border: 0;
-  padding: ${measurements.medium} ${measurements.large};
+  ${(p) => (!p.iconOnly ? `padding: ${measurements.medium} ${measurements.large};` : `padding: ${measurements.small};`)}
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -163,9 +164,9 @@ export const StyledButton = styled.button<ButtonProps>`
   `}
 `;
 
-export const Icon = styled.div`
+export const Icon = styled.div<{ $iconOnly?: boolean }>`
   display: flex;
-  margin-right: ${measurements.small};
+  ${(p) => !p.$iconOnly && `margin-right: ${measurements.small};`}
 `;
 
 export const Content = styled.span<{ $loading: boolean }>`
