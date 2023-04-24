@@ -4591,9 +4591,10 @@ const NavigationButton = styled(Button) `
 const StepperStyle = styled.div ``;
 const StepperContent = styled.div `
   padding: 0 ${measurements.medium};
+  ${(p) => p.$fillContent && 'flex-grow: 1;'}
 `;
 
-const Stepper = ({ steps, initStep = 0, loop }) => {
+const Stepper = ({ steps, initStep = 0, loop, fillContent = false }) => {
     const [currentStep, setCurrentStep] = useState(initStep);
     const renderStepIndicator = () => {
         return steps.map((_, i) => {
@@ -4601,7 +4602,7 @@ const Stepper = ({ steps, initStep = 0, loop }) => {
         });
     };
     const renderStepContent = () => {
-        return React.createElement(StepperContent, { className: "tui-stepper-content" }, steps[currentStep]);
+        return (React.createElement(StepperContent, { "$fillContent": fillContent, className: "tui-stepper-content" }, steps[currentStep]));
     };
     const nextStep = () => {
         let next = currentStep + 1;

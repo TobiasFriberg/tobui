@@ -9,9 +9,10 @@ type StepperProps = {
   steps: ReactNode[];
   initStep?: number;
   loop?: boolean;
+  fillContent?: boolean;
 };
 
-export const Stepper = ({ steps, initStep = 0, loop }: StepperProps) => {
+export const Stepper = ({ steps, initStep = 0, loop, fillContent = false }: StepperProps) => {
   const [currentStep, setCurrentStep] = useState(initStep);
 
   const renderStepIndicator = () => {
@@ -21,7 +22,11 @@ export const Stepper = ({ steps, initStep = 0, loop }: StepperProps) => {
   };
 
   const renderStepContent = () => {
-    return <StepperContent className="tui-stepper-content">{steps[currentStep]}</StepperContent>;
+    return (
+      <StepperContent $fillContent={fillContent} className="tui-stepper-content">
+        {steps[currentStep]}
+      </StepperContent>
+    );
   };
 
   const nextStep = () => {

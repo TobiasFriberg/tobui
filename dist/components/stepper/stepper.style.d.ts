@@ -16,4 +16,6 @@ export declare const NavigationButton: import("styled-components").StyledCompone
     testId?: string | undefined;
 }) => JSX.Element, any, {}, never>;
 export declare const StepperStyle: import("styled-components").StyledComponent<"div", any, {}, never>;
-export declare const StepperContent: import("styled-components").StyledComponent<"div", any, {}, never>;
+export declare const StepperContent: import("styled-components").StyledComponent<"div", any, {
+    $fillContent?: boolean | undefined;
+}, never>;

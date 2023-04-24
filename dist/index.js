@@ -4600,9 +4600,10 @@ const NavigationButton = styled__default["default"](Button) `
 const StepperStyle = styled__default["default"].div ``;
 const StepperContent = styled__default["default"].div `
   padding: 0 ${measurements.medium};
+  ${(p) => p.$fillContent && 'flex-grow: 1;'}
 `;
 
-const Stepper = ({ steps, initStep = 0, loop }) => {
+const Stepper = ({ steps, initStep = 0, loop, fillContent = false }) => {
     const [currentStep, setCurrentStep] = React.useState(initStep);
     const renderStepIndicator = () => {
         return steps.map((_, i) => {
@@ -4610,7 +4611,7 @@ const Stepper = ({ steps, initStep = 0, loop }) => {
         });
     };
     const renderStepContent = () => {
-        return React__default["default"].createElement(StepperContent, { className: "tui-stepper-content" }, steps[currentStep]);
+        return (React__default["default"].createElement(StepperContent, { "$fillContent": fillContent, className: "tui-stepper-content" }, steps[currentStep]));
     };
     const nextStep = () => {
         let next = currentStep + 1;

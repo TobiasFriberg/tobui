@@ -20,6 +20,7 @@ export const NavigationButton = styled(Button)`
 
 export const StepperStyle = styled.div``;
 
-export const StepperContent = styled.div`
+export const StepperContent = styled.div<{ $fillContent?: boolean }>`
   padding: 0 ${measurements.medium};
+  ${(p) => p.$fillContent && 'flex-grow: 1;'}
 `;

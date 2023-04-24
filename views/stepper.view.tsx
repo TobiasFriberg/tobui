@@ -8,7 +8,7 @@ import { Stepper } from '../components/stepper';
 export const StepperView = () => {
   const description = `Stepper component`;
 
-  const example = <Stepper steps={[<div>Hello</div>, <div>world</div>, <div>!</div>]} loop />;
+  const example = <Stepper steps={[<div>Hello</div>, <div>world</div>, <div>!</div>]} loop fillContent />;
 
   const options = (
     <>
@@ -16,6 +16,7 @@ export const StepperView = () => {
         <ListItem title="steps*">Element[]</ListItem>
         <ListItem title="loop">boolean</ListItem>
         <ListItem title="initStep">number</ListItem>
+        <ListItem title="fillContent">boolean</ListItem>
       </List>
       <span>* = required</span>
     </>
