@@ -30,7 +30,7 @@ export const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows
 
   const renderStepIndicator = () => {
     return steps.map((_, i) => {
-      return <StepperIndicator $active={i === currentStep} onClick={() => setCurrentStep(i)} />;
+      return <StepperIndicator key={i} $active={i === currentStep} onClick={() => setCurrentStep(i)} />;
     });
   };
 

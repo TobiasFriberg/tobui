@@ -34,7 +34,7 @@ export const Button = ({
       return;
     }
 
-    if (onClick() instanceof Promise) {
+    if (onClick instanceof Promise) {
       setIsLoading(true);
       await onClick();
       setIsLoading(false);

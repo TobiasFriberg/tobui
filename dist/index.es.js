@@ -3532,7 +3532,7 @@ const Button = ({ children, onClick, className = '', loading = false, icon, disa
         if (isLoading || disabled) {
             return;
         }
-        if (onClick() instanceof Promise) {
+        if (onClick instanceof Promise) {
             setIsLoading(true);
             await onClick();
             setIsLoading(false);
@@ -4613,7 +4613,7 @@ const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows }) => 
     }, [step]);
     const renderStepIndicator = () => {
         return steps.map((_, i) => {
-            return React.createElement(StepperIndicator, { "$active": i === currentStep, onClick: () => setCurrentStep(i) });
+            return React.createElement(StepperIndicator, { key: i, "$active": i === currentStep, onClick: () => setCurrentStep(i) });
         });
     };
     const renderStepContent = () => {
