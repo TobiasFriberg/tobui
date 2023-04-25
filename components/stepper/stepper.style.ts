@@ -18,7 +18,12 @@ export const NavigationButton = styled(Button)`
   }
 `;
 
-export const StepperStyle = styled.div``;
+export const StepperStyle = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 export const StepperContent = styled.div<{ $fillContent?: boolean }>`
   padding: 0 ${measurements.medium};

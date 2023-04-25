@@ -4597,14 +4597,29 @@ const NavigationButton = styled__default["default"](Button) `
     width: auto;
   }
 `;
-const StepperStyle = styled__default["default"].div ``;
+const StepperStyle = styled__default["default"].div `
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 const StepperContent = styled__default["default"].div `
   padding: 0 ${measurements.medium};
   ${(p) => p.$fillContent && 'flex-grow: 1;'}
 `;
 
-const Stepper = ({ steps, initStep = 0, loop, fillContent = false }) => {
-    const [currentStep, setCurrentStep] = React.useState(initStep);
+const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows }) => {
+    const [currentStep, setCurrentStep] = React.useState(step);
+    React.useEffect(() => {
+        let stepToSet = step;
+        if (step > steps.length - 1) {
+            stepToSet = steps.length - 1;
+        }
+        if (step < 0) {
+            stepToSet = 0;
+        }
+        setCurrentStep(stepToSet);
+    }, [step]);
     const renderStepIndicator = () => {
         return steps.map((_, i) => {
             return React__default["default"].createElement(StepperIndicator, { "$active": i === currentStep, onClick: () => setCurrentStep(i) });
@@ -4633,12 +4648,24 @@ const Stepper = ({ steps, initStep = 0, loop, fillContent = false }) => {
         }
         setCurrentStep(prev);
     };
+    const renderNextStepButton = () => {
+        if (currentStep >= steps.length - 1 && !loop) {
+            return React__default["default"].createElement("span", null);
+        }
+        return (React__default["default"].createElement(NavigationButton, { className: "tui-stepper-next-button", icon: React__default["default"].createElement(ArrowRight$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => nextStep() }));
+    };
+    const renderPrevStepButton = () => {
+        if (currentStep <= 0 && !loop) {
+            return React__default["default"].createElement("span", null);
+        }
+        return (React__default["default"].createElement(NavigationButton, { className: "tui-stepper-prev-button", icon: React__default["default"].createElement(ArrowLeft$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => prevStep() }));
+    };
     return (React__default["default"].createElement(StepperStyle, { className: "tui-stepper" },
-        React__default["default"].createElement(Flex, { "$horizontalAlign": "space-between", "$verticalAlign": "center" },
-            React__default["default"].createElement(NavigationButton, { className: "tui-stepper-prev-button", icon: React__default["default"].createElement(ArrowLeft$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => prevStep() }),
-            renderStepContent(),
-            React__default["default"].createElement(NavigationButton, { className: "tui-stepper-next-button", icon: React__default["default"].createElement(ArrowRight$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => nextStep() })),
+        React__default["default"].createElement(Flex, { "$horizontalAlign": "space-between", "$verticalAlign": "center" }, renderStepContent()),
         React__default["default"].createElement("br", null),
+        React__default["default"].createElement(Flex, { "$horizontalAlign": "space-between" },
+            !hideArrows && renderPrevStepButton(),
+            !hideArrows && renderNextStepButton()),
         React__default["default"].createElement(Flex, { "$gap": "5px", "$horizontalAlign": "center" }, renderStepIndicator())));
 };
 
