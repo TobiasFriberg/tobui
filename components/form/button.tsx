@@ -33,14 +33,7 @@ export const Button = ({
     if (isLoading || disabled) {
       return;
     }
-
-    if (onClick instanceof Promise) {
-      setIsLoading(true);
-      await onClick();
-      setIsLoading(false);
-    } else {
-      onClick();
-    }
+    await onClick();
   };
 
   const renderLoader = () => {

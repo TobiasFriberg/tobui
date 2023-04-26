@@ -3532,14 +3532,7 @@ const Button = ({ children, onClick, className = '', loading = false, icon, disa
         if (isLoading || disabled) {
             return;
         }
-        if (onClick instanceof Promise) {
-            setIsLoading(true);
-            await onClick();
-            setIsLoading(false);
-        }
-        else {
-            onClick();
-        }
+        await onClick();
     };
     const renderLoader = () => {
         if (!isLoading) {
