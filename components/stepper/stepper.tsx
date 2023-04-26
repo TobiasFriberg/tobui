@@ -9,9 +9,17 @@ type StepperProps = {
   loop?: boolean;
   fillContent?: boolean;
   hideArrows?: boolean;
+  indicatorNavigation?: boolean;
 };
 
-export const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows }: StepperProps) => {
+export const Stepper = ({
+  steps,
+  step = 0,
+  loop,
+  fillContent = false,
+  hideArrows,
+  indicatorNavigation = false,
+}: StepperProps) => {
   const [currentStep, setCurrentStep] = useState(step);
 
   useEffect(() => {
@@ -30,7 +38,13 @@ export const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows
 
   const renderStepIndicator = () => {
     return steps.map((_, i) => {
-      return <StepperIndicator key={i} $active={i === currentStep} onClick={() => setCurrentStep(i)} />;
+      return (
+        <StepperIndicator
+          key={i}
+          $active={i === currentStep}
+          onClick={() => indicatorNavigation && setCurrentStep(i)}
+        />
+      );
     });
   };
 
@@ -104,9 +118,7 @@ export const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows
 
   return (
     <StepperStyle className="tui-stepper">
-      <Flex $horizontalAlign="space-between" $verticalAlign="center">
-        {renderStepContent()}
-      </Flex>
+      {renderStepContent()}
       <br />
       <Flex $horizontalAlign="space-between">
         {!hideArrows && renderPrevStepButton()}

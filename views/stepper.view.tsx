@@ -18,6 +18,7 @@ export const StepperView = () => {
         <ListItem title="step">number</ListItem>
         <ListItem title="fillContent">boolean</ListItem>
         <ListItem title="hideArrows">boolean</ListItem>
+        <ListItem title="indicatorNavigation">boolean</ListItem>
       </List>
       <span>* = required</span>
     </>
