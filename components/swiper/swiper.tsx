@@ -8,9 +8,10 @@ type StepperProps = {
   onSwiped?: (dir: 'left' | 'right') => void;
   step?: number;
   loop?: boolean;
+  shouldSwipe?: 'left' | 'right' | null;
 };
 
-export const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }: StepperProps) => {
+export const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe }: StepperProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(step);
@@ -35,14 +36,21 @@ export const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }: S
   }, [continueSwipe]);
 
   useEffect(() => {
+    if (!shouldSwipe || !onSwiped) {
+      return;
+    }
+
+    setContinueSwipe(shouldSwipe);
+    onSwiped(shouldSwipe);
+  }, [shouldSwipe]);
+
+  useEffect(() => {
     if (contentRef.current && swiperRef.current) {
-      swiperRef.current.style.height = `${contentRef.current.clientHeight}px`;
+      swiperRef.current.style.minHeight = `${contentRef.current.clientHeight}px`;
     }
   }, [contentRef.current]);
 
   const onSwipeHandler = (e: React.MouseEvent) => {
-    console.log('onSwipe');
-    console.log(e.pageX);
     setStartDragPoint(e.pageX);
     setMouseIsDown(true);
   };

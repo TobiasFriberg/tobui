@@ -5,6 +5,7 @@ declare type StepperProps = {
     onSwiped?: (dir: 'left' | 'right') => void;
     step?: number;
     loop?: boolean;
+    shouldSwipe?: 'left' | 'right' | null;
 };
-export declare const Swiper: ({ views, step, loop, sensitivity, onSwiped }: StepperProps) => JSX.Element;
+export declare const Swiper: ({ views, step, loop, sensitivity, onSwiped, shouldSwipe }: StepperProps) => JSX.Element;
 export {};

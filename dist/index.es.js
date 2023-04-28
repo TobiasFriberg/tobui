@@ -4383,9 +4383,11 @@ const rightSwipe = keyframes `
   100% { opacity: 0; left: 100%; }
 `;
 const StyledSwiper = styled.div `
+  height: 100%;
   touch-action: none;
 `;
 const TransformWrapper = styled.div `
+  height: 100%;
   position: relative;
   cursor: pointer;
 
@@ -4408,15 +4410,17 @@ const TransformWrapper = styled.div `
     `}
 `;
 const SwiperWrapper = styled.div `
+  height: 100%;
   position: relative;
   touch-action: none;
 `;
 const Content$2 = styled.div `
+  height: 100%;
   width: 100%;
   position: absolute;
 `;
 
-const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
+const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe }) => {
     const contentRef = useRef(null);
     const swiperRef = useRef(null);
     const [currentStep, setCurrentStep] = useState(step);
@@ -4438,13 +4442,18 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
         }
     }, [continueSwipe]);
     useEffect(() => {
+        if (!shouldSwipe || !onSwiped) {
+            return;
+        }
+        setContinueSwipe(shouldSwipe);
+        onSwiped(shouldSwipe);
+    }, [shouldSwipe]);
+    useEffect(() => {
         if (contentRef.current && swiperRef.current) {
-            swiperRef.current.style.height = `${contentRef.current.clientHeight}px`;
+            swiperRef.current.style.minHeight = `${contentRef.current.clientHeight}px`;
         }
     }, [contentRef.current]);
     const onSwipeHandler = (e) => {
-        console.log('onSwipe');
-        console.log(e.pageX);
         setStartDragPoint(e.pageX);
         setMouseIsDown(true);
     };
