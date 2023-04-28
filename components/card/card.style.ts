@@ -8,6 +8,7 @@ type StyleCardProps = {
 };
 
 export const StyledCard = styled.div<StyleCardProps>`
+  height: 100%;
   display: flex;
   border-radius: ${(p) => p.theme.roundness};
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
