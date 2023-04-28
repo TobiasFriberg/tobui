@@ -1397,20 +1397,21 @@ const measurements = {
     extraExtraLarge: '3rem',
 };
 
-const useEventListener = (eventName, handler, element = typeof window === 'undefined' ? null : window) => {
+const useEventListener = (eventName, handler, options, element) => {
     const savedHandler = useRef(() => { });
     useEffect(() => {
         savedHandler.current = handler;
     }, [handler]);
     useEffect(() => {
-        const isSupported = element && element.addEventListener;
+        const el = typeof window === 'undefined' ? null : window;
+        const isSupported = el && el.addEventListener;
         if (!isSupported) {
             return () => { };
         }
         const eventListener = (event) => savedHandler.current(event);
-        element.addEventListener(eventName, eventListener);
+        el.addEventListener(eventName, eventListener);
         return () => {
-            element.removeEventListener(eventName, eventListener);
+            el.removeEventListener(eventName, eventListener, options);
         };
     }, [eventName, element]);
 };
@@ -4381,13 +4382,16 @@ const rightSwipe = keyframes `
   0% { opacity: 1; left: 0; }
   100% { opacity: 0; left: 100%; }
 `;
-const StyledSwiper = styled.div ``;
+const StyledSwiper = styled.div `
+  touch-action: none;
+`;
 const TransformWrapper = styled.div `
   position: relative;
   cursor: pointer;
 
   img,
   svg {
+    touch-action: none;
     pointer-events: none;
   }
 
@@ -4405,9 +4409,9 @@ const TransformWrapper = styled.div `
 `;
 const SwiperWrapper = styled.div `
   position: relative;
+  touch-action: none;
 `;
 const Content$2 = styled.div `
-  touch-action: none;
   width: 100%;
   position: absolute;
 `;
@@ -4438,7 +4442,9 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
             swiperRef.current.style.height = `${contentRef.current.clientHeight}px`;
         }
     }, [contentRef.current]);
-    const test = (e) => {
+    const onSwipeHandler = (e) => {
+        console.log('onSwipe');
+        console.log(e.pageX);
         setStartDragPoint(e.pageX);
         setMouseIsDown(true);
     };
@@ -4484,8 +4490,29 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }) => {
             setDragged((startDragPoint - e.pageX) * -1);
         }
     });
+    useEventListener('touchend', (e) => {
+        if (mouseIsDown) {
+            if (dragged > sensitivity) {
+                setContinueSwipe('right');
+                onSwiped && onSwiped('right');
+            }
+            else if (dragged < -sensitivity) {
+                setContinueSwipe('left');
+                onSwiped && onSwiped('left');
+            }
+            else {
+                setDragged(0);
+            }
+            setMouseIsDown(false);
+        }
+    });
+    useEventListener('touchmove', (e) => {
+        if (mouseIsDown) {
+            setDragged((startDragPoint - e.touches[0].clientX) * -1);
+        }
+    });
     return (React.createElement(StyledSwiper, { ref: swiperRef, className: "tui-swiper" },
-        React.createElement(SwiperWrapper, { onPointerDown: (e) => test(e) },
+        React.createElement(SwiperWrapper, { onPointerDown: (e) => onSwipeHandler(e) },
             React.createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
             React.createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
                 React.createElement(Content$2, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));

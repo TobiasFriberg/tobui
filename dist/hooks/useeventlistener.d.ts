@@ -1,1 +1,1 @@
-export declare const useEventListener: (eventName: string, handler: Function, element?: null | Window | HTMLElement) => void;
+export declare const useEventListener: (eventName: string, handler: Function, options?: any, element?: null | Window | HTMLElement) => void;
