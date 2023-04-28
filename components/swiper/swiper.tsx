@@ -1,6 +1,5 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useEventListener } from '../../hooks';
-import { Card } from '../card';
 import { StyledSwiper, Content, SwiperWrapper, TransformWrapper } from './swiper.style';
 
 type StepperProps = {
@@ -41,7 +40,9 @@ export const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }: S
     }
   }, [contentRef.current]);
 
-  const test = (e: React.MouseEvent) => {
+  const onSwipeHandler = (e: React.MouseEvent) => {
+    console.log('onSwipe');
+    console.log(e.pageX);
     setStartDragPoint(e.pageX);
     setMouseIsDown(true);
   };
@@ -96,9 +97,30 @@ export const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped }: S
     }
   });
 
+  useEventListener('touchend', (e: any) => {
+    if (mouseIsDown) {
+      if (dragged > sensitivity) {
+        setContinueSwipe('right');
+        onSwiped && onSwiped('right');
+      } else if (dragged < -sensitivity) {
+        setContinueSwipe('left');
+        onSwiped && onSwiped('left');
+      } else {
+        setDragged(0);
+      }
+      setMouseIsDown(false);
+    }
+  });
+
+  useEventListener('touchmove', (e: any) => {
+    if (mouseIsDown) {
+      setDragged((startDragPoint - e.touches[0].clientX) * -1);
+    }
+  });
+
   return (
     <StyledSwiper ref={swiperRef} className="tui-swiper">
-      <SwiperWrapper onPointerDown={(e: any) => test(e)}>
+      <SwiperWrapper onPointerDown={(e: any) => onSwipeHandler(e)}>
         <Content className="tui-swiper-next-content">{renderNextContent()}</Content>
         <TransformWrapper
           $swipeDir={continueSwipe}

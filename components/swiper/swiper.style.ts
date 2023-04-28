@@ -9,7 +9,9 @@ const rightSwipe = keyframes`
   100% { opacity: 0; left: 100%; }
 `;
 
-export const StyledSwiper = styled.div``;
+export const StyledSwiper = styled.div`
+  touch-action: none;
+`;
 
 export const TransformWrapper = styled.div<{ $swipeDir: null | 'right' | 'left' }>`
   position: relative;
@@ -17,6 +19,7 @@ export const TransformWrapper = styled.div<{ $swipeDir: null | 'right' | 'left' 
 
   img,
   svg {
+    touch-action: none;
     pointer-events: none;
   }
 
@@ -37,10 +40,10 @@ export const TransformWrapper = styled.div<{ $swipeDir: null | 'right' | 'left' 
 
 export const SwiperWrapper = styled.div`
   position: relative;
+  touch-action: none;
 `;
 
 export const Content = styled.div`
-  touch-action: none;
   width: 100%;
   position: absolute;
 `;

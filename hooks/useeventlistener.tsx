@@ -3,7 +3,8 @@ import { useEffect, useRef } from 'react';
 export const useEventListener = (
   eventName: string,
   handler: Function,
-  element: null | Window | HTMLElement = typeof window === 'undefined' ? null : window
+  options?: any,
+  element?: null | Window | HTMLElement
 ) => {
   const savedHandler = useRef<Function>(() => {});
 
@@ -12,16 +13,17 @@ export const useEventListener = (
   }, [handler]);
 
   useEffect(() => {
-    const isSupported = element && element.addEventListener;
+    const el = typeof window === 'undefined' ? null : window;
+    const isSupported = el && el.addEventListener;
 
     if (!isSupported) {
       return () => {};
     }
     const eventListener = (event: Event) => savedHandler.current(event);
-    element.addEventListener(eventName, eventListener);
+    el.addEventListener(eventName, eventListener);
 
     return () => {
-      element.removeEventListener(eventName, eventListener);
+      el.removeEventListener(eventName, eventListener, options);
     };
   }, [eventName, element]);
 };
