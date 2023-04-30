@@ -5,6 +5,7 @@ declare type CardProps = {
     imagePlacement?: 'top' | 'bottom' | 'left' | 'right';
     maxHeight?: number;
     wrap?: boolean;
+    className?: string;
 };
-export declare const Card: ({ children, maxHeight, image, wrap, imagePlacement }: CardProps) => JSX.Element;
+export declare const Card: ({ children, maxHeight, image, wrap, imagePlacement, className }: CardProps) => JSX.Element;
 export {};

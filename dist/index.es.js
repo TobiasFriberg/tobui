@@ -4129,7 +4129,7 @@ const ImageWrapper = styled.div `
   }
 `;
 
-const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top' }) => {
+const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top', className }) => {
     const renderContent = () => {
         if (!children) {
             return null;
@@ -4142,7 +4142,7 @@ const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top'
         }
         return React.createElement(ImageWrapper, null, image);
     };
-    return (React.createElement(StyledCard, { className: "tui-card", "$wrap": wrap, "$imagePlacement": imagePlacement, style: { maxHeight: maxHeight } },
+    return (React.createElement(StyledCard, { className: `${className} tui-card`, "$wrap": wrap, "$imagePlacement": imagePlacement, style: { maxHeight: maxHeight } },
         renderImage(),
         renderContent()));
 };

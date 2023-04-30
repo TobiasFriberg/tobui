@@ -7,9 +7,10 @@ type CardProps = {
   imagePlacement?: 'top' | 'bottom' | 'left' | 'right';
   maxHeight?: number;
   wrap?: boolean;
+  className?: string;
 };
 
-export const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top' }: CardProps) => {
+export const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top', className }: CardProps) => {
   const renderContent = () => {
     if (!children) {
       return null;
@@ -27,7 +28,12 @@ export const Card = ({ children, maxHeight, image, wrap = false, imagePlacement 
   };
 
   return (
-    <StyledCard className="tui-card" $wrap={wrap} $imagePlacement={imagePlacement} style={{ maxHeight: maxHeight }}>
+    <StyledCard
+      className={`${className} tui-card`}
+      $wrap={wrap}
+      $imagePlacement={imagePlacement}
+      style={{ maxHeight: maxHeight }}
+    >
       {renderImage()}
       {renderContent()}
     </StyledCard>
