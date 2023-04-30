@@ -9,9 +9,18 @@ type StepperProps = {
   step?: number;
   loop?: boolean;
   shouldSwipe?: 'left' | 'right' | null;
+  height?: string;
 };
 
-export const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe }: StepperProps) => {
+export const Swiper = ({
+  views,
+  step = 0,
+  loop,
+  sensitivity = 110,
+  onSwiped,
+  shouldSwipe,
+  height = '100px',
+}: StepperProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(step);
@@ -127,7 +136,7 @@ export const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, sho
   });
 
   return (
-    <StyledSwiper ref={swiperRef} className="tui-swiper">
+    <StyledSwiper style={{ height: height }} className="tui-swiper">
       <SwiperWrapper onPointerDown={(e: any) => onSwipeHandler(e)}>
         <Content className="tui-swiper-next-content">{renderNextContent()}</Content>
         <TransformWrapper

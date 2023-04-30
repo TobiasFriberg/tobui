@@ -4421,7 +4421,7 @@ const Content$2 = styled.div `
   position: absolute;
 `;
 
-const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe }) => {
+const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe, height = '100px', }) => {
     const contentRef = useRef(null);
     const swiperRef = useRef(null);
     const [currentStep, setCurrentStep] = useState(step);
@@ -4521,7 +4521,7 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
             setDragged((startDragPoint - e.touches[0].clientX) * -1);
         }
     });
-    return (React.createElement(StyledSwiper, { ref: swiperRef, className: "tui-swiper" },
+    return (React.createElement(StyledSwiper, { style: { height: height }, className: "tui-swiper" },
         React.createElement(SwiperWrapper, { onPointerDown: (e) => onSwipeHandler(e) },
             React.createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
             React.createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
