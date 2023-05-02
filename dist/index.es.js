@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, forwardRef, useState, cloneElement } from 'react';
+import React, { useRef, useEffect, forwardRef, useState, cloneElement, useCallback } from 'react';
 import styled, { keyframes, createGlobalStyle, ThemeProvider as ThemeProvider$1, css } from 'styled-components';
 
 var colors = {
@@ -4497,9 +4497,12 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
     });
     useEventListener('pointermove', (e) => {
         if (mouseIsDown) {
-            setDragged((startDragPoint - e.pageX) * -1);
+            onMouseMove(e);
         }
     });
+    const onMouseMove = useCallback((e) => {
+        setDragged((startDragPoint - e.pageX || e.touches[0].clientX) * -1);
+    }, [startDragPoint]);
     useEventListener('touchend', (e) => {
         if (mouseIsDown) {
             if (dragged > sensitivity) {
@@ -4518,7 +4521,7 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
     });
     useEventListener('touchmove', (e) => {
         if (mouseIsDown) {
-            setDragged((startDragPoint - e.touches[0].clientX) * -1);
+            onMouseMove(e);
         }
     });
     return (React.createElement(StyledSwiper, { style: { height: height }, className: "tui-swiper" },

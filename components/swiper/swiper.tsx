@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useEventListener } from '../../hooks';
 import { StyledSwiper, Content, SwiperWrapper, TransformWrapper } from './swiper.style';
 
@@ -110,9 +110,16 @@ export const Swiper = ({
 
   useEventListener('pointermove', (e: any) => {
     if (mouseIsDown) {
-      setDragged((startDragPoint - e.pageX) * -1);
+      onMouseMove(e);
     }
   });
+
+  const onMouseMove = useCallback(
+    (e) => {
+      setDragged((startDragPoint - e.pageX || e.touches[0].clientX) * -1);
+    },
+    [startDragPoint]
+  );
 
   useEventListener('touchend', (e: any) => {
     if (mouseIsDown) {
@@ -131,7 +138,7 @@ export const Swiper = ({
 
   useEventListener('touchmove', (e: any) => {
     if (mouseIsDown) {
-      setDragged((startDragPoint - e.touches[0].clientX) * -1);
+      onMouseMove(e);
     }
   });
 
