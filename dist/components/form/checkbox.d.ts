@@ -4,6 +4,7 @@ declare type Props = {
     checked: boolean;
     onCheck: (newValue: boolean) => void;
     checkboxPlacement?: 'left' | 'right';
+    className?: string;
 };
-export declare const CheckBox: ({ label, checked, onCheck, checkboxPlacement }: Props) => JSX.Element;
+export declare const CheckBox: ({ label, checked, onCheck, checkboxPlacement, className }: Props) => JSX.Element;
 export {};

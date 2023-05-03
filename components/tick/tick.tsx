@@ -4,11 +4,12 @@ import { StyledTick } from './tick.style';
 type TickProps = {
   children?: ReactNode;
   variant?: 'primary' | 'secondary' | 'alternative' | 'danger' | 'success' | 'warning' | 'info';
+  className?: string;
 };
 
-export const Tick = ({ children, variant }: TickProps) => {
+export const Tick = ({ children, variant, className }: TickProps) => {
   return (
-    <StyledTick className="tui-tick" $variant={variant}>
+    <StyledTick className={`${className} tui-tick`} $variant={variant}>
       {children}
     </StyledTick>
   );

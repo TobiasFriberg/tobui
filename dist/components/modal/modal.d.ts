@@ -5,6 +5,7 @@ declare type ModalProps = {
     fillContent?: boolean;
     onClose?: () => void;
     onOpen?: () => void;
+    className?: string;
 };
-export declare const Modal: ({ children, onClose, onOpen, open, fillContent }: ModalProps) => JSX.Element | null;
+export declare const Modal: ({ children, onClose, onOpen, open, fillContent, className }: ModalProps) => JSX.Element | null;
 export {};

@@ -8,6 +8,7 @@ declare type RangeProps = {
     showValue?: boolean;
     units?: string;
     onChange?: (percent: number, value: number) => void;
+    className?: string;
 };
-export declare const Range: ({ label, min, max, value, showPercent, showValue, units, onChange, }: RangeProps) => JSX.Element;
+export declare const Range: ({ label, min, max, value, showPercent, showValue, units, onChange, className, }: RangeProps) => JSX.Element;
 export {};

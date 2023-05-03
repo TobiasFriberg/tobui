@@ -7,9 +7,10 @@ type Props = {
   content: ReactNode;
   position?: 'down' | 'up' | 'left' | 'right';
   mobileModal?: boolean;
+  className?: string;
 };
 
-export const Dropdown = ({ children, content, position = 'down', mobileModal = false }: Props) => {
+export const Dropdown = ({ children, content, position = 'down', mobileModal = false, className }: Props) => {
   const [expanded, setExpanded] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -32,7 +33,7 @@ export const Dropdown = ({ children, content, position = 'down', mobileModal = f
     }
 
     return (
-      <DropdownContent className="tui-dropdown-content" modal={mobileModal} position={position}>
+      <DropdownContent className={`${className} tui-dropdown-content`} modal={mobileModal} position={position}>
         {content}
       </DropdownContent>
     );

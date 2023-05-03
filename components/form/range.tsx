@@ -12,6 +12,7 @@ type RangeProps = {
   showValue?: boolean;
   units?: string;
   onChange?: (percent: number, value: number) => void;
+  className?: string;
 };
 
 export const Range = ({
@@ -23,6 +24,7 @@ export const Range = ({
   showValue,
   units = '',
   onChange,
+  className,
 }: RangeProps) => {
   const [progress, setProgress] = useState<number>();
   const [currentValue, setCurrentValue] = useState(value || min);
@@ -75,7 +77,7 @@ export const Range = ({
   };
 
   return (
-    <StyledInputField className="tui-slider">
+    <StyledInputField className={`${className} tui-slider`}>
       <RelativeWrapper>
         <Flex $horizontalAlign="space-between" $verticalAlign="center">
           {renderLabel()}

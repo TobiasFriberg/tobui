@@ -10,6 +10,7 @@ type Props = {
   delay?: number;
   value?: string;
   testId?: string;
+  className?: string;
 };
 
 export const SearchField = ({
@@ -20,6 +21,7 @@ export const SearchField = ({
   onClear,
   value = '',
   testId = 'search',
+  className,
 }: Props) => {
   const [searchString, setSearchString] = useState(value);
   const [lastValue, setLastValue] = useState(value);
@@ -64,6 +66,7 @@ export const SearchField = ({
 
   return (
     <InputField
+      className={`${className} tui-search-field`}
       icon={<Search />}
       value={searchString}
       placeholder={placeholder}

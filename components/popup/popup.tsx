@@ -15,6 +15,7 @@ type Props = {
   width?: string;
   fullscreen?: boolean;
   closeText?: string;
+  className?: string;
 };
 
 export const Popup = ({
@@ -28,6 +29,7 @@ export const Popup = ({
   width = 'auto',
   fullscreen = false,
   closeText = 'Close',
+  className,
 }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
@@ -64,7 +66,7 @@ export const Popup = ({
   useEventListener('popup', handleEvent);
 
   const getClasses = () => {
-    return [isOpen ? 'tui-open' : 'tui-closed', fullscreen ? 'tui-fullscreen' : ''].join(' ');
+    return [isOpen ? 'tui-open' : 'tui-closed', fullscreen ? 'tui-fullscreen' : '', className].join(' ');
   };
 
   const renderCloseButton = () => {

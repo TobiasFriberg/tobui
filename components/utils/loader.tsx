@@ -7,9 +7,10 @@ type Props = {
   light?: boolean;
   fillPage?: boolean;
   testId?: string;
+  className?: string;
 };
 
-export const Loader = ({ size, light = false, fillPage = false, testId = 'loader' }: Props) => {
+export const Loader = ({ size, light = false, fillPage = false, testId = 'loader', className }: Props) => {
   const checkFillPage = () => {
     if (fillPage) {
       return <FillPage>{renderLoader()}</FillPage>;
@@ -18,7 +19,7 @@ export const Loader = ({ size, light = false, fillPage = false, testId = 'loader
     return renderLoader();
   };
 
-  const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : ''].join(' ');
+  const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : '', className].join(' ');
 
   const renderLoader = () => {
     return (

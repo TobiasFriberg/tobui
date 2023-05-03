@@ -12,6 +12,7 @@ declare type SelectProps = {
     onChange: (item: ISelectItem) => void;
     disabled?: boolean;
     testId?: string;
+    className?: string;
 };
-export declare const Select: ({ items, value, onChange, width, label, disabled, testId, }: SelectProps) => JSX.Element;
+export declare const Select: ({ items, value, onChange, width, label, disabled, testId, className, }: SelectProps) => JSX.Element;
 export {};

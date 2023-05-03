@@ -6,9 +6,10 @@ type Props = {
   title: string;
   children: Object;
   expanded?: boolean;
+  className?: string;
 };
 
-export const Expander = ({ title = '', children, expanded = false }: Props) => {
+export const Expander = ({ title = '', children, expanded = false, className }: Props) => {
   const [expandedState, setExpandedState] = useState<boolean>(expanded);
 
   const renderArrow = () => {
@@ -33,7 +34,7 @@ export const Expander = ({ title = '', children, expanded = false }: Props) => {
   };
 
   return (
-    <div className="tui-expander">
+    <div className={`${className} tui-expander`}>
       <ExpanderButton className="tui-expander-trigger" onClick={() => toggleExpander()}>
         <div className="tui-expander-title">{title}</div>
         {renderArrow()}

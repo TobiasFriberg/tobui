@@ -3224,7 +3224,7 @@ const Message = styled__default["default"].div `
   padding: ${measurements.large};
 `;
 
-const Notification = ({ type, message, children }) => {
+const Notification = ({ type, message, children, className }) => {
     if (!children && !message) {
         return null;
     }
@@ -3248,7 +3248,7 @@ const Notification = ({ type, message, children }) => {
         }
         return icon;
     };
-    return (React__default["default"].createElement(StyledNotification, { type: type, className: `tui-notification tui-${type}` },
+    return (React__default["default"].createElement(StyledNotification, { type: type, className: `${className} tui-notification tui-${type}` },
         React__default["default"].createElement(Icon$1, { type: type, className: "tui-notification-icon" }, renderIcon()),
         React__default["default"].createElement(Message, { className: "tui-notification-message" }, children || message)));
 };
@@ -3304,14 +3304,14 @@ const CircleFaded = styled__default["default"].div `
   ${(props) => props.small ? `width: calc(${measurements.medium} * 1.5); height: calc(${measurements.medium} * 1.5);` : ''}
 `;
 
-const Loader = ({ size, light = false, fillPage = false, testId = 'loader' }) => {
+const Loader = ({ size, light = false, fillPage = false, testId = 'loader', className }) => {
     const checkFillPage = () => {
         if (fillPage) {
             return React__default["default"].createElement(FillPage, null, renderLoader());
         }
         return renderLoader();
     };
-    const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : ''].join(' ');
+    const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : '', className].join(' ');
     const renderLoader = () => {
         return (React__default["default"].createElement(StyledLoader, { className: getClasses(), "data-test-id": testId },
             React__default["default"].createElement(Circle, { small: size === 'small', light: light }),
@@ -3341,7 +3341,7 @@ const ExpanderContent = styled__default["default"].div `
   animation-duration: 0.1s;
 `;
 
-const Expander = ({ title = '', children, expanded = false }) => {
+const Expander = ({ title = '', children, expanded = false, className }) => {
     const [expandedState, setExpandedState] = React.useState(expanded);
     const renderArrow = () => {
         let arrow = React__default["default"].createElement(ChevronDown$1, null);
@@ -3359,7 +3359,7 @@ const Expander = ({ title = '', children, expanded = false }) => {
         }
         return React__default["default"].createElement(ExpanderContent, { className: "tui-expander-content" }, children);
     };
-    return (React__default["default"].createElement("div", { className: "tui-expander" },
+    return (React__default["default"].createElement("div", { className: `${className} tui-expander` },
         React__default["default"].createElement(ExpanderButton, { className: "tui-expander-trigger", onClick: () => toggleExpander() },
             React__default["default"].createElement("div", { className: "tui-expander-title" }, title),
             renderArrow()),
@@ -3387,7 +3387,7 @@ const StyledBadge = styled__default["default"].div `
   color: ${(props) => getContrastColor(props.theme, props.theme.colors.notificationError)};
 `;
 
-const Badge = ({ children, value = '' }) => {
+const Badge = ({ children, value = '', className }) => {
     if (!children) {
         return null;
     }
@@ -3397,7 +3397,7 @@ const Badge = ({ children, value = '' }) => {
         }
         return React__default["default"].createElement(StyledBadge, { className: "tui-badge" }, value);
     };
-    return (React__default["default"].createElement(BadgeWrapper, null,
+    return (React__default["default"].createElement(BadgeWrapper, { className: className },
         renderBadge(),
         children));
 };
@@ -3536,7 +3536,7 @@ const Content$4 = styled__default["default"].span `
   align-items: center;
 `;
 
-const Button = ({ children, onClick, className = '', loading = false, icon, disabled = false, iconOnly = false, testId = 'button', ...props }) => {
+const Button = ({ children, onClick, className, loading = false, icon, disabled = false, iconOnly = false, testId = 'button', ...props }) => {
     const [isLoading, setIsLoading] = React.useState(loading);
     const handleClick = async () => {
         if (isLoading || disabled) {
@@ -3815,7 +3815,7 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
             renderClearButton())));
 };
 
-const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, value = '', testId = 'search', }) => {
+const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, value = '', testId = 'search', className, }) => {
     const [searchString, setSearchString] = React.useState(value);
     const [lastValue, setLastValue] = React.useState(value);
     React.useEffect(() => {
@@ -3850,10 +3850,10 @@ const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, 
         }
         onClear();
     };
-    return (React__default["default"].createElement(InputField, { icon: React__default["default"].createElement(Search$1, null), value: searchString, placeholder: placeholder, label: label, onChange: (e) => handleChange(e), onClear: () => handleClear(), testId: testId }));
+    return (React__default["default"].createElement(InputField, { className: `${className} tui-search-field`, icon: React__default["default"].createElement(Search$1, null), value: searchString, placeholder: placeholder, label: label, onChange: (e) => handleChange(e), onClear: () => handleClear(), testId: testId }));
 };
 
-const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', }) => {
+const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', className, }) => {
     const [selectedValue, setSelectedValue] = React.useState(value);
     const renderOptions = items.map((item, i) => (React__default["default"].createElement("option", { key: i, value: item.value }, item.label)));
     const renderLabel = () => {
@@ -3862,7 +3862,7 @@ const Select = ({ items = [], value, onChange, width = 'auto', label, disabled =
         }
         return React__default["default"].createElement(InputLabel, { className: "tui-label" }, label);
     };
-    return (React__default["default"].createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId },
+    return (React__default["default"].createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId, className: className },
         renderLabel(),
         React__default["default"].createElement(InputWrapper, { className: "tui-input tui-select" },
             React__default["default"].createElement("select", { disabled: disabled, value: selectedValue, onChange: (e) => {
@@ -3874,14 +3874,14 @@ const Select = ({ items = [], value, onChange, width = 'auto', label, disabled =
                 React__default["default"].createElement(ChevronDown$1, { className: "tui-icon" })))));
 };
 
-const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right' }) => {
+const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right', className }) => {
     const renderLabel = () => {
         if (!label) {
             return null;
         }
         return React__default["default"].createElement("span", null, label);
     };
-    return (React__default["default"].createElement(CheckBoxWrapper, { "$location": checkboxPlacement },
+    return (React__default["default"].createElement(CheckBoxWrapper, { className: className, "$location": checkboxPlacement },
         React__default["default"].createElement("label", null,
             checkboxPlacement === 'right' && renderLabel(),
             React__default["default"].createElement("input", { className: "tui-input tui-checkbox", type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
@@ -4005,7 +4005,7 @@ const ThumbLabel = styled__default["default"].div `
   font-size: calc(${(p) => p.theme.fontSize} / 1.4);
 `;
 
-const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units = '', onChange, }) => {
+const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units = '', onChange, className, }) => {
     const [progress, setProgress] = React.useState();
     const [currentValue, setCurrentValue] = React.useState(value || min);
     React.useEffect(() => {
@@ -4045,7 +4045,7 @@ const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units
         }
         return React__default["default"].createElement(ThumbLabel, null, labelValue);
     };
-    return (React__default["default"].createElement(StyledInputField, { className: "tui-slider" },
+    return (React__default["default"].createElement(StyledInputField, { className: `${className} tui-slider` },
         React__default["default"].createElement(RelativeWrapper, null,
             React__default["default"].createElement(Flex, { "$horizontalAlign": "space-between", "$verticalAlign": "center" },
                 renderLabel(),
@@ -4095,8 +4095,8 @@ const List = ({ children, padding = false, lines = false, className = '' }) => {
     const getClasses = () => [className, 'tui-list', padding ? 'tui-padded' : '', lines ? 'tui-lines' : ''].join(' ');
     return (React__default["default"].createElement(StyledList, { "$padded": padding, "$lines": lines, className: getClasses() }, children));
 };
-const ListItem = ({ children, title = '' }) => {
-    return (React__default["default"].createElement("div", { className: "tui-listItem" },
+const ListItem = ({ children, title = '', className }) => {
+    return (React__default["default"].createElement("div", { className: `${className} tui-listItem` },
         React__default["default"].createElement(StyledListTitle, { className: "tui-title" }, title),
         children));
 };
@@ -4184,8 +4184,8 @@ const StyledTick = styled__default["default"].div `
   color: ${(p) => getContrastColor(p.theme, getColor(p))};
 `;
 
-const Tick = ({ children, variant }) => {
-    return (React__default["default"].createElement(StyledTick, { className: "tui-tick", "$variant": variant }, children));
+const Tick = ({ children, variant, className }) => {
+    return (React__default["default"].createElement(StyledTick, { className: `${className} tui-tick`, "$variant": variant }, children));
 };
 
 const getModalForDropdown = (props, isModal) => {
@@ -4349,7 +4349,7 @@ const DropdownWrapper = styled__default["default"].div `
   display: inline-block;
 `;
 
-const Dropdown = ({ children, content, position = 'down', mobileModal = false }) => {
+const Dropdown = ({ children, content, position = 'down', mobileModal = false, className }) => {
     const [expanded, setExpanded] = React.useState(false);
     const dropdownRef = React.useRef(null);
     const handleMouseEvent = (e) => {
@@ -4366,7 +4366,7 @@ const Dropdown = ({ children, content, position = 'down', mobileModal = false })
         if (!expanded) {
             return null;
         }
-        return (React__default["default"].createElement(DropdownContent, { className: "tui-dropdown-content", modal: mobileModal, position: position }, content));
+        return (React__default["default"].createElement(DropdownContent, { className: `${className} tui-dropdown-content`, modal: mobileModal, position: position }, content));
     };
     const renderBlocker = () => {
         if (!expanded) {
@@ -4430,7 +4430,7 @@ const Content$2 = styled__default["default"].div `
   position: absolute;
 `;
 
-const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe, height = '100px', }) => {
+const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe, height = '100px', className, }) => {
     const contentRef = React.useRef(null);
     const swiperRef = React.useRef(null);
     const [currentStep, setCurrentStep] = React.useState(step);
@@ -4533,7 +4533,7 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
             onMouseMove(e);
         }
     });
-    return (React__default["default"].createElement(StyledSwiper, { style: { height: height }, className: "tui-swiper" },
+    return (React__default["default"].createElement(StyledSwiper, { style: { height: height }, className: `${className} tui-swiper` },
         React__default["default"].createElement(SwiperWrapper, { onPointerDown: (e) => onSwipeHandler(e) },
             React__default["default"].createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
             React__default["default"].createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
@@ -4581,7 +4581,7 @@ const Content$1 = styled__default["default"].div `
   z-index: 1;
 `;
 
-const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
+const Modal = ({ children, onClose, onOpen, open, fillContent, className }) => {
     const [isClosing, setIsClosing] = React.useState(false);
     const [closed, setClosed] = React.useState(false);
     React.useEffect(() => {
@@ -4608,7 +4608,7 @@ const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
         return (React__default["default"].createElement(CloseButton, { className: "tui-modal-close", onClick: () => closeModal() },
             React__default["default"].createElement(X$1, null)));
     };
-    const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : ''].join(' ');
+    const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : '', className].join(' ');
     if (closed) {
         return null;
     }
@@ -4641,7 +4641,7 @@ const StepperContent = styled__default["default"].div `
   ${(p) => p.$fillContent && 'flex-grow: 1;'}
 `;
 
-const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows, indicatorNavigation = false, }) => {
+const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows, indicatorNavigation = false, className, }) => {
     const [currentStep, setCurrentStep] = React.useState(step);
     React.useEffect(() => {
         let stepToSet = step;
@@ -4693,7 +4693,7 @@ const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows, indic
         }
         return (React__default["default"].createElement(NavigationButton, { className: "tui-stepper-prev-button", icon: React__default["default"].createElement(ArrowLeft$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => prevStep() }));
     };
-    return (React__default["default"].createElement(StepperStyle, { className: "tui-stepper" },
+    return (React__default["default"].createElement(StepperStyle, { className: `${className} tui-stepper` },
         renderStepContent(),
         React__default["default"].createElement("br", null),
         React__default["default"].createElement(Flex, { "$horizontalAlign": "space-between" },
@@ -4817,7 +4817,7 @@ const PopupBlocker = styled__default["default"].div `
   background-color: ${(props) => rgba(props.theme.colors.grayDarkEvenMore, 0.6)};
 `;
 
-const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, children, buttons, width = 'auto', fullscreen = false, closeText = 'Close', }) => {
+const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, children, buttons, width = 'auto', fullscreen = false, closeText = 'Close', className, }) => {
     const [isOpen, setIsOpen] = React.useState(open);
     React.useEffect(() => {
         setIsOpen(open);
@@ -4848,7 +4848,7 @@ const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, ch
     };
     useEventListener('popup', handleEvent);
     const getClasses = () => {
-        return [isOpen ? 'tui-open' : 'tui-closed', fullscreen ? 'tui-fullscreen' : ''].join(' ');
+        return [isOpen ? 'tui-open' : 'tui-closed', fullscreen ? 'tui-fullscreen' : '', className].join(' ');
     };
     const renderCloseButton = () => {
         if (!onClose) {

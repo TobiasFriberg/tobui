@@ -7,9 +7,10 @@ type Props = {
   checked: boolean;
   onCheck: (newValue: boolean) => void;
   checkboxPlacement?: 'left' | 'right';
+  className?: string;
 };
 
-export const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right' }: Props) => {
+export const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right', className }: Props) => {
   const renderLabel = () => {
     if (!label) {
       return null;
@@ -18,7 +19,7 @@ export const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlaceme
     return <span>{label}</span>;
   };
   return (
-    <CheckBoxWrapper $location={checkboxPlacement}>
+    <CheckBoxWrapper className={className} $location={checkboxPlacement}>
       <label>
         {checkboxPlacement === 'right' && renderLabel()}
         <input

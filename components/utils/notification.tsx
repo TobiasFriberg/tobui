@@ -6,9 +6,10 @@ export interface NotificationTypes {
   type: 'success' | 'info' | 'warning' | 'error';
   message?: string;
   children?: any;
+  className?: string;
 }
 
-export const Notification = ({ type, message, children }: NotificationTypes) => {
+export const Notification = ({ type, message, children, className }: NotificationTypes) => {
   if (!children && !message) {
     return null;
   }
@@ -37,7 +38,7 @@ export const Notification = ({ type, message, children }: NotificationTypes) => 
   };
 
   return (
-    <StyledNotification type={type} className={`tui-notification tui-${type}`}>
+    <StyledNotification type={type} className={`${className} tui-notification tui-${type}`}>
       <Icon type={type} className="tui-notification-icon">
         {renderIcon()}
       </Icon>

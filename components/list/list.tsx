@@ -20,11 +20,12 @@ export const List = ({ children, padding = false, lines = false, className = '' 
 type PropsItem = {
   children: ReactNode;
   title?: string;
+  className?: string;
 };
 
-export const ListItem = ({ children, title = '' }: PropsItem) => {
+export const ListItem = ({ children, title = '', className }: PropsItem) => {
   return (
-    <div className="tui-listItem">
+    <div className={`${className} tui-listItem`}>
       <StyledListTitle className="tui-title">{title}</StyledListTitle>
       {children}
     </div>

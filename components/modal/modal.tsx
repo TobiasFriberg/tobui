@@ -8,9 +8,10 @@ type ModalProps = {
   fillContent?: boolean;
   onClose?: () => void;
   onOpen?: () => void;
+  className?: string;
 };
 
-export const Modal = ({ children, onClose, onOpen, open, fillContent }: ModalProps) => {
+export const Modal = ({ children, onClose, onOpen, open, fillContent, className }: ModalProps) => {
   const [isClosing, setIsClosing] = useState(false);
   const [closed, setClosed] = useState(false);
 
@@ -46,7 +47,7 @@ export const Modal = ({ children, onClose, onOpen, open, fillContent }: ModalPro
     );
   };
 
-  const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : ''].join(' ');
+  const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : '', className].join(' ');
 
   if (closed) {
     return null;

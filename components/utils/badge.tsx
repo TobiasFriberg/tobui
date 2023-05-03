@@ -4,9 +4,10 @@ import { BadgeWrapper, StyledBadge } from './badge.style';
 type Props = {
   children: ReactNode;
   value: string | number;
+  className?: string;
 };
 
-export const Badge = ({ children, value = '' }: Props) => {
+export const Badge = ({ children, value = '', className }: Props) => {
   if (!children) {
     return null;
   }
@@ -20,7 +21,7 @@ export const Badge = ({ children, value = '' }: Props) => {
   };
 
   return (
-    <BadgeWrapper>
+    <BadgeWrapper className={className}>
       {renderBadge()}
       {children}
     </BadgeWrapper>

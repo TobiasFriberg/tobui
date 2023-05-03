@@ -10,6 +10,7 @@ type StepperProps = {
   fillContent?: boolean;
   hideArrows?: boolean;
   indicatorNavigation?: boolean;
+  className?: string;
 };
 
 export const Stepper = ({
@@ -19,6 +20,7 @@ export const Stepper = ({
   fillContent = false,
   hideArrows,
   indicatorNavigation = false,
+  className,
 }: StepperProps) => {
   const [currentStep, setCurrentStep] = useState(step);
 
@@ -117,7 +119,7 @@ export const Stepper = ({
   };
 
   return (
-    <StepperStyle className="tui-stepper">
+    <StepperStyle className={`${className} tui-stepper`}>
       {renderStepContent()}
       <br />
       <Flex $horizontalAlign="space-between">

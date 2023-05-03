@@ -10,6 +10,7 @@ type StepperProps = {
   loop?: boolean;
   shouldSwipe?: 'left' | 'right' | null;
   height?: string;
+  className?: string;
 };
 
 export const Swiper = ({
@@ -20,6 +21,7 @@ export const Swiper = ({
   onSwiped,
   shouldSwipe,
   height = '100px',
+  className,
 }: StepperProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const swiperRef = useRef<HTMLDivElement>(null);
@@ -143,7 +145,7 @@ export const Swiper = ({
   });
 
   return (
-    <StyledSwiper style={{ height: height }} className="tui-swiper">
+    <StyledSwiper style={{ height: height }} className={`${className} tui-swiper`}>
       <SwiperWrapper onPointerDown={(e: any) => onSwipeHandler(e)}>
         <Content className="tui-swiper-next-content">{renderNextContent()}</Content>
         <TransformWrapper

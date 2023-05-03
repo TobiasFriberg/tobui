@@ -9,6 +9,7 @@ export declare const List: ({ children, padding, lines, className }: Props) => J
 declare type PropsItem = {
     children: ReactNode;
     title?: string;
+    className?: string;
 };
-export declare const ListItem: ({ children, title }: PropsItem) => JSX.Element;
+export declare const ListItem: ({ children, title, className }: PropsItem) => JSX.Element;
 export {};

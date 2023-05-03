@@ -16,6 +16,7 @@ type SelectProps = {
   onChange: (item: ISelectItem) => void;
   disabled?: boolean;
   testId?: string;
+  className?: string;
 };
 
 export const Select = ({
@@ -26,6 +27,7 @@ export const Select = ({
   label,
   disabled = false,
   testId = 'select',
+  className,
 }: SelectProps) => {
   const [selectedValue, setSelectedValue] = useState(value);
   const renderOptions = items.map((item, i) => (
@@ -43,7 +45,7 @@ export const Select = ({
   };
 
   return (
-    <StyledInputField style={{ maxWidth: width }} data-test-id={testId}>
+    <StyledInputField style={{ maxWidth: width }} data-test-id={testId} className={className}>
       {renderLabel()}
       <InputWrapper className="tui-input tui-select">
         <select

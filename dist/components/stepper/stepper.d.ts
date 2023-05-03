@@ -6,6 +6,7 @@ declare type StepperProps = {
     fillContent?: boolean;
     hideArrows?: boolean;
     indicatorNavigation?: boolean;
+    className?: string;
 };
-export declare const Stepper: ({ steps, step, loop, fillContent, hideArrows, indicatorNavigation, }: StepperProps) => JSX.Element;
+export declare const Stepper: ({ steps, step, loop, fillContent, hideArrows, indicatorNavigation, className, }: StepperProps) => JSX.Element;
 export {};

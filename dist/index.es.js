@@ -3215,7 +3215,7 @@ const Message = styled.div `
   padding: ${measurements.large};
 `;
 
-const Notification = ({ type, message, children }) => {
+const Notification = ({ type, message, children, className }) => {
     if (!children && !message) {
         return null;
     }
@@ -3239,7 +3239,7 @@ const Notification = ({ type, message, children }) => {
         }
         return icon;
     };
-    return (React.createElement(StyledNotification, { type: type, className: `tui-notification tui-${type}` },
+    return (React.createElement(StyledNotification, { type: type, className: `${className} tui-notification tui-${type}` },
         React.createElement(Icon$1, { type: type, className: "tui-notification-icon" }, renderIcon()),
         React.createElement(Message, { className: "tui-notification-message" }, children || message)));
 };
@@ -3295,14 +3295,14 @@ const CircleFaded = styled.div `
   ${(props) => props.small ? `width: calc(${measurements.medium} * 1.5); height: calc(${measurements.medium} * 1.5);` : ''}
 `;
 
-const Loader = ({ size, light = false, fillPage = false, testId = 'loader' }) => {
+const Loader = ({ size, light = false, fillPage = false, testId = 'loader', className }) => {
     const checkFillPage = () => {
         if (fillPage) {
             return React.createElement(FillPage, null, renderLoader());
         }
         return renderLoader();
     };
-    const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : ''].join(' ');
+    const getClasses = () => ['tui-loader', size ? size : '', light ? 'tui-loader-light' : '', className].join(' ');
     const renderLoader = () => {
         return (React.createElement(StyledLoader, { className: getClasses(), "data-test-id": testId },
             React.createElement(Circle, { small: size === 'small', light: light }),
@@ -3332,7 +3332,7 @@ const ExpanderContent = styled.div `
   animation-duration: 0.1s;
 `;
 
-const Expander = ({ title = '', children, expanded = false }) => {
+const Expander = ({ title = '', children, expanded = false, className }) => {
     const [expandedState, setExpandedState] = useState(expanded);
     const renderArrow = () => {
         let arrow = React.createElement(ChevronDown$1, null);
@@ -3350,7 +3350,7 @@ const Expander = ({ title = '', children, expanded = false }) => {
         }
         return React.createElement(ExpanderContent, { className: "tui-expander-content" }, children);
     };
-    return (React.createElement("div", { className: "tui-expander" },
+    return (React.createElement("div", { className: `${className} tui-expander` },
         React.createElement(ExpanderButton, { className: "tui-expander-trigger", onClick: () => toggleExpander() },
             React.createElement("div", { className: "tui-expander-title" }, title),
             renderArrow()),
@@ -3378,7 +3378,7 @@ const StyledBadge = styled.div `
   color: ${(props) => getContrastColor(props.theme, props.theme.colors.notificationError)};
 `;
 
-const Badge = ({ children, value = '' }) => {
+const Badge = ({ children, value = '', className }) => {
     if (!children) {
         return null;
     }
@@ -3388,7 +3388,7 @@ const Badge = ({ children, value = '' }) => {
         }
         return React.createElement(StyledBadge, { className: "tui-badge" }, value);
     };
-    return (React.createElement(BadgeWrapper, null,
+    return (React.createElement(BadgeWrapper, { className: className },
         renderBadge(),
         children));
 };
@@ -3527,7 +3527,7 @@ const Content$4 = styled.span `
   align-items: center;
 `;
 
-const Button = ({ children, onClick, className = '', loading = false, icon, disabled = false, iconOnly = false, testId = 'button', ...props }) => {
+const Button = ({ children, onClick, className, loading = false, icon, disabled = false, iconOnly = false, testId = 'button', ...props }) => {
     const [isLoading, setIsLoading] = useState(loading);
     const handleClick = async () => {
         if (isLoading || disabled) {
@@ -3806,7 +3806,7 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
             renderClearButton())));
 };
 
-const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, value = '', testId = 'search', }) => {
+const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, value = '', testId = 'search', className, }) => {
     const [searchString, setSearchString] = useState(value);
     const [lastValue, setLastValue] = useState(value);
     useEffect(() => {
@@ -3841,10 +3841,10 @@ const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, 
         }
         onClear();
     };
-    return (React.createElement(InputField, { icon: React.createElement(Search$1, null), value: searchString, placeholder: placeholder, label: label, onChange: (e) => handleChange(e), onClear: () => handleClear(), testId: testId }));
+    return (React.createElement(InputField, { className: `${className} tui-search-field`, icon: React.createElement(Search$1, null), value: searchString, placeholder: placeholder, label: label, onChange: (e) => handleChange(e), onClear: () => handleClear(), testId: testId }));
 };
 
-const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', }) => {
+const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', className, }) => {
     const [selectedValue, setSelectedValue] = useState(value);
     const renderOptions = items.map((item, i) => (React.createElement("option", { key: i, value: item.value }, item.label)));
     const renderLabel = () => {
@@ -3853,7 +3853,7 @@ const Select = ({ items = [], value, onChange, width = 'auto', label, disabled =
         }
         return React.createElement(InputLabel, { className: "tui-label" }, label);
     };
-    return (React.createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId },
+    return (React.createElement(StyledInputField, { style: { maxWidth: width }, "data-test-id": testId, className: className },
         renderLabel(),
         React.createElement(InputWrapper, { className: "tui-input tui-select" },
             React.createElement("select", { disabled: disabled, value: selectedValue, onChange: (e) => {
@@ -3865,14 +3865,14 @@ const Select = ({ items = [], value, onChange, width = 'auto', label, disabled =
                 React.createElement(ChevronDown$1, { className: "tui-icon" })))));
 };
 
-const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right' }) => {
+const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right', className }) => {
     const renderLabel = () => {
         if (!label) {
             return null;
         }
         return React.createElement("span", null, label);
     };
-    return (React.createElement(CheckBoxWrapper, { "$location": checkboxPlacement },
+    return (React.createElement(CheckBoxWrapper, { className: className, "$location": checkboxPlacement },
         React.createElement("label", null,
             checkboxPlacement === 'right' && renderLabel(),
             React.createElement("input", { className: "tui-input tui-checkbox", type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
@@ -3996,7 +3996,7 @@ const ThumbLabel = styled.div `
   font-size: calc(${(p) => p.theme.fontSize} / 1.4);
 `;
 
-const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units = '', onChange, }) => {
+const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units = '', onChange, className, }) => {
     const [progress, setProgress] = useState();
     const [currentValue, setCurrentValue] = useState(value || min);
     useEffect(() => {
@@ -4036,7 +4036,7 @@ const Range = ({ label, min = 0, max = 100, value, showPercent, showValue, units
         }
         return React.createElement(ThumbLabel, null, labelValue);
     };
-    return (React.createElement(StyledInputField, { className: "tui-slider" },
+    return (React.createElement(StyledInputField, { className: `${className} tui-slider` },
         React.createElement(RelativeWrapper, null,
             React.createElement(Flex, { "$horizontalAlign": "space-between", "$verticalAlign": "center" },
                 renderLabel(),
@@ -4086,8 +4086,8 @@ const List = ({ children, padding = false, lines = false, className = '' }) => {
     const getClasses = () => [className, 'tui-list', padding ? 'tui-padded' : '', lines ? 'tui-lines' : ''].join(' ');
     return (React.createElement(StyledList, { "$padded": padding, "$lines": lines, className: getClasses() }, children));
 };
-const ListItem = ({ children, title = '' }) => {
-    return (React.createElement("div", { className: "tui-listItem" },
+const ListItem = ({ children, title = '', className }) => {
+    return (React.createElement("div", { className: `${className} tui-listItem` },
         React.createElement(StyledListTitle, { className: "tui-title" }, title),
         children));
 };
@@ -4175,8 +4175,8 @@ const StyledTick = styled.div `
   color: ${(p) => getContrastColor(p.theme, getColor(p))};
 `;
 
-const Tick = ({ children, variant }) => {
-    return (React.createElement(StyledTick, { className: "tui-tick", "$variant": variant }, children));
+const Tick = ({ children, variant, className }) => {
+    return (React.createElement(StyledTick, { className: `${className} tui-tick`, "$variant": variant }, children));
 };
 
 const getModalForDropdown = (props, isModal) => {
@@ -4340,7 +4340,7 @@ const DropdownWrapper = styled.div `
   display: inline-block;
 `;
 
-const Dropdown = ({ children, content, position = 'down', mobileModal = false }) => {
+const Dropdown = ({ children, content, position = 'down', mobileModal = false, className }) => {
     const [expanded, setExpanded] = useState(false);
     const dropdownRef = useRef(null);
     const handleMouseEvent = (e) => {
@@ -4357,7 +4357,7 @@ const Dropdown = ({ children, content, position = 'down', mobileModal = false })
         if (!expanded) {
             return null;
         }
-        return (React.createElement(DropdownContent, { className: "tui-dropdown-content", modal: mobileModal, position: position }, content));
+        return (React.createElement(DropdownContent, { className: `${className} tui-dropdown-content`, modal: mobileModal, position: position }, content));
     };
     const renderBlocker = () => {
         if (!expanded) {
@@ -4421,7 +4421,7 @@ const Content$2 = styled.div `
   position: absolute;
 `;
 
-const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe, height = '100px', }) => {
+const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe, height = '100px', className, }) => {
     const contentRef = useRef(null);
     const swiperRef = useRef(null);
     const [currentStep, setCurrentStep] = useState(step);
@@ -4524,7 +4524,7 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
             onMouseMove(e);
         }
     });
-    return (React.createElement(StyledSwiper, { style: { height: height }, className: "tui-swiper" },
+    return (React.createElement(StyledSwiper, { style: { height: height }, className: `${className} tui-swiper` },
         React.createElement(SwiperWrapper, { onPointerDown: (e) => onSwipeHandler(e) },
             React.createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
             React.createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
@@ -4572,7 +4572,7 @@ const Content$1 = styled.div `
   z-index: 1;
 `;
 
-const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
+const Modal = ({ children, onClose, onOpen, open, fillContent, className }) => {
     const [isClosing, setIsClosing] = useState(false);
     const [closed, setClosed] = useState(false);
     useEffect(() => {
@@ -4599,7 +4599,7 @@ const Modal = ({ children, onClose, onOpen, open, fillContent }) => {
         return (React.createElement(CloseButton, { className: "tui-modal-close", onClick: () => closeModal() },
             React.createElement(X$1, null)));
     };
-    const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : ''].join(' ');
+    const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : '', className].join(' ');
     if (closed) {
         return null;
     }
@@ -4632,7 +4632,7 @@ const StepperContent = styled.div `
   ${(p) => p.$fillContent && 'flex-grow: 1;'}
 `;
 
-const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows, indicatorNavigation = false, }) => {
+const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows, indicatorNavigation = false, className, }) => {
     const [currentStep, setCurrentStep] = useState(step);
     useEffect(() => {
         let stepToSet = step;
@@ -4684,7 +4684,7 @@ const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows, indic
         }
         return (React.createElement(NavigationButton, { className: "tui-stepper-prev-button", icon: React.createElement(ArrowLeft$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => prevStep() }));
     };
-    return (React.createElement(StepperStyle, { className: "tui-stepper" },
+    return (React.createElement(StepperStyle, { className: `${className} tui-stepper` },
         renderStepContent(),
         React.createElement("br", null),
         React.createElement(Flex, { "$horizontalAlign": "space-between" },
@@ -4808,7 +4808,7 @@ const PopupBlocker = styled.div `
   background-color: ${(props) => rgba(props.theme.colors.grayDarkEvenMore, 0.6)};
 `;
 
-const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, children, buttons, width = 'auto', fullscreen = false, closeText = 'Close', }) => {
+const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, children, buttons, width = 'auto', fullscreen = false, closeText = 'Close', className, }) => {
     const [isOpen, setIsOpen] = useState(open);
     useEffect(() => {
         setIsOpen(open);
@@ -4839,7 +4839,7 @@ const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, ch
     };
     useEventListener('popup', handleEvent);
     const getClasses = () => {
-        return [isOpen ? 'tui-open' : 'tui-closed', fullscreen ? 'tui-fullscreen' : ''].join(' ');
+        return [isOpen ? 'tui-open' : 'tui-closed', fullscreen ? 'tui-fullscreen' : '', className].join(' ');
     };
     const renderCloseButton = () => {
         if (!onClose) {

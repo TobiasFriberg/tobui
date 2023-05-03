@@ -7,6 +7,7 @@ declare type Props = {
     delay?: number;
     value?: string;
     testId?: string;
+    className?: string;
 };
-export declare const SearchField: ({ handleSearch, placeholder, label, delay, onClear, value, testId, }: Props) => JSX.Element;
+export declare const SearchField: ({ handleSearch, placeholder, label, delay, onClear, value, testId, className, }: Props) => JSX.Element;
 export {};

@@ -19,7 +19,7 @@ type Props = {
 export const Button = ({
   children,
   onClick,
-  className = '',
+  className,
   loading = false,
   icon,
   disabled = false,

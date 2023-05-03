@@ -4,6 +4,7 @@ declare type Props = {
     light?: boolean;
     fillPage?: boolean;
     testId?: string;
+    className?: string;
 };
-export declare const Loader: ({ size, light, fillPage, testId }: Props) => JSX.Element;
+export declare const Loader: ({ size, light, fillPage, testId, className }: Props) => JSX.Element;
 export {};
