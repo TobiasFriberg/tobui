@@ -3109,7 +3109,9 @@ const Button = ({ children, onClick, className, loading = false, icon, disabled 
         if (!icon) {
             return null;
         }
-        return (React.createElement(Icon, { className: "tui-button-icon", "$iconOnly": iconOnly }, cloneElement(icon, { size: '1em' })));
+        const iconProps = { ...icon.props };
+        iconProps.size = iconProps.size || '1rem';
+        return (React.createElement(Icon, { className: "tui-button-icon", "$iconOnly": iconOnly }, cloneElement(icon, iconProps)));
     };
     const getClass = () => {
         return ['tui-button', isLoading ? 'tui-button-loading' : '', className].join(' ');

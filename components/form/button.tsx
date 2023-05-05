@@ -49,9 +49,12 @@ export const Button = ({
       return null;
     }
 
+    const iconProps = { ...icon.props };
+    iconProps.size = iconProps.size || '1rem';
+
     return (
       <Icon className="tui-button-icon" $iconOnly={iconOnly}>
-        {cloneElement(icon, { size: '1em' })}
+        {cloneElement(icon, iconProps)}
       </Icon>
     );
   };
