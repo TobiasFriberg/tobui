@@ -4153,8 +4153,7 @@ const Modal = ({ children, onClose, onOpen, open, fillContent, className }) => {
         if (!onClose) {
             return null;
         }
-        return (React.createElement(CloseButton, { className: "tui-modal-close", onClick: () => closeModal() },
-            React.createElement(Icon$2, { path: mdiClose, size: 1 })));
+        return (React.createElement(CloseButton, { className: "tui-modal-close", onClick: () => closeModal() }, "asd"));
     };
     const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : '', className].join(' ');
     if (closed) {

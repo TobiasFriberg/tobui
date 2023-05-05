@@ -43,7 +43,7 @@ export const Modal = ({ children, onClose, onOpen, open, fillContent, className 
 
     return (
       <CloseButton className="tui-modal-close" onClick={() => closeModal()}>
-        <Icon path={mdiClose} size={1} />
+        asd
       </CloseButton>
     );
   };
