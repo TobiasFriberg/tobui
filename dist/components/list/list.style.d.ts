@@ -1,4 +1,4 @@
-declare type ListProps = {
+type ListProps = {
     theme: any;
     $padded: boolean;
     $lines: boolean;

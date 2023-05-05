@@ -1,8 +1,9 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { X } from 'react-feather';
 import { useEventListener } from '../../hooks';
 import { Button } from '../form';
 import { StyledPopup, PopupBlocker, Content, TopBar, Title, Footer, ButtonGroup } from './popup.style';
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
 
 type Props = {
   title?: string;
@@ -75,7 +76,7 @@ export const Popup = ({
     }
 
     return (
-      <Button appearance="text" icon={<X />} variant="primary" onClick={() => closePopup()}>
+      <Button appearance="text" icon={<Icon path={mdiClose} />} variant="primary" onClick={() => closePopup()}>
         {closeText}
       </Button>
     );

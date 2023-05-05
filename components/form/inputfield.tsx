@@ -1,6 +1,7 @@
 import React, { useState, ReactNode, useEffect, cloneElement, ReactElement } from 'react';
-import { X } from 'react-feather';
 import { ClearIcon, InputIcon, InputLabel, InputWrapper, StyledInputField } from './inputfield.style';
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
 
 type Props = {
   value: string;
@@ -85,7 +86,7 @@ export const InputField = ({
       return null;
     }
 
-    return cloneElement(props.icon, { size: 16 });
+    return cloneElement(props.icon, { size: '1.3em' });
   };
 
   const renderLabel = () => {
@@ -103,7 +104,7 @@ export const InputField = ({
 
     return (
       <ClearIcon className="tui-clear-icon" onClick={() => onClear()}>
-        <X size={16} />
+        <Icon path={mdiClose} size="1.3em" />
       </ClearIcon>
     );
   };

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-declare type ButtonProps = {
+type ButtonProps = {
     variant?: 'primary' | 'secondary' | 'alternative' | 'danger' | 'gradient';
     size?: 'medium' | 'small' | 'large';
     appearance?: 'button' | 'text' | 'border';

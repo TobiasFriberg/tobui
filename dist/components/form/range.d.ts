@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type RangeProps = {
+type RangeProps = {
     label?: string;
     min?: number;
     max?: number;

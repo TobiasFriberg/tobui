@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronDown } from 'react-feather';
 import { InputLabel, InputWrapper, SelectIcon, StyledInputField } from './inputfield.style';
+import { mdiChevronDown } from '@mdi/js';
+import Icon from '@mdi/react';
 
 export interface ISelectItem {
   id?: string | number;
@@ -60,7 +61,7 @@ export const Select = ({
           {renderOptions}
         </select>
         <SelectIcon>
-          <ChevronDown className="tui-icon" />
+          <Icon path={mdiChevronDown} size={1} />
         </SelectIcon>
       </InputWrapper>
     </StyledInputField>

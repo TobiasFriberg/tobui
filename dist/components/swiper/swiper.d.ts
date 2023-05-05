@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-declare type StepperProps = {
+type StepperProps = {
     views: ReactNode[];
     sensitivity?: number;
     onSwiped?: (dir: 'left' | 'right') => void;

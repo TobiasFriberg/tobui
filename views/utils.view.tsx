@@ -4,7 +4,8 @@ import txt from '../docsComponents/examples/utils.example';
 import { List, ListItem } from '../components/list';
 import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
 import { Expander, Loader, Notification, Badge } from '../components/utils';
-import { Mail } from 'react-feather';
+import Icon from '@mdi/react';
+import { mdiMail } from '@mdi/js';
 
 export const UtilsView = () => {
   const description = `There are a bunch of components that can help out in different situations.`;
@@ -31,7 +32,7 @@ export const UtilsView = () => {
           <List padding>
             <div>
               <Badge value="2">
-                <Mail />
+                <Icon path={mdiMail} size={1} />
               </Badge>
             </div>
             <div>

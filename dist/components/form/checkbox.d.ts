@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type Props = {
+type Props = {
     label?: string;
     checked: boolean;
     onCheck: (newValue: boolean) => void;

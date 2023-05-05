@@ -1,6 +1,7 @@
 import React from 'react';
-import { Check } from 'react-feather';
 import { CheckBoxContent, CheckBoxWrapper } from './inputfield.style';
+import Icon from '@mdi/react';
+import { mdiCheck } from '@mdi/js';
 
 type Props = {
   label?: string;
@@ -29,7 +30,7 @@ export const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlaceme
           checked={checked}
           onChange={(e) => onCheck(e.target.checked)}
         />
-        <CheckBoxContent active={checked}>{checked && <Check />}</CheckBoxContent>
+        <CheckBoxContent active={checked}>{checked && <Icon path={mdiCheck} />}</CheckBoxContent>
         {checkboxPlacement === 'left' && renderLabel()}
       </label>
     </CheckBoxWrapper>

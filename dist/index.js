@@ -260,28 +260,25 @@ h4 {
 }
 `;
 
-function _extends$b() {
-  _extends$b = Object.assign ? Object.assign.bind() : function (target) {
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   };
-  return _extends$b.apply(this, arguments);
+  return _extends.apply(this, arguments);
 }
 
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
-
   return self;
 }
 
@@ -314,7 +311,6 @@ function _isNativeReflectConstruct() {
   if (typeof Reflect === "undefined" || !Reflect.construct) return false;
   if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
-
   try {
     Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
     return true;
@@ -336,30 +332,23 @@ function _construct(Parent, args, Class) {
       return instance;
     };
   }
-
   return _construct.apply(null, arguments);
 }
 
 function _wrapNativeSuper(Class) {
   var _cache = typeof Map === "function" ? new Map() : undefined;
-
   _wrapNativeSuper = function _wrapNativeSuper(Class) {
     if (Class === null || !_isNativeFunction(Class)) return Class;
-
     if (typeof Class !== "function") {
       throw new TypeError("Super expression must either be null or a function");
     }
-
     if (typeof _cache !== "undefined") {
       if (_cache.has(Class)) return _cache.get(Class);
-
       _cache.set(Class, Wrapper);
     }
-
     function Wrapper() {
       return _construct(Class, arguments, _getPrototypeOf(this).constructor);
     }
-
     Wrapper.prototype = Object.create(Class.prototype, {
       constructor: {
         value: Wrapper,
@@ -370,7 +359,6 @@ function _wrapNativeSuper(Class) {
     });
     return _setPrototypeOf(Wrapper, Class);
   };
-
   return _wrapNativeSuper(Class);
 }
 
@@ -1225,7 +1213,7 @@ function guard(lowerBoundary, upperBoundary, value) {
 function darken(amount, color) {
   if (color === 'transparent') return color;
   var hslColor = parseToHsl(color);
-  return toColorString(_extends$b({}, hslColor, {
+  return toColorString(_extends({}, hslColor, {
     lightness: guard(0, 1, hslColor.lightness - parseFloat(amount))
   }));
 } // prettier-ignore
@@ -1319,7 +1307,7 @@ function getContrast(color1, color2) {
 function lighten(amount, color) {
   if (color === 'transparent') return color;
   var hslColor = parseToHsl(color);
-  return toColorString(_extends$b({}, hslColor, {
+  return toColorString(_extends({}, hslColor, {
     lightness: guard(0, 1, hslColor.lightness + parseFloat(amount))
   }));
 } // prettier-ignore
@@ -1363,7 +1351,7 @@ function transparentize(amount, color) {
   var parsedColor = parseToRgb(color);
   var alpha = typeof parsedColor.alpha === 'number' ? parsedColor.alpha : 1;
 
-  var colorWithAlpha = _extends$b({}, parsedColor, {
+  var colorWithAlpha = _extends({}, parsedColor, {
     alpha: guard(0, 1, +(alpha * 100 - parseFloat(amount) * 100).toFixed(2) / 100)
   });
 
@@ -1424,6 +1412,71 @@ const useEventListener = (eventName, handler, options, element) => {
         };
     }, [eventName, element]);
 };
+
+const toasterAnimation = styled.keyframes `
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+const Wrapper$1 = styled__default["default"].div `
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  pointer-events: none;
+  padding: 0 ${measurements.large};
+  box-sizing: border-box;
+  display: flex;
+  bottom: 100px;
+  flex-direction: column-reverse;
+`;
+const StyledToaster = styled__default["default"].div `
+  display: flex;
+  margin: ${measurements.small} 0;
+  flex-grow: 1;
+  transition: 0.2s;
+  padding: ${measurements.large};
+  border-radius: ${(props) => props.theme.roundness};
+  position: relative;
+  bottom: 0;
+  right: 0;
+  background-color: ${(props) => props.theme.colors.grayDarkMore};
+  color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 1.25;
+  align-items: center;
+  justify-content: space-between;
+
+  animation-name: ${toasterAnimation};
+  animation-duration: 0.12s;
+  animation-timing-function: linear;
+
+  ${(props) => (props.isClosing ? `transform: translateX(100%); opacity: 0;` : '')}
+  ${(props) => (props.closed ? `display: none;` : '')}
+`;
+const MessageGroup = styled__default["default"].div `
+  display: flex;
+  align-items: center;
+  gap: ${measurements.medium};
+`;
+const CloseButton$1 = styled__default["default"].div `
+  pointer-events: all;
+  cursor: pointer;
+
+  svg {
+    display: block;
+    width: calc(${(p) => p.theme.fontSize} * 1.3);
+    height: calc(${(p) => p.theme.fontSize} * 1.3);
+  }
+`;
+const Content$5 = styled__default["default"].div `
+  display: flex;
+  align-items: center;
+`;
 
 var propTypes = {exports: {}};
 
@@ -2528,507 +2581,18 @@ if (process.env.NODE_ENV !== 'production') {
   propTypes.exports = factoryWithThrowingShims();
 }
 
-var PropTypes = propTypes.exports;
+var Icon$2=function(e){var t={};function r(n){if(t[n])return t[n].exports;var o=t[n]={i:n,l:!1,exports:{}};return e[n].call(o.exports,o,o.exports,r),o.l=!0,o.exports}return r.m=e,r.c=t,r.d=function(e,t,n){r.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n});},r.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0});},r.t=function(e,t){if(1&t&&(e=r(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(r.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)r.d(n,o,function(t){return e[t]}.bind(null,o));return n},r.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return r.d(t,"a",t),t},r.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},r.p="",r(r.s=2)}([function(e,t){e.exports=propTypes.exports;},function(e,t){e.exports=React__default["default"];},function(e,t,r){r.r(t);var n=r(1),o=r(0),l=function(){return (l=Object.assign||function(e){for(var t,r=1,n=arguments.length;r<n;r++)for(var o in t=arguments[r])Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o]);return e}).apply(this,arguments)},i=function(e,t){var r={};for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&t.indexOf(n)<0&&(r[n]=e[n]);if(null!=e&&"function"==typeof Object.getOwnPropertySymbols){var o=0;for(n=Object.getOwnPropertySymbols(e);o<n.length;o++)t.indexOf(n[o])<0&&Object.prototype.propertyIsEnumerable.call(e,n[o])&&(r[n[o]]=e[n[o]]);}return r},a=0,s=n.forwardRef((function(e,t){var r=e.title,o=void 0===r?null:r,s=e.description,c=void 0===s?null:s,u=e.size,p=void 0===u?null:u,f=e.color,d=void 0===f?"currentColor":f,y=e.horizontal,v=void 0===y?null:y,b=e.vertical,m=void 0===b?null:b,h=e.rotate,g=void 0===h?null:h,O=e.spin,w=void 0===O?null:O,j=e.style,z=void 0===j?{}:j,E=e.children,P=i(e,["title","description","size","color","horizontal","vertical","rotate","spin","style","children"]);a++;var S,x=null!==w&&w,_=n.Children.map(E,(function(e){var t=e;!0!==x&&(x=!0===(null===w?t.props.spin:w));var r=t.props.size;"number"==typeof p&&"number"==typeof t.props.size&&(r=t.props.size/p);var o={size:r,color:null===d?t.props.color:d,horizontal:null===v?t.props.horizontal:v,vertical:null===m?t.props.vertical:m,rotate:null===g?t.props.rotate:g,spin:null===w?t.props.spin:w,inStack:!0};return n.cloneElement(t,o)}));null!==p&&(z.width="string"==typeof p?p:1.5*p+"rem");var k,T="stack_labelledby_"+a,q="stack_describedby_"+a;if(o)S=c?T+" "+q:T;else if(k="presentation",c)throw new Error("title attribute required when description is set");return n.createElement("svg",l({ref:t,viewBox:"0 0 24 24",style:z,role:k,"aria-labelledby":S},P),o&&n.createElement("title",{id:T},o),c&&n.createElement("desc",{id:q},c),x&&n.createElement("style",null,"@keyframes spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }","@keyframes spin-inverse { from { transform: rotate(0deg) } to { transform: rotate(-360deg) } }"),_)}));s.displayName="Stack",s.propTypes={size:o.oneOfType([o.number,o.string]),color:o.string,horizontal:o.bool,vertical:o.bool,rotate:o.number,spin:o.oneOfType([o.bool,o.number]),children:o.oneOfType([o.arrayOf(o.node),o.node]).isRequired,className:o.string,style:o.object},s.defaultProps={size:null,color:null,horizontal:null,vertical:null,rotate:null,spin:null};var c=s;r.d(t,"Icon",(function(){return d})),r.d(t,"Stack",(function(){return c}));var u=function(){return (u=Object.assign||function(e){for(var t,r=1,n=arguments.length;r<n;r++)for(var o in t=arguments[r])Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o]);return e}).apply(this,arguments)},p=function(e,t){var r={};for(var n in e)Object.prototype.hasOwnProperty.call(e,n)&&t.indexOf(n)<0&&(r[n]=e[n]);if(null!=e&&"function"==typeof Object.getOwnPropertySymbols){var o=0;for(n=Object.getOwnPropertySymbols(e);o<n.length;o++)t.indexOf(n[o])<0&&Object.prototype.propertyIsEnumerable.call(e,n[o])&&(r[n[o]]=e[n[o]]);}return r},f=0,d=n.forwardRef((function(e,t){var r=e.path,o=e.id,l=void 0===o?++f:o,i=e.title,a=void 0===i?null:i,s=e.description,c=void 0===s?null:s,d=e.size,y=void 0===d?null:d,v=e.color,b=void 0===v?"currentColor":v,m=e.horizontal,h=void 0!==m&&m,g=e.vertical,O=void 0!==g&&g,w=e.rotate,j=void 0===w?0:w,z=e.spin,E=void 0!==z&&z,P=e.style,S=void 0===P?{}:P,x=e.inStack,_=void 0!==x&&x,k=p(e,["path","id","title","description","size","color","horizontal","vertical","rotate","spin","style","inStack"]),T={},q=[];null!==y&&(_?q.push("scale("+y+")"):(S.width="string"==typeof y?y:1.5*y+"rem",S.height=S.width)),h&&q.push("scaleX(-1)"),O&&q.push("scaleY(-1)"),0!==j&&q.push("rotate("+j+"deg)"),null!==b&&(T.fill=b);var M=n.createElement("path",u({d:r,style:T},_?k:{})),C=M;q.length>0&&(S.transform=q.join(" "),S.transformOrigin="center",_&&(C=n.createElement("g",{style:S},M,n.createElement("rect",{width:"24",height:"24",fill:"transparent"}))));var I,N=C,R=!0===E||"number"!=typeof E?2:E,B=!_&&(h||O);if(R<0&&(B=!B),E&&(N=n.createElement("g",{style:{animation:"spin"+(B?"-inverse":"")+" linear "+Math.abs(R)+"s infinite",transformOrigin:"center"}},C,!(h||O||0!==j)&&n.createElement("rect",{width:"24",height:"24",fill:"transparent"}))),_)return N;var X,Y="icon_labelledby_"+l,A="icon_describedby_"+l;if(a)I=c?Y+" "+A:Y;else if(X="presentation",c)throw new Error("title attribute required when description is set");return n.createElement("svg",u({ref:t,viewBox:"0 0 24 24",style:S,role:X,"aria-labelledby":I},k),a&&n.createElement("title",{id:Y},a),c&&n.createElement("desc",{id:A},c),!_&&E&&(B?n.createElement("style",null,"@keyframes spin-inverse { from { transform: rotate(0deg) } to { transform: rotate(-360deg) } }"):n.createElement("style",null,"@keyframes spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }")),N)}));d.displayName="Icon",d.propTypes={path:o.string.isRequired,size:o.oneOfType([o.number,o.string]),color:o.string,horizontal:o.bool,vertical:o.bool,rotate:o.number,spin:o.oneOfType([o.bool,o.number]),style:o.object,inStack:o.bool,className:o.string},d.defaultProps={size:null,color:"currentColor",horizontal:!1,vertical:!1,rotate:0,spin:!1};t.default=d;}]);
 
-function _extends$a() { _extends$a = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$a.apply(this, arguments); }
-
-function _objectWithoutProperties$a(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$a(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$a(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var AlertCircle = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$a(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$a({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("circle", {
-    cx: "12",
-    cy: "12",
-    r: "10"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "12",
-    y1: "8",
-    x2: "12",
-    y2: "12"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "12",
-    y1: "16",
-    x2: "12.01",
-    y2: "16"
-  }));
-});
-AlertCircle.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-AlertCircle.displayName = 'AlertCircle';
-var AlertCircle$1 = AlertCircle;
-
-function _extends$9() { _extends$9 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$9.apply(this, arguments); }
-
-function _objectWithoutProperties$9(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$9(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$9(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var AlertTriangle = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$9(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$9({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("path", {
-    d: "M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "12",
-    y1: "9",
-    x2: "12",
-    y2: "13"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "12",
-    y1: "17",
-    x2: "12.01",
-    y2: "17"
-  }));
-});
-AlertTriangle.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-AlertTriangle.displayName = 'AlertTriangle';
-var AlertTriangle$1 = AlertTriangle;
-
-function _extends$8() { _extends$8 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$8.apply(this, arguments); }
-
-function _objectWithoutProperties$8(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$8(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$8(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var ArrowLeft = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$8(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$8({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "19",
-    y1: "12",
-    x2: "5",
-    y2: "12"
-  }), /*#__PURE__*/React__default["default"].createElement("polyline", {
-    points: "12 19 5 12 12 5"
-  }));
-});
-ArrowLeft.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-ArrowLeft.displayName = 'ArrowLeft';
-var ArrowLeft$1 = ArrowLeft;
-
-function _extends$7() { _extends$7 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$7.apply(this, arguments); }
-
-function _objectWithoutProperties$7(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$7(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$7(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var ArrowRight = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$7(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$7({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "5",
-    y1: "12",
-    x2: "19",
-    y2: "12"
-  }), /*#__PURE__*/React__default["default"].createElement("polyline", {
-    points: "12 5 19 12 12 19"
-  }));
-});
-ArrowRight.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-ArrowRight.displayName = 'ArrowRight';
-var ArrowRight$1 = ArrowRight;
-
-function _extends$6() { _extends$6 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$6.apply(this, arguments); }
-
-function _objectWithoutProperties$6(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$6(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$6(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var CheckCircle = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$6(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$6({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("path", {
-    d: "M22 11.08V12a10 10 0 1 1-5.93-9.14"
-  }), /*#__PURE__*/React__default["default"].createElement("polyline", {
-    points: "22 4 12 14.01 9 11.01"
-  }));
-});
-CheckCircle.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-CheckCircle.displayName = 'CheckCircle';
-var CheckCircle$1 = CheckCircle;
-
-function _extends$5() { _extends$5 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$5.apply(this, arguments); }
-
-function _objectWithoutProperties$5(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$5(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$5(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var Check = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$5(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$5({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("polyline", {
-    points: "20 6 9 17 4 12"
-  }));
-});
-Check.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-Check.displayName = 'Check';
-var Check$1 = Check;
-
-function _extends$4() { _extends$4 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$4.apply(this, arguments); }
-
-function _objectWithoutProperties$4(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$4(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$4(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var ChevronDown = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$4(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$4({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("polyline", {
-    points: "6 9 12 15 18 9"
-  }));
-});
-ChevronDown.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-ChevronDown.displayName = 'ChevronDown';
-var ChevronDown$1 = ChevronDown;
-
-function _extends$3() { _extends$3 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$3.apply(this, arguments); }
-
-function _objectWithoutProperties$3(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$3(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$3(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var ChevronUp = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$3(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$3({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("polyline", {
-    points: "18 15 12 9 6 15"
-  }));
-});
-ChevronUp.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-ChevronUp.displayName = 'ChevronUp';
-var ChevronUp$1 = ChevronUp;
-
-function _extends$2() { _extends$2 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$2.apply(this, arguments); }
-
-function _objectWithoutProperties$2(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$2(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$2(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var Info = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$2(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$2({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("circle", {
-    cx: "12",
-    cy: "12",
-    r: "10"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "12",
-    y1: "16",
-    x2: "12",
-    y2: "12"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "12",
-    y1: "8",
-    x2: "12.01",
-    y2: "8"
-  }));
-});
-Info.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-Info.displayName = 'Info';
-var Info$1 = Info;
-
-function _extends$1() { _extends$1 = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends$1.apply(this, arguments); }
-
-function _objectWithoutProperties$1(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose$1(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose$1(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var Search = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties$1(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends$1({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("circle", {
-    cx: "11",
-    cy: "11",
-    r: "8"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "21",
-    y1: "21",
-    x2: "16.65",
-    y2: "16.65"
-  }));
-});
-Search.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-Search.displayName = 'Search';
-var Search$1 = Search;
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-var X = React.forwardRef(function (_ref, ref) {
-  var _ref$color = _ref.color,
-      color = _ref$color === void 0 ? 'currentColor' : _ref$color,
-      _ref$size = _ref.size,
-      size = _ref$size === void 0 ? 24 : _ref$size,
-      rest = _objectWithoutProperties(_ref, ["color", "size"]);
-
-  return /*#__PURE__*/React__default["default"].createElement("svg", _extends({
-    ref: ref,
-    xmlns: "http://www.w3.org/2000/svg",
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: color,
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  }, rest), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "18",
-    y1: "6",
-    x2: "6",
-    y2: "18"
-  }), /*#__PURE__*/React__default["default"].createElement("line", {
-    x1: "6",
-    y1: "6",
-    x2: "18",
-    y2: "18"
-  }));
-});
-X.propTypes = {
-  color: PropTypes.string,
-  size: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-};
-X.displayName = 'X';
-var X$1 = X;
-
-const toasterAnimation = styled.keyframes `
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
-const Wrapper$1 = styled__default["default"].div `
-  z-index: 99999;
-  position: fixed;
-  width: 100%;
-  pointer-events: none;
-  padding: 0 ${measurements.large};
-  box-sizing: border-box;
-  display: flex;
-  bottom: 100px;
-  flex-direction: column-reverse;
-`;
-const StyledToaster = styled__default["default"].div `
-  display: flex;
-  margin: ${measurements.small} 0;
-  flex-grow: 1;
-  transition: 0.2s;
-  padding: ${measurements.large};
-  border-radius: ${(props) => props.theme.roundness};
-  position: relative;
-  bottom: 0;
-  right: 0;
-  background-color: ${(props) => props.theme.colors.grayDarkMore};
-  color: ${(props) => getContrastColor(props.theme, props.theme.colors.grayDarkMore)};
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  line-height: 1.25;
-  align-items: center;
-  justify-content: space-between;
-
-  animation-name: ${toasterAnimation};
-  animation-duration: 0.12s;
-  animation-timing-function: linear;
-
-  ${(props) => (props.isClosing ? `transform: translateX(100%); opacity: 0;` : '')}
-  ${(props) => (props.closed ? `display: none;` : '')}
-`;
-const MessageGroup = styled__default["default"].div `
-  display: flex;
-  align-items: center;
-  gap: ${measurements.medium};
-`;
-const CloseButton$1 = styled__default["default"].div `
-  pointer-events: all;
-  cursor: pointer;
-
-  svg {
-    display: block;
-    width: calc(${(p) => p.theme.fontSize} * 1.3);
-    height: calc(${(p) => p.theme.fontSize} * 1.3);
-  }
-`;
-const Content$5 = styled__default["default"].div `
-  display: flex;
-  align-items: center;
-`;
+// Material Design Icons v7.2.96
+var mdiAlert = "M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z";
+var mdiArrowLeft = "M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z";
+var mdiArrowRight = "M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z";
+var mdiCheck = "M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z";
+var mdiChevronDown = "M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z";
+var mdiChevronUp = "M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z";
+var mdiClose = "M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z";
+var mdiInformation = "M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z";
+var mdiMagnify = "M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z";
 
 const ToasterMessage = ({ toaster, onDelete }) => {
     const [isClosing, setIsClosing] = React.useState(false);
@@ -3057,13 +2621,13 @@ const ToasterMessage = ({ toaster, onDelete }) => {
         let icon = null;
         switch (toaster.variant) {
             case 'success':
-                icon = React__default["default"].createElement(CheckCircle$1, { className: "tui-toaster-icon", size: "16" });
+                icon = React__default["default"].createElement(Icon$2, { path: mdiCheck, size: 1 });
                 break;
             case 'error':
-                icon = React__default["default"].createElement(AlertCircle$1, { className: "tui-toaster-icon", size: "16" });
+                icon = React__default["default"].createElement(Icon$2, { path: mdiAlert, size: 1 });
                 break;
             case 'info':
-                icon = React__default["default"].createElement(Info$1, { className: "tui-toaster-icon", size: "16" });
+                icon = React__default["default"].createElement(Icon$2, { path: mdiInformation, size: 1 });
                 break;
         }
         return icon;
@@ -3073,7 +2637,7 @@ const ToasterMessage = ({ toaster, onDelete }) => {
             return null;
         }
         return (React__default["default"].createElement(CloseButton$1, { className: "tui-toaster-close-button", onClick: () => closeToaster() },
-            React__default["default"].createElement(X$1, null)));
+            React__default["default"].createElement(Icon$2, { path: mdiClose, size: 1 })));
     };
     return (React__default["default"].createElement(StyledToaster, { closed: closed, isClosing: isClosing, className: getClasses },
         React__default["default"].createElement(MessageGroup, null,
@@ -3232,16 +2796,16 @@ const Notification = ({ type, message, children, className }) => {
         let icon;
         switch (type) {
             case 'success':
-                icon = React__default["default"].createElement(CheckCircle$1, null);
+                icon = React__default["default"].createElement(Icon$2, { path: mdiCheck, size: 1 });
                 break;
             case 'info':
-                icon = React__default["default"].createElement(Info$1, null);
+                icon = React__default["default"].createElement(Icon$2, { path: mdiInformation, size: 1 });
                 break;
             case 'warning':
-                icon = React__default["default"].createElement(AlertTriangle$1, null);
+                icon = React__default["default"].createElement(Icon$2, { path: mdiAlert, size: 1 });
                 break;
             case 'error':
-                icon = React__default["default"].createElement(AlertCircle$1, null);
+                icon = React__default["default"].createElement(Icon$2, { path: mdiAlert, size: 1 });
                 break;
             default:
                 icon = '';
@@ -3344,9 +2908,9 @@ const ExpanderContent = styled__default["default"].div `
 const Expander = ({ title = '', children, expanded = false, className }) => {
     const [expandedState, setExpandedState] = React.useState(expanded);
     const renderArrow = () => {
-        let arrow = React__default["default"].createElement(ChevronDown$1, null);
+        let arrow = React__default["default"].createElement(Icon$2, { path: mdiChevronDown, size: 1 });
         if (expandedState) {
-            arrow = React__default["default"].createElement(ChevronUp$1, null);
+            arrow = React__default["default"].createElement(Icon$2, { path: mdiChevronUp, size: 1 });
         }
         return arrow;
     };
@@ -3554,16 +3118,7 @@ const Button = ({ children, onClick, className, loading = false, icon, disabled 
         if (!icon) {
             return null;
         }
-        let iconSize = 14;
-        switch (props.size) {
-            case 'small':
-                iconSize = 11;
-                break;
-            case 'large':
-                iconSize = 22;
-                break;
-        }
-        return (React__default["default"].createElement(Icon, { className: "tui-button-icon", "$iconOnly": iconOnly }, React.cloneElement(icon, { size: iconSize })));
+        return (React__default["default"].createElement(Icon, { className: "tui-button-icon", "$iconOnly": iconOnly }, React.cloneElement(icon, { size: '1em' })));
     };
     const getClass = () => {
         return ['tui-button', isLoading ? 'tui-button-loading' : '', className].join(' ');
@@ -3791,7 +3346,7 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
         if (!props.icon) {
             return null;
         }
-        return React.cloneElement(props.icon, { size: 16 });
+        return React.cloneElement(props.icon, { size: '1.3em' });
     };
     const renderLabel = () => {
         if (!label) {
@@ -3804,7 +3359,7 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
             return null;
         }
         return (React__default["default"].createElement(ClearIcon, { className: "tui-clear-icon", onClick: () => onClear() },
-            React__default["default"].createElement(X$1, { size: 16 })));
+            React__default["default"].createElement(Icon$2, { path: mdiClose, size: "1.3em" })));
     };
     const getClassNames = () => ['tui-input', className, valid ? '' : 'tui-input-invalid'].join(' ');
     return (React__default["default"].createElement(StyledInputField, { "data-test-id": testId, className: getClassNames(), ...props },
@@ -3850,7 +3405,7 @@ const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, 
         }
         onClear();
     };
-    return (React__default["default"].createElement(InputField, { className: `${className} tui-search-field`, icon: React__default["default"].createElement(Search$1, null), value: searchString, placeholder: placeholder, label: label, onChange: (e) => handleChange(e), onClear: () => handleClear(), testId: testId }));
+    return (React__default["default"].createElement(InputField, { className: `${className} tui-search-field`, icon: React__default["default"].createElement(Icon$2, { path: mdiMagnify }), value: searchString, placeholder: placeholder, label: label, onChange: (e) => handleChange(e), onClear: () => handleClear(), testId: testId }));
 };
 
 const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', className, }) => {
@@ -3871,7 +3426,7 @@ const Select = ({ items = [], value, onChange, width = 'auto', label, disabled =
                     onChange(valueSelected);
                 } }, renderOptions),
             React__default["default"].createElement(SelectIcon, null,
-                React__default["default"].createElement(ChevronDown$1, { className: "tui-icon" })))));
+                React__default["default"].createElement(Icon$2, { path: mdiChevronDown, size: 1 })))));
 };
 
 const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'right', className }) => {
@@ -3885,7 +3440,7 @@ const CheckBox = ({ label = '', checked = false, onCheck, checkboxPlacement = 'r
         React__default["default"].createElement("label", null,
             checkboxPlacement === 'right' && renderLabel(),
             React__default["default"].createElement("input", { className: "tui-input tui-checkbox", type: "checkbox", hidden: true, checked: checked, onChange: (e) => onCheck(e.target.checked) }),
-            React__default["default"].createElement(CheckBoxContent, { active: checked }, checked && React__default["default"].createElement(Check$1, null)),
+            React__default["default"].createElement(CheckBoxContent, { active: checked }, checked && React__default["default"].createElement(Icon$2, { path: mdiCheck })),
             checkboxPlacement === 'left' && renderLabel())));
 };
 
@@ -4606,7 +4161,7 @@ const Modal = ({ children, onClose, onOpen, open, fillContent, className }) => {
             return null;
         }
         return (React__default["default"].createElement(CloseButton, { className: "tui-modal-close", onClick: () => closeModal() },
-            React__default["default"].createElement(X$1, null)));
+            React__default["default"].createElement(Icon$2, { path: mdiClose, size: 1 })));
     };
     const getClasses = ['tui-modal', isClosing ? 'tui-modal-closing' : '', className].join(' ');
     if (closed) {
@@ -4685,13 +4240,13 @@ const Stepper = ({ steps, step = 0, loop, fillContent = false, hideArrows, indic
         if (currentStep >= steps.length - 1 && !loop) {
             return React__default["default"].createElement("span", null);
         }
-        return (React__default["default"].createElement(NavigationButton, { className: "tui-stepper-next-button", icon: React__default["default"].createElement(ArrowRight$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => nextStep() }));
+        return (React__default["default"].createElement(NavigationButton, { className: "tui-stepper-next-button", icon: React__default["default"].createElement(Icon$2, { path: mdiArrowRight }), iconOnly: true, size: "large", appearance: "text", onClick: () => nextStep() }));
     };
     const renderPrevStepButton = () => {
         if (currentStep <= 0 && !loop) {
             return React__default["default"].createElement("span", null);
         }
-        return (React__default["default"].createElement(NavigationButton, { className: "tui-stepper-prev-button", icon: React__default["default"].createElement(ArrowLeft$1, null), iconOnly: true, size: "large", appearance: "text", onClick: () => prevStep() }));
+        return (React__default["default"].createElement(NavigationButton, { className: "tui-stepper-prev-button", icon: React__default["default"].createElement(Icon$2, { path: mdiArrowLeft }), iconOnly: true, size: "large", appearance: "text", onClick: () => prevStep() }));
     };
     return (React__default["default"].createElement(StepperStyle, { className: `${className} tui-stepper` },
         renderStepContent(),
@@ -4854,7 +4409,7 @@ const Popup = ({ title = '', open = false, onClose, onOpen = () => { }, name, ch
         if (!onClose) {
             return null;
         }
-        return (React__default["default"].createElement(Button, { appearance: "text", icon: React__default["default"].createElement(X$1, null), variant: "primary", onClick: () => closePopup() }, closeText));
+        return (React__default["default"].createElement(Button, { appearance: "text", icon: React__default["default"].createElement(Icon$2, { path: mdiClose }), variant: "primary", onClick: () => closePopup() }, closeText));
     };
     const renderButtons = () => {
         if (!buttons) {

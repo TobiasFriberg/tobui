@@ -1,6 +1,7 @@
+import Icon from '@mdi/react';
 import { InputField } from './inputfield';
 import React, { useEffect, useState } from 'react';
-import { Search } from 'react-feather';
+import { mdiMagnify } from '@mdi/js';
 
 type Props = {
   handleSearch: (query: string) => void;
@@ -67,7 +68,7 @@ export const SearchField = ({
   return (
     <InputField
       className={`${className} tui-search-field`}
-      icon={<Search />}
+      icon={<Icon path={mdiMagnify} />}
       value={searchString}
       placeholder={placeholder}
       label={label}

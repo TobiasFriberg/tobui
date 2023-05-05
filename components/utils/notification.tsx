@@ -1,6 +1,7 @@
 import React from 'react';
-import { AlertCircle, AlertTriangle, CheckCircle, Info } from 'react-feather';
-import { Icon, Message, StyledNotification } from './notification.style';
+import { Icon as IconStyle, Message, StyledNotification } from './notification.style';
+import Icon from '@mdi/react';
+import { mdiAlert, mdiCheck, mdiInformation } from '@mdi/js';
 
 export interface NotificationTypes {
   type: 'success' | 'info' | 'warning' | 'error';
@@ -19,16 +20,16 @@ export const Notification = ({ type, message, children, className }: Notificatio
 
     switch (type) {
       case 'success':
-        icon = <CheckCircle />;
+        icon = <Icon path={mdiCheck} size={1} />;
         break;
       case 'info':
-        icon = <Info />;
+        icon = <Icon path={mdiInformation} size={1} />;
         break;
       case 'warning':
-        icon = <AlertTriangle />;
+        icon = <Icon path={mdiAlert} size={1} />;
         break;
       case 'error':
-        icon = <AlertCircle />;
+        icon = <Icon path={mdiAlert} size={1} />;
         break;
       default:
         icon = '';
@@ -39,9 +40,9 @@ export const Notification = ({ type, message, children, className }: Notificatio
 
   return (
     <StyledNotification type={type} className={`${className} tui-notification tui-${type}`}>
-      <Icon type={type} className="tui-notification-icon">
+      <IconStyle type={type} className="tui-notification-icon">
         {renderIcon()}
-      </Icon>
+      </IconStyle>
       <Message className="tui-notification-message">{children || message}</Message>
     </StyledNotification>
   );

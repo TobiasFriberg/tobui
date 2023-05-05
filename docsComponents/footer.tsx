@@ -1,7 +1,8 @@
 import React from 'react';
-import { GitHub, Package } from 'react-feather';
 import { Flex } from '../components/view/view.style';
 import { StyledFooter } from './style';
+import Icon from '@mdi/react';
+import { mdiGithub, mdiPackage } from '@mdi/js';
 
 type Props = {};
 
@@ -9,10 +10,10 @@ export const Footer = ({}: Props) => {
   return (
     <StyledFooter>
       <Flex $verticalAlign="center" $gap="5px">
-        <Package /> <div>npm i github:TobiasFriberg/tobui</div>
+        <Icon path={mdiPackage} size={1} /> <div>npm i github:TobiasFriberg/tobui</div>
       </Flex>
       <Flex $verticalAlign="center" $gap="5px">
-        <GitHub />
+        <Icon path={mdiGithub} size={1} />
         <a target="_blank" href="https://github.com/TobiasFriberg/tobui">
           Fork me on GitHub
         </a>

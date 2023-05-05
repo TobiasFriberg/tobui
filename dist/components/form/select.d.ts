@@ -4,7 +4,7 @@ export interface ISelectItem {
     label: string;
     value: string;
 }
-declare type SelectProps = {
+type SelectProps = {
     items: ISelectItem[];
     label?: string;
     width?: string;

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type Props = {
+type Props = {
     title: string;
     children: Object;
     expanded?: boolean;

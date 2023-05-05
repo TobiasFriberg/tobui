@@ -1,5 +1,5 @@
 import React from 'react';
-declare type ModalProps = {
+type ModalProps = {
     children: React.ReactNode;
     open: boolean;
     fillContent?: boolean;

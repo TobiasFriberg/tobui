@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-declare type InputFieldProps = {
+type InputFieldProps = {
     iconPosition?: 'left' | 'right';
     icon?: ReactElement | null;
     invalid?: boolean;

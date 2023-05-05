@@ -1,4 +1,4 @@
-declare type PopupProps = {
+type PopupProps = {
     open: boolean;
     theme: any;
     $fullscreen: boolean;

@@ -1,4 +1,4 @@
-declare type position = 'down' | 'up' | 'left' | 'right';
+type position = 'down' | 'up' | 'left' | 'right';
 export declare const StyledDropdown: import("styled-components").StyledComponent<"div", any, {
     modal: boolean;
 }, never>;

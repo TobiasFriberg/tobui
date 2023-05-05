@@ -1,4 +1,4 @@
-declare type FlexProps = {
+type FlexProps = {
     $direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
     $gap?: string;
     $breakpoint?: 'tablet' | 'phone';

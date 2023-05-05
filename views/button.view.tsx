@@ -4,8 +4,9 @@ import txt from '../docsComponents/examples/button.example';
 import { Button } from '../components/form';
 import { List, ListItem } from '../components/list';
 import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
-import { LogIn } from 'react-feather';
 import { Flex } from '../components/view/view.style';
+import Icon from '@mdi/react';
+import { mdiLogin } from '@mdi/js';
 
 export const ButtonView = () => {
   const description = `A button is a universal component, used in a lot of different cases. Return the promise function to have the button add a spinner while the function is running, to prevent calling for the function again.`;
@@ -103,7 +104,7 @@ export const ButtonView = () => {
           <div>
             <Button
               variant="primary"
-              icon={<LogIn />}
+              icon={<Icon path={mdiLogin} />}
               onClick={() => {
                 return new Promise<void>((resolve) => {
                   return setTimeout(() => {

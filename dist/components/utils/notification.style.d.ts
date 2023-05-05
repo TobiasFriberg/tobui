@@ -1,5 +1,5 @@
-declare type Type = 'success' | 'info' | 'warning' | 'error';
-declare type NotificationProps = {
+type Type = 'success' | 'info' | 'warning' | 'error';
+type NotificationProps = {
     theme: any;
     type: Type;
 };

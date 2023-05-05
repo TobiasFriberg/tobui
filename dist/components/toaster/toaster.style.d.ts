@@ -1,5 +1,5 @@
-declare type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
-declare type ToasterProps = {
+type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
+type ToasterProps = {
     variant?: Variants;
     theme: any;
 };

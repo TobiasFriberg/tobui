@@ -1,7 +1,8 @@
 import React, { useState, ReactNode, useEffect } from 'react';
 import { NavigationButton, StepperContent, StepperIndicator, StepperStyle } from './stepper.style';
 import { Flex } from '../view/view.style';
-import { ArrowLeft, ArrowRight } from 'react-feather';
+import Icon from '@mdi/react';
+import { mdiArrowLeft, mdiArrowRight } from '@mdi/js';
 
 type StepperProps = {
   steps: ReactNode[];
@@ -92,7 +93,7 @@ export const Stepper = ({
     return (
       <NavigationButton
         className="tui-stepper-next-button"
-        icon={<ArrowRight />}
+        icon={<Icon path={mdiArrowRight} />}
         iconOnly
         size="large"
         appearance="text"
@@ -109,7 +110,7 @@ export const Stepper = ({
     return (
       <NavigationButton
         className="tui-stepper-prev-button"
-        icon={<ArrowLeft />}
+        icon={<Icon path={mdiArrowLeft} />}
         iconOnly
         size="large"
         appearance="text"

@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-declare type Props = {
+type Props = {
     value: string;
     onChange: (e: any) => void;
     autoComplete?: string;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { X } from 'react-feather';
 import { StyledModal, CloseButton, Content } from './modal.style';
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
 
 type ModalProps = {
   children: React.ReactNode;
@@ -42,7 +43,7 @@ export const Modal = ({ children, onClose, onOpen, open, fillContent, className 
 
     return (
       <CloseButton className="tui-modal-close" onClick={() => closeModal()}>
-        <X />
+        <Icon path={mdiClose} size={1} />
       </CloseButton>
     );
   };

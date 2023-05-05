@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type Props = {
+type Props = {
     size?: string;
     light?: boolean;
     fillPage?: boolean;

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-declare type StepperProps = {
+type StepperProps = {
     steps: ReactNode[];
     step?: number;
     loop?: boolean;

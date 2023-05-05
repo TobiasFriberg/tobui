@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-declare type Props = {
+type Props = {
     children: ReactNode;
     content: ReactNode;
     position?: 'down' | 'up' | 'left' | 'right';

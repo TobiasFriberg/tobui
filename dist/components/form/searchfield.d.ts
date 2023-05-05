@@ -1,5 +1,5 @@
 /// <reference types="react" />
-declare type Props = {
+type Props = {
     handleSearch: (query: string) => void;
     onClear?: () => void;
     placeholder?: string;

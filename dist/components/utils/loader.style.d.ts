@@ -1,4 +1,4 @@
-declare type LoaderProps = {
+type LoaderProps = {
     small?: boolean;
     light?: boolean;
     theme: any;

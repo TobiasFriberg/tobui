@@ -1,4 +1,4 @@
-declare type StyleCardProps = {
+type StyleCardProps = {
     $wrap: boolean;
     $imagePlacement: 'top' | 'bottom' | 'left' | 'right';
 };

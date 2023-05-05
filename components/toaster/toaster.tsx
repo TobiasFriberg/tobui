@@ -1,7 +1,8 @@
 import { useEventListener } from '../../hooks';
 import React, { useEffect, useState, useRef } from 'react';
-import { AlertCircle, CheckCircle, Info, X } from 'react-feather';
 import { Wrapper, StyledToaster, MessageGroup, Content, CloseButton } from './toaster.style';
+import Icon from '@mdi/react';
+import { mdiAlert, mdiCheck, mdiClose, mdiInformation } from '@mdi/js';
 
 type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
 
@@ -49,13 +50,13 @@ const ToasterMessage = ({ toaster, onDelete }: ToasterMessageProps) => {
     let icon = null;
     switch (toaster.variant) {
       case 'success':
-        icon = <CheckCircle className="tui-toaster-icon" size="16" />;
+        icon = <Icon path={mdiCheck} size={1} />;
         break;
       case 'error':
-        icon = <AlertCircle className="tui-toaster-icon" size="16" />;
+        icon = <Icon path={mdiAlert} size={1} />;
         break;
       case 'info':
-        icon = <Info className="tui-toaster-icon" size="16" />;
+        icon = <Icon path={mdiInformation} size={1} />;
         break;
       default:
         break;
@@ -70,7 +71,7 @@ const ToasterMessage = ({ toaster, onDelete }: ToasterMessageProps) => {
     }
     return (
       <CloseButton className="tui-toaster-close-button" onClick={() => closeToaster()}>
-        <X />
+        <Icon path={mdiClose} size={1} />
       </CloseButton>
     );
   };

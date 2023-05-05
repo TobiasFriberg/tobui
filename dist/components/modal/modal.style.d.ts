@@ -1,4 +1,4 @@
-declare type ModalProps = {
+type ModalProps = {
     iconPosition?: 'left' | 'right';
     closing: boolean;
     invalid?: boolean;

@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-declare type Props = {
+type Props = {
     children?: ReactNode;
     onClick: () => void | Promise<any>;
     variant?: 'primary' | 'secondary' | 'alternative' | 'danger' | 'gradient';

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'react-feather';
 import { ExpanderButton, ExpanderContent } from './expander.style';
+import Icon from '@mdi/react';
+import { mdiChevronDown, mdiChevronUp } from '@mdi/js';
 
 type Props = {
   title: string;
@@ -13,10 +14,10 @@ export const Expander = ({ title = '', children, expanded = false, className }: 
   const [expandedState, setExpandedState] = useState<boolean>(expanded);
 
   const renderArrow = () => {
-    let arrow = <ChevronDown />;
+    let arrow = <Icon path={mdiChevronDown} size={1} />;
 
     if (expandedState) {
-      arrow = <ChevronUp />;
+      arrow = <Icon path={mdiChevronUp} size={1} />;
     }
     return arrow;
   };

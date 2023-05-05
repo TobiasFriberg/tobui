@@ -58,8 +58,9 @@
     "yalc": "^1.0.0-pre.53"
   },
   "dependencies": {
-    "polished": "^4.1.4",
-    "react-feather": "^2.0.9"
+    "@mdi/js": "^7.2.96",
+    "@mdi/react": "^1.6.1",
+    "polished": "^4.1.4"
   },
   "peerDependencies": {
     "react": "^18.2.0",

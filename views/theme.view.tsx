@@ -44,9 +44,9 @@ export default App;
       <DocumentationTemplate title="Theme/styling" description={description} example={example} options={options} />
       <h4>Icons</h4>
       <p>
-        For icons, tobUI uses feather icons, you can find all the icons here{' '}
-        <a href="https://feathericons.com" target="_blank">
-          Feathericons.com
+        For icons, tobUI uses mdi, you can find all the icons here{' '}
+        <a href="https://materialdesignicons.com" target="_blank">
+          materialdesignicons.com
         </a>
       </p>
     </>

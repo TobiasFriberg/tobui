@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-declare type Props = {
+type Props = {
     title?: string;
     open?: boolean;
     name?: string;

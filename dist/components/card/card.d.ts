@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-declare type CardProps = {
+type CardProps = {
     children?: ReactNode;
     image?: ReactNode;
     imagePlacement?: 'top' | 'bottom' | 'left' | 'right';

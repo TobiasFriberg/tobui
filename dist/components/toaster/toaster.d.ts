@@ -1,6 +1,6 @@
 /// <reference types="react" />
-declare type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
-declare type ToastMessage = {
+type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
+type ToastMessage = {
     id?: number;
     text: string;
     sticky?: boolean;

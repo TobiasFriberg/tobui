@@ -7,9 +7,10 @@ import InputSelectExample from '../docsComponents/examples/inputselect.example';
 import InputCheckboxExample from '../docsComponents/examples/inputcheckbox.example';
 import { List, ListItem } from '../components/list';
 import { CheckBox, InputField, SearchField, Select } from '../components/form';
-import { Lock } from 'react-feather';
 import { Loader } from '../components/utils';
 import { DocumentationTemplate } from '../docsComponents/documentationtemplate';
+import Icon from '@mdi/react';
+import { mdiLock } from '@mdi/js';
 
 let timer: NodeJS.Timeout;
 const searchable = ['John', 'Marie', 'Steve', 'Julie'];
@@ -75,7 +76,7 @@ export const InputView = () => {
       </div>
       <div>
         <InputField
-          icon={<Lock />}
+          icon={<Icon path={mdiLock} />}
           type="password"
           label="Password field"
           placeholder="Schh.. it's a secret"
