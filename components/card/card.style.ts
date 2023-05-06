@@ -33,8 +33,8 @@ export const StyledCard = styled.div<StyleCardProps>`
   }
 `;
 
-export const Content = styled.div`
-  padding: ${measurements.medium};
+export const Content = styled.div<{ $padding?: boolean }>`
+  ${(p) => p.$padding && `padding: ${measurements.medium}`};
 `;
 
 export const ImageWrapper = styled.div`

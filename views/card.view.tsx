@@ -9,7 +9,7 @@ export const CardView = () => {
   const description = `Cards can be used to highlight content, with or without image.`;
 
   const example = (
-    <Card wrap image={<img src="https://via.placeholder.com/250" />}>
+    <Card wrap padding image={<img src="https://via.placeholder.com/250" />}>
       Hello
     </Card>
   );
@@ -20,6 +20,7 @@ export const CardView = () => {
         <div>children</div>
         <ListItem title="wrap">boolean</ListItem>
         <ListItem title="maxHeight">number</ListItem>
+        <ListItem title="padding">boolean</ListItem>
         <ListItem title="image">HTMLElement</ListItem>
         <ListItem title="imagePlacement">'top' | 'bottom' | 'left' | 'right';</ListItem>
       </List>

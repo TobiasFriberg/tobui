@@ -8,15 +8,24 @@ type CardProps = {
   maxHeight?: number;
   wrap?: boolean;
   className?: string;
+  padding?: boolean;
 };
 
-export const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top', className }: CardProps) => {
+export const Card = ({
+  children,
+  maxHeight,
+  image,
+  wrap = false,
+  imagePlacement = 'top',
+  className,
+  padding,
+}: CardProps) => {
   const renderContent = () => {
     if (!children) {
       return null;
     }
 
-    return <Content>{children}</Content>;
+    return <Content $padding={padding}>{children}</Content>;
   };
 
   const renderImage = () => {

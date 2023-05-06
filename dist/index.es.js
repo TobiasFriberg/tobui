@@ -2566,7 +2566,7 @@ const StyledCard = styled.div `
   }
 `;
 const Content$3 = styled.div `
-  padding: ${measurements.medium};
+  ${(p) => p.$padding && `padding: ${measurements.medium}`};
 `;
 const ImageWrapper = styled.div `
   img {
@@ -2577,12 +2577,12 @@ const ImageWrapper = styled.div `
   }
 `;
 
-const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top', className }) => {
+const Card = ({ children, maxHeight, image, wrap = false, imagePlacement = 'top', className, padding, }) => {
     const renderContent = () => {
         if (!children) {
             return null;
         }
-        return React.createElement(Content$3, null, children);
+        return React.createElement(Content$3, { "$padding": padding }, children);
     };
     const renderImage = () => {
         if (!image) {
