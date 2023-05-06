@@ -240,6 +240,7 @@ p {
   line-height: 1.39;
   letter-spacing: 0.2px;
   margin: 6px 0;
+  white-space: pre-line;
 }
 
 b {
@@ -1465,6 +1466,10 @@ const MessageGroup = styled__default["default"].div `
   display: flex;
   align-items: center;
   gap: ${measurements.medium};
+
+  > svg {
+    flex-shrink: 0;
+  }
 `;
 const CloseButton$1 = styled__default["default"].div `
   pointer-events: all;

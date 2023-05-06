@@ -77,6 +77,10 @@ export const MessageGroup = styled.div`
   display: flex;
   align-items: center;
   gap: ${measurements.medium};
+
+  > svg {
+    flex-shrink: 0;
+  }
 `;
 
 export const CloseButton = styled.div`

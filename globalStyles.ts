@@ -190,6 +190,7 @@ p {
   line-height: 1.39;
   letter-spacing: 0.2px;
   margin: 6px 0;
+  white-space: pre-line;
 }
 
 b {
