@@ -6,6 +6,8 @@ import { mdiClose } from '@mdi/js';
 type Props = {
   value: string;
   onChange: (e: any) => void;
+  onBlur?: () => void;
+  onFocus?: () => void;
   autoComplete?: string;
   label?: string;
   placeholder?: string;
@@ -36,6 +38,8 @@ export const InputField = ({
   onClear,
   testId = 'input',
   autoComplete = 'on',
+  onBlur,
+  onFocus,
   ...props
 }: Props) => {
   const [valid, setValid] = useState(true);
@@ -66,6 +70,8 @@ export const InputField = ({
           value={value}
           onChange={(e) => handleOnChange(e.target.value)}
           placeholder={placeholder}
+          onBlur={(e) => onBlur && onBlur()}
+          onFocus={() => onFocus && onFocus()}
         />
       );
     }
@@ -77,6 +83,8 @@ export const InputField = ({
         value={value}
         rows={rows}
         placeholder={placeholder}
+        onBlur={(e) => onBlur && onBlur()}
+        onFocus={() => onFocus && onFocus()}
       />
     );
   };

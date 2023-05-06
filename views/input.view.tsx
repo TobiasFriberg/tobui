@@ -142,6 +142,8 @@ export const InputView = () => {
         <ListItem title="label">string</ListItem>
         <ListItem title="items*">SelectObject[]</ListItem>
         <ListItem title="onChange*">function</ListItem>
+        <ListItem title="onFocus">function</ListItem>
+        <ListItem title="onBlur">function</ListItem>
         <ListItem title="disabled">boolean</ListItem>
         <ListItem title="value">string</ListItem>
         <ListItem title="width">string</ListItem>

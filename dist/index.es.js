@@ -2200,7 +2200,7 @@ const CheckBoxContent = styled.div `
   }
 `;
 
-const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', value = '', onChange, className = '', iconPosition = 'left', placeholder = '', width = 'auto', validator, onClear, testId = 'input', autoComplete = 'on', ...props }) => {
+const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', value = '', onChange, className = '', iconPosition = 'left', placeholder = '', width = 'auto', validator, onClear, testId = 'input', autoComplete = 'on', onBlur, onFocus, ...props }) => {
     const [valid, setValid] = useState(true);
     useEffect(() => {
         if (validator) {
@@ -2217,9 +2217,9 @@ const InputField = ({ type = 'text', multiline = false, rows = 4, label = '', va
     };
     const renderInput = () => {
         if (!multiline) {
-            return (React.createElement("input", { autoComplete: autoComplete, type: type, value: value, onChange: (e) => handleOnChange(e.target.value), placeholder: placeholder }));
+            return (React.createElement("input", { autoComplete: autoComplete, type: type, value: value, onChange: (e) => handleOnChange(e.target.value), placeholder: placeholder, onBlur: (e) => onBlur && onBlur(), onFocus: () => onFocus && onFocus() }));
         }
-        return (React.createElement("textarea", { autoComplete: autoComplete, onChange: (e) => handleOnChange(e.target.value), value: value, rows: rows, placeholder: placeholder }));
+        return (React.createElement("textarea", { autoComplete: autoComplete, onChange: (e) => handleOnChange(e.target.value), value: value, rows: rows, placeholder: placeholder, onBlur: (e) => onBlur && onBlur(), onFocus: () => onFocus && onFocus() }));
     };
     const renderIcon = () => {
         if (!props.icon) {
