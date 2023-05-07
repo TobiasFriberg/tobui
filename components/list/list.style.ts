@@ -5,6 +5,7 @@ type ListProps = {
   theme: any;
   $padded: boolean;
   $lines: boolean;
+  $edgeLines: boolean;
 };
 
 export const StyledList = styled.div<ListProps>`
@@ -20,8 +21,13 @@ export const StyledList = styled.div<ListProps>`
   ${(p) =>
     p.$lines &&
     `
-    border-top: 1px solid ${p.theme.colors.grayLightMore};
-    border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+    ${
+      p.$edgeLines &&
+      `
+      border-top: 1px solid ${p.theme.colors.grayLightMore};
+      border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+    `
+    }
 
     & > *:hover {
       background-color: ${p.theme.colors.grayLightEvenMore};

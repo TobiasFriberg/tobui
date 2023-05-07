@@ -19,7 +19,7 @@ export const ListView = () => {
         <span>Padded item 02</span>
         <span>Padded item 03</span>
       </List>
-      <List padding lines>
+      <List padding lines removeEdgeLines>
         <span>Padded with lines item 01</span>
         <span>Padded with lines item 02</span>
         <span>Padded with lines item 03</span>
@@ -33,6 +33,7 @@ export const ListView = () => {
         <div>children*</div>
         <ListItem title="padding">boolean</ListItem>
         <ListItem title="lines">boolean</ListItem>
+        <ListItem title="removeEdgeLines">boolean</ListItem>
         <ListItem title="className">string</ListItem>
       </List>
       <span>* = required</span>

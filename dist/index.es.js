@@ -2507,8 +2507,11 @@ const StyledList = styled.div `
 
   ${(p) => p.$lines &&
     `
-    border-top: 1px solid ${p.theme.colors.grayLightMore};
-    border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+    ${p.$edgeLines &&
+        `
+      border-top: 1px solid ${p.theme.colors.grayLightMore};
+      border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+    `}
 
     & > *:hover {
       background-color: ${p.theme.colors.grayLightEvenMore};
@@ -2530,9 +2533,9 @@ const StyledListTitle = styled.div `
   margin-bottom: ${measurements.small};
 `;
 
-const List = ({ children, padding = false, lines = false, className = '' }) => {
+const List = ({ children, padding = false, lines = false, className = '', removeEdgeLines }) => {
     const getClasses = () => [className, 'tui-list', padding ? 'tui-padded' : '', lines ? 'tui-lines' : ''].join(' ');
-    return (React.createElement(StyledList, { "$padded": padding, "$lines": lines, className: getClasses() }, children));
+    return (React.createElement(StyledList, { "$padded": padding, "$lines": lines, "$edgeLines": !removeEdgeLines, className: getClasses() }, children));
 };
 const ListItem = ({ children, title = '', className }) => {
     return (React.createElement("div", { className: `${className} tui-listItem` },
@@ -2949,7 +2952,8 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
         }
     });
     const onMouseMove = useCallback((e) => {
-        setDragged((startDragPoint - e.pageX || e.touches[0].clientX) * -1);
+        const draggedAmount = startDragPoint - e.pageX || (e.touches && e.touches[0]?.clientX) || 1;
+        setDragged(draggedAmount * -1);
     }, [startDragPoint]);
     useEventListener('touchend', (e) => {
         if (mouseIsDown) {

@@ -4,14 +4,15 @@ import { StyledList, StyledListTitle } from './list.style';
 type Props = {
   padding?: boolean;
   lines?: boolean;
+  removeEdgeLines?: boolean;
   children: ReactNode;
   className?: string;
 };
 
-export const List = ({ children, padding = false, lines = false, className = '' }: Props) => {
+export const List = ({ children, padding = false, lines = false, className = '', removeEdgeLines }: Props) => {
   const getClasses = () => [className, 'tui-list', padding ? 'tui-padded' : '', lines ? 'tui-lines' : ''].join(' ');
   return (
-    <StyledList $padded={padding} $lines={lines} className={getClasses()}>
+    <StyledList $padded={padding} $lines={lines} $edgeLines={!removeEdgeLines} className={getClasses()}>
       {children}
     </StyledList>
   );

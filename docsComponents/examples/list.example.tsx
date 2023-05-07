@@ -14,7 +14,7 @@ export const ListExample = () => {
         <span>Padded item 02</span>
         <span>Padded item 03</span>
       </List>
-      <List padding lines>
+      <List padding lines removeEdgeLines>
         <span>Padded with lines item 01</span>
         <span>Padded with lines item 02</span>
         <span>Padded with lines item 03</span>

@@ -118,7 +118,8 @@ export const Swiper = ({
 
   const onMouseMove = useCallback(
     (e) => {
-      setDragged((startDragPoint - e.pageX || e.touches[0].clientX) * -1);
+      const draggedAmount = startDragPoint - e.pageX || (e.touches && e.touches[0]?.clientX) || 1;
+      setDragged(draggedAmount * -1);
     },
     [startDragPoint]
   );

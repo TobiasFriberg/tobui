@@ -2,10 +2,11 @@ import { ReactNode } from 'react';
 type Props = {
     padding?: boolean;
     lines?: boolean;
+    removeEdgeLines?: boolean;
     children: ReactNode;
     className?: string;
 };
-export declare const List: ({ children, padding, lines, className }: Props) => JSX.Element;
+export declare const List: ({ children, padding, lines, className, removeEdgeLines }: Props) => JSX.Element;
 type PropsItem = {
     children: ReactNode;
     title?: string;
