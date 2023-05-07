@@ -5,7 +5,7 @@ import { StyledSwiper, Content, SwiperWrapper, TransformWrapper } from './swiper
 type StepperProps = {
   views: ReactNode[];
   sensitivity?: number;
-  onSwiped?: (dir: 'left' | 'right') => void;
+  onSwiped?: (dir: 'left' | 'right', index: number) => void;
   step?: number;
   loop?: boolean;
   shouldSwipe?: 'left' | 'right' | null;
@@ -24,7 +24,6 @@ export const Swiper = ({
   className,
 }: StepperProps) => {
   const contentRef = useRef<HTMLDivElement>(null);
-  const swiperRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(step);
   const [mouseIsDown, setMouseIsDown] = useState(false);
   const [startDragPoint, setStartDragPoint] = useState(0);
@@ -52,14 +51,8 @@ export const Swiper = ({
     }
 
     setContinueSwipe(shouldSwipe);
-    onSwiped(shouldSwipe);
+    onSwiped(shouldSwipe, currentStep);
   }, [shouldSwipe]);
-
-  useEffect(() => {
-    if (contentRef.current && swiperRef.current) {
-      swiperRef.current.style.minHeight = `${contentRef.current.clientHeight}px`;
-    }
-  }, [contentRef.current]);
 
   const onSwipeHandler = (e: React.MouseEvent) => {
     setStartDragPoint(e.pageX);
@@ -82,7 +75,7 @@ export const Swiper = ({
 
   const renderNextContent = () => {
     const nextStep = currentStep + 1;
-    if (!loop && nextStep >= views.length) {
+    if (!loop && nextStep >= views.length - 1) {
       return null;
     }
 
@@ -99,10 +92,10 @@ export const Swiper = ({
     if (mouseIsDown) {
       if (dragged > sensitivity) {
         setContinueSwipe('right');
-        onSwiped && onSwiped('right');
+        onSwiped && onSwiped('right', currentStep);
       } else if (dragged < -sensitivity) {
         setContinueSwipe('left');
-        onSwiped && onSwiped('left');
+        onSwiped && onSwiped('left', currentStep);
       } else {
         setDragged(0);
       }
@@ -118,7 +111,14 @@ export const Swiper = ({
 
   const onMouseMove = useCallback(
     (e) => {
-      const draggedAmount = startDragPoint - e.pageX || (e.touches && e.touches[0]?.clientX) || 1;
+      let draggedAmount = 0;
+
+      if (e.touches) {
+        draggedAmount = startDragPoint - e.touches[0]?.clientX;
+      } else {
+        draggedAmount = startDragPoint - e.pageX;
+      }
+
       setDragged(draggedAmount * -1);
     },
     [startDragPoint]
@@ -128,10 +128,10 @@ export const Swiper = ({
     if (mouseIsDown) {
       if (dragged > sensitivity) {
         setContinueSwipe('right');
-        onSwiped && onSwiped('right');
+        onSwiped && onSwiped('right', currentStep);
       } else if (dragged < -sensitivity) {
         setContinueSwipe('left');
-        onSwiped && onSwiped('left');
+        onSwiped && onSwiped('left', currentStep);
       } else {
         setDragged(0);
       }
@@ -146,18 +146,20 @@ export const Swiper = ({
   });
 
   return (
-    <StyledSwiper style={{ height: height }} className={`${className} tui-swiper`}>
-      <SwiperWrapper onPointerDown={(e: any) => onSwipeHandler(e)}>
-        <Content className="tui-swiper-next-content">{renderNextContent()}</Content>
-        <TransformWrapper
-          $swipeDir={continueSwipe}
-          style={{ transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` }}
-        >
-          <Content ref={contentRef} className="tui-swiper-content">
+    <StyledSwiper style={{ height: height }} className={`${className || ''} tui-swiper`}>
+      <Content className="tui-swiper-next-content" style={{ height: height }}>
+        {renderNextContent()}
+      </Content>
+      <TransformWrapper
+        $swipeDir={continueSwipe}
+        style={{ transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` }}
+      >
+        <Content ref={contentRef} className="tui-swiper-content">
+          <SwiperWrapper style={{ height: height }} onPointerDown={(e: any) => onSwipeHandler(e)}>
             {renderContent()}
-          </Content>
-        </TransformWrapper>
-      </SwiperWrapper>
+          </SwiperWrapper>
+        </Content>
+      </TransformWrapper>
     </StyledSwiper>
   );
 };

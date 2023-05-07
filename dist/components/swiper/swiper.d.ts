@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 type StepperProps = {
     views: ReactNode[];
     sensitivity?: number;
-    onSwiped?: (dir: 'left' | 'right') => void;
+    onSwiped?: (dir: 'left' | 'right', index: number) => void;
     step?: number;
     loop?: boolean;
     shouldSwipe?: 'left' | 'right' | null;

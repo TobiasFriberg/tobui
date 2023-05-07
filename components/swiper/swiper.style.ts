@@ -10,8 +10,8 @@ const rightSwipe = keyframes`
 `;
 
 export const StyledSwiper = styled.div`
-  height: 100%;
   touch-action: none;
+  position: relative;
 `;
 
 export const TransformWrapper = styled.div<{ $swipeDir: null | 'right' | 'left' }>`
@@ -41,13 +41,10 @@ export const TransformWrapper = styled.div<{ $swipeDir: null | 'right' | 'left' 
 `;
 
 export const SwiperWrapper = styled.div`
-  height: 100%;
-  position: relative;
   touch-action: none;
 `;
 
 export const Content = styled.div`
-  height: 100%;
   width: 100%;
   position: absolute;
 `;

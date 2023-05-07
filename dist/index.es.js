@@ -2835,8 +2835,8 @@ const rightSwipe = keyframes `
   100% { opacity: 0; left: 100%; }
 `;
 const StyledSwiper = styled.div `
-  height: 100%;
   touch-action: none;
+  position: relative;
 `;
 const TransformWrapper = styled.div `
   height: 100%;
@@ -2862,19 +2862,15 @@ const TransformWrapper = styled.div `
     `}
 `;
 const SwiperWrapper = styled.div `
-  height: 100%;
-  position: relative;
   touch-action: none;
 `;
 const Content$2 = styled.div `
-  height: 100%;
   width: 100%;
   position: absolute;
 `;
 
 const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwipe, height = '100px', className, }) => {
     const contentRef = useRef(null);
-    const swiperRef = useRef(null);
     const [currentStep, setCurrentStep] = useState(step);
     const [mouseIsDown, setMouseIsDown] = useState(false);
     const [startDragPoint, setStartDragPoint] = useState(0);
@@ -2898,13 +2894,8 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
             return;
         }
         setContinueSwipe(shouldSwipe);
-        onSwiped(shouldSwipe);
+        onSwiped(shouldSwipe, currentStep);
     }, [shouldSwipe]);
-    useEffect(() => {
-        if (contentRef.current && swiperRef.current) {
-            swiperRef.current.style.minHeight = `${contentRef.current.clientHeight}px`;
-        }
-    }, [contentRef.current]);
     const onSwipeHandler = (e) => {
         setStartDragPoint(e.pageX);
         setMouseIsDown(true);
@@ -2921,7 +2912,7 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
     };
     const renderNextContent = () => {
         const nextStep = currentStep + 1;
-        if (!loop && nextStep >= views.length) {
+        if (!loop && nextStep >= views.length - 1) {
             return null;
         }
         let nextContent = views[nextStep];
@@ -2934,11 +2925,11 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
         if (mouseIsDown) {
             if (dragged > sensitivity) {
                 setContinueSwipe('right');
-                onSwiped && onSwiped('right');
+                onSwiped && onSwiped('right', currentStep);
             }
             else if (dragged < -sensitivity) {
                 setContinueSwipe('left');
-                onSwiped && onSwiped('left');
+                onSwiped && onSwiped('left', currentStep);
             }
             else {
                 setDragged(0);
@@ -2952,18 +2943,24 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
         }
     });
     const onMouseMove = useCallback((e) => {
-        const draggedAmount = startDragPoint - e.pageX || (e.touches && e.touches[0]?.clientX) || 1;
+        let draggedAmount = 0;
+        if (e.touches) {
+            draggedAmount = startDragPoint - e.touches[0]?.clientX;
+        }
+        else {
+            draggedAmount = startDragPoint - e.pageX;
+        }
         setDragged(draggedAmount * -1);
     }, [startDragPoint]);
     useEventListener('touchend', (e) => {
         if (mouseIsDown) {
             if (dragged > sensitivity) {
                 setContinueSwipe('right');
-                onSwiped && onSwiped('right');
+                onSwiped && onSwiped('right', currentStep);
             }
             else if (dragged < -sensitivity) {
                 setContinueSwipe('left');
-                onSwiped && onSwiped('left');
+                onSwiped && onSwiped('left', currentStep);
             }
             else {
                 setDragged(0);
@@ -2976,11 +2973,11 @@ const Swiper = ({ views, step = 0, loop, sensitivity = 110, onSwiped, shouldSwip
             onMouseMove(e);
         }
     });
-    return (React.createElement(StyledSwiper, { style: { height: height }, className: `${className} tui-swiper` },
-        React.createElement(SwiperWrapper, { onPointerDown: (e) => onSwipeHandler(e) },
-            React.createElement(Content$2, { className: "tui-swiper-next-content" }, renderNextContent()),
-            React.createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
-                React.createElement(Content$2, { ref: contentRef, className: "tui-swiper-content" }, renderContent())))));
+    return (React.createElement(StyledSwiper, { style: { height: height }, className: `${className || ''} tui-swiper` },
+        React.createElement(Content$2, { className: "tui-swiper-next-content", style: { height: height } }, renderNextContent()),
+        React.createElement(TransformWrapper, { "$swipeDir": continueSwipe, style: { transform: `translateX(${dragged}px) rotate(${dragged * 0.02}deg)` } },
+            React.createElement(Content$2, { ref: contentRef, className: "tui-swiper-content" },
+                React.createElement(SwiperWrapper, { style: { height: height }, onPointerDown: (e) => onSwipeHandler(e) }, renderContent())))));
 };
 
 const modalAnimation = keyframes `
