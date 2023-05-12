@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactElement, ReactNode, useState } from 'react';
+import React, { cloneElement, ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Loader } from '../utils';
 import { StyledButton, Icon, Content } from './button.style';
 
@@ -19,7 +19,7 @@ type Props = {
 export const Button = ({
   children,
   onClick,
-  className,
+  className = '',
   loading = false,
   icon,
   disabled = false,
@@ -33,7 +33,14 @@ export const Button = ({
     if (isLoading || disabled) {
       return;
     }
-    await onClick();
+
+    setIsLoading(true);
+
+    try {
+      await onClick();
+    } catch (e) {}
+
+    setIsLoading(false);
   };
 
   const renderLoader = () => {

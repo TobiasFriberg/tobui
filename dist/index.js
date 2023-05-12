@@ -1992,13 +1992,18 @@ const Content$4 = styled__default["default"].span `
   align-items: center;
 `;
 
-const Button = ({ children, onClick, className, loading = false, icon, disabled = false, iconOnly = false, testId = 'button', ...props }) => {
+const Button = ({ children, onClick, className = '', loading = false, icon, disabled = false, iconOnly = false, testId = 'button', ...props }) => {
     const [isLoading, setIsLoading] = React.useState(loading);
     const handleClick = async () => {
         if (isLoading || disabled) {
             return;
         }
-        await onClick();
+        setIsLoading(true);
+        try {
+            await onClick();
+        }
+        catch (e) { }
+        setIsLoading(false);
     };
     const renderLoader = () => {
         if (!isLoading) {
