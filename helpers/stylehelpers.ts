@@ -9,7 +9,7 @@ export const contrastColorQuick = (p: any) =>
     p.theme,
     p.theme.colors.backgroundColor,
     lighten(0.12, p.theme.colors.backgroundColor),
-    darken(0.12, p.theme.colors.backgroundColor)
+    darken(0.02, p.theme.colors.backgroundColor)
   );
 
 export const contrastColorQuickBorder = (p: any) =>
@@ -17,7 +17,7 @@ export const contrastColorQuickBorder = (p: any) =>
     p.theme,
     p.theme.colors.backgroundColor,
     lighten(0.12, p.theme.colors.backgroundColor),
-    darken(0.12, p.theme.colors.backgroundColor)
+    darken(0.08, p.theme.colors.backgroundColor)
   );
 
 export const getContrastColor = (
@@ -28,7 +28,7 @@ export const getContrastColor = (
 ) => {
   const lumen = getLuminance(color);
 
-  if (lumen > 0.3) {
+  if (lumen > 0.35) {
     return dark;
   }
 
