@@ -3,7 +3,7 @@ import { createGlobalStyle, ThemeProvider as Provider } from 'styled-components'
 import defaultTheme from './theme.json';
 import { GlobalStyle } from '../globalStyles';
 import { darken } from 'polished';
-import { device } from '../helpers/stylehelpers';
+import { device, getContrastColor } from '../helpers/stylehelpers';
 import { Toaster } from './toaster';
 
 let theme = defaultTheme;
@@ -21,6 +21,8 @@ export const ThemeProvider = ({ children, customTheme = {}, app }: Props) => {
   ${GlobalStyle}
   body, input, button {
     font-size: ${theme.fontSize};
+
+    color: ${getContrastColor(theme, theme.colors.backgroundColor)};
 
     @media ${(p) => device(theme).phone} {
       font-size: calc(${theme.fontSize} * 1.15);

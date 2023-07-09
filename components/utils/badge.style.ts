@@ -21,4 +21,5 @@ export const StyledBadge = styled.div`
   padding: 2px;
   background-color: ${(props) => props.theme.colors.notificationError};
   color: ${(props) => getContrastColor(props.theme, props.theme.colors.notificationError)};
+  z-index: 1;
 `;

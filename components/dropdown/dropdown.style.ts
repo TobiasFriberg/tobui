@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
-import { device, measurements } from '../../helpers/stylehelpers';
+import { contrastColorQuick, device, measurements } from '../../helpers/stylehelpers';
+import { lighten } from 'polished';
 
 type position = 'down' | 'up' | 'left' | 'right';
 
@@ -156,8 +157,8 @@ export const DropdownContent = styled.div<{ position: position; modal: boolean }
   position: absolute;
   width: max-content;
   z-index: 25;
-  background-color: ${(props) => props.theme.colors.grayLightEvenMore};
-  border: 1px solid ${(props) => props.theme.colors.grayLight};
+  background-color: ${(props) => lighten(0.2, props.theme.colors.backgroundColor)};
+  border: 1px solid ${(props) => contrastColorQuick(props)};
   border-radius: ${(props) => props.theme.roundness};
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
 

@@ -15,14 +15,11 @@ export const StyledHeader = styled.div`
 `;
 
 export const StyledFooter = styled.div`
-  background-color: ${(p) => p.theme.colors.grayLightEvenMore};
   padding: 20px;
-  color: ${(p) => getContrastColor(p.theme, p.theme.colors.grayLightEvenMore)};
 `;
 
 export const StyledMenu = styled.div`
   min-width: 200px;
-  background-color: ${(p) => p.theme.colors.grayLightEvenMore};
   position: sticky;
   top: 60px;
   z-index: 25;

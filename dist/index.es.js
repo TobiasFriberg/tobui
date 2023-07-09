@@ -1261,20 +1261,6 @@ function getLuminance(color) {
 }
 
 /**
- * Returns the contrast ratio between two colors based on
- * [W3's recommended equation for calculating contrast](http://www.w3.org/TR/WCAG20/#contrast-ratiodef).
- *
- * @example
- * const contrastRatio = getContrast('#444', '#fff');
- */
-
-function getContrast(color1, color2) {
-  var luminance1 = getLuminance(color1);
-  var luminance2 = getLuminance(color2);
-  return parseFloat((luminance1 > luminance2 ? (luminance1 + 0.05) / (luminance2 + 0.05) : (luminance2 + 0.05) / (luminance1 + 0.05)).toFixed(2));
-}
-
-/**
  * Returns a string value for the lightened color.
  *
  * @example
@@ -1361,9 +1347,11 @@ var curriedTransparentize$1 = curriedTransparentize;
 const getVariantColor = (theme, variant) => {
     return theme.colors[variant];
 };
+const contrastColorQuick = (p) => getContrastColor(p.theme, p.theme.colors.backgroundColor, curriedLighten$1(0.12, p.theme.colors.backgroundColor), curriedDarken$1(0.12, p.theme.colors.backgroundColor));
+const contrastColorQuickBorder = (p) => getContrastColor(p.theme, p.theme.colors.backgroundColor, curriedLighten$1(0.12, p.theme.colors.backgroundColor), curriedDarken$1(0.12, p.theme.colors.backgroundColor));
 const getContrastColor = (theme, color, light = theme.colors.textColorLight, dark = theme.colors.textColorDark) => {
-    const contrastRatio = getContrast(color, dark);
-    if (contrastRatio > 5) {
+    const lumen = getLuminance(color);
+    if (lumen > 0.3) {
         return dark;
     }
     return light;
@@ -1417,6 +1405,16 @@ const toasterAnimation = keyframes `
     transform: translateX(0);
   }
 `;
+const getMeasurement = (size) => {
+    switch (size) {
+        case 'small':
+            return measurements.small;
+        case 'large':
+            return measurements.large;
+        default:
+            return measurements.medium;
+    }
+};
 const Wrapper$1 = styled.div `
   z-index: 99999;
   position: fixed;
@@ -1425,7 +1423,7 @@ const Wrapper$1 = styled.div `
   padding: 0 ${measurements.large};
   box-sizing: border-box;
   display: flex;
-  bottom: 100px;
+  bottom: 6%;
   flex-direction: column-reverse;
 `;
 const StyledToaster = styled.div `
@@ -1433,7 +1431,7 @@ const StyledToaster = styled.div `
   margin: ${measurements.small} 0;
   flex-grow: 1;
   transition: 0.2s;
-  padding: ${measurements.large};
+  padding: ${(p) => getMeasurement(p.size)};
   border-radius: ${(props) => props.theme.roundness};
   position: relative;
   bottom: 0;
@@ -1467,8 +1465,8 @@ const CloseButton$1 = styled.div `
 
   svg {
     display: block;
-    width: calc(${(p) => p.theme.fontSize} * 1.3);
-    height: calc(${(p) => p.theme.fontSize} * 1.3);
+    width: calc(${(p) => p.theme.fontSize} * 1.1);
+    height: calc(${(p) => p.theme.fontSize} * 1.1);
   }
 `;
 const Content$5 = styled.div `
@@ -1503,13 +1501,13 @@ const ToasterMessage = ({ toaster, onDelete }) => {
         let icon = null;
         switch (toaster.variant) {
             case 'success':
-                icon = React.createElement(Icon$2, { path: mdiCheck, size: 1 });
+                icon = React.createElement(Icon$2, { path: mdiCheck, size: 0.8 });
                 break;
             case 'error':
-                icon = React.createElement(Icon$2, { path: mdiAlert, size: 1 });
+                icon = React.createElement(Icon$2, { path: mdiAlert, size: 0.8 });
                 break;
             case 'info':
-                icon = React.createElement(Icon$2, { path: mdiInformation, size: 1 });
+                icon = React.createElement(Icon$2, { path: mdiInformation, size: 0.8 });
                 break;
         }
         return icon;
@@ -1519,9 +1517,9 @@ const ToasterMessage = ({ toaster, onDelete }) => {
             return null;
         }
         return (React.createElement(CloseButton$1, { className: "tui-toaster-close-button", onClick: () => closeToaster() },
-            React.createElement(Icon$2, { path: mdiClose, size: 1 })));
+            React.createElement(Icon$2, { path: mdiClose, size: 0.8 })));
     };
-    return (React.createElement(StyledToaster, { closed: closed, isClosing: isClosing, className: getClasses },
+    return (React.createElement(StyledToaster, { position: toaster.position || 'bottom', size: toaster.size || 'medium', closed: closed, isClosing: isClosing, className: getClasses },
         React.createElement(MessageGroup, null,
             getIcon(),
             React.createElement(Content$5, { className: "tui-toaster-content" }, toaster.text)),
@@ -1585,6 +1583,8 @@ const ThemeProvider = ({ children, customTheme = {}, app }) => {
   ${GlobalStyle}
   body, input, button {
     font-size: ${theme.fontSize};
+
+    color: ${getContrastColor(theme, theme.colors.backgroundColor)};
 
     @media ${(p) => device(theme).phone} {
       font-size: calc(${theme.fontSize} * 1.15);
@@ -1831,6 +1831,7 @@ const StyledBadge = styled.div `
   padding: 2px;
   background-color: ${(props) => props.theme.colors.notificationError};
   color: ${(props) => getContrastColor(props.theme, props.theme.colors.notificationError)};
+  z-index: 1;
 `;
 
 const Badge = ({ children, value = '', className }) => {
@@ -2059,11 +2060,11 @@ const getInvalid = (props) => {
     }
     return `
       border: 1px solid ${props.theme.colors.notificationError};
-      background-color: ${curriedLighten$1(0.4, props.theme.colors.notificationError)};
+      background-color: ${curriedTransparentize$1(0.8, props.theme.colors.notificationError)};
 
       &:hover,
       &:focus-within {
-        border-color: ${curriedDarken$1(0.15, props.theme.colors.notificationError)};
+        border-color: ${curriedTransparentize$1(0.15, props.theme.colors.notificationError)};
       }
 
       &:focus-within {
@@ -2102,8 +2103,8 @@ const InputWrapper = styled.div `
   position: relative;
   display: flex;
   align-items: center;
-  background-color: ${(props) => curriedLighten$1(0.3, props.theme.colors.backgroundColor)};
-  border: 1px solid ${(props) => props.theme.colors.grayLight};
+  background-color: ${(props) => contrastColorQuick(props)};
+  border: 1px solid ${(props) => contrastColorQuickBorder(props)};
   border-radius: ${(props) => props.theme.inputRoundness};
   width: 100%;
 
@@ -2132,12 +2133,18 @@ const InputWrapper = styled.div `
     font-size: inherit;
     font-size: 100%;
 
+    ::placeholder {
+      color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};
+      opacity: 0.25;
+    }
+
+    color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};
+
     ${(props) => props.iconPosition === 'right' &&
     `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.medium};`}
     ${(props) => props.iconPosition === 'left' &&
     `padding-left: ${measurements.extraLarge}; padding-right: ${measurements.medium};`}
-
-    &:focus {
+      &:focus {
       outline: none;
     }
   }
@@ -2152,7 +2159,7 @@ const InputWrapper = styled.div `
   ${(props) => getInvalid(props)}
 `;
 const getCheckBoxContent = (props) => {
-    const color = props.active ? props.theme.colors.primary : props.theme.colors.backgroundColor;
+    const color = props.active ? props.theme.colors.primary : contrastColorQuick(props);
     return `
     background-color: ${color};
     color: ${getContrastColor(props.theme, color)};
@@ -2197,12 +2204,6 @@ const CheckBoxContent = styled.div `
   width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
-
-  > svg {
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-  }
 
   @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};
@@ -2514,16 +2515,16 @@ const StyledList = styled.div `
     `
     ${p.$edgeLines &&
         `
-      border-top: 1px solid ${p.theme.colors.grayLightMore};
-      border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+      border-top: 1px solid ${contrastColorQuickBorder(p)};
+      border-bottom: 1px solid ${contrastColorQuickBorder(p)};
     `}
 
     & > *:hover {
-      background-color: ${p.theme.colors.grayLightEvenMore};
+      background-color: ${contrastColorQuickBorder(p)};
     }
     
     & > *:not(:last-child) {
-      border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+      border-bottom: 1px solid ${contrastColorQuickBorder(p)};
     }
 
     ${p.$padded &&
@@ -2769,8 +2770,8 @@ const DropdownContent = styled.div `
   position: absolute;
   width: max-content;
   z-index: 25;
-  background-color: ${(props) => props.theme.colors.grayLightEvenMore};
-  border: 1px solid ${(props) => props.theme.colors.grayLight};
+  background-color: ${(props) => curriedLighten$1(0.2, props.theme.colors.backgroundColor)};
+  border: 1px solid ${(props) => contrastColorQuick(props)};
   border-radius: ${(props) => props.theme.roundness};
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
 

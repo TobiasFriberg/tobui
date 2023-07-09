@@ -1,4 +1,10 @@
-import { device, getContrastColor, measurements } from '../../helpers/stylehelpers';
+import {
+  contrastColorQuick,
+  contrastColorQuickBorder,
+  device,
+  getContrastColor,
+  measurements,
+} from '../../helpers/stylehelpers';
 import { darken, lighten, transparentize } from 'polished';
 import { ReactElement } from 'react';
 import styled from 'styled-components';
@@ -48,11 +54,11 @@ const getInvalid = (props: InputFieldProps) => {
 
   return `
       border: 1px solid ${props.theme.colors.notificationError};
-      background-color: ${lighten(0.4, props.theme.colors.notificationError)};
+      background-color: ${transparentize(0.8, props.theme.colors.notificationError)};
 
       &:hover,
       &:focus-within {
-        border-color: ${darken(0.15, props.theme.colors.notificationError)};
+        border-color: ${transparentize(0.15, props.theme.colors.notificationError)};
       }
 
       &:focus-within {
@@ -103,8 +109,8 @@ export const InputWrapper = styled.div<InputFieldProps>`
   position: relative;
   display: flex;
   align-items: center;
-  background-color: ${(props) => lighten(0.3, props.theme.colors.backgroundColor)};
-  border: 1px solid ${(props) => props.theme.colors.grayLight};
+  background-color: ${(props) => contrastColorQuick(props)};
+  border: 1px solid ${(props) => contrastColorQuickBorder(props)};
   border-radius: ${(props) => props.theme.inputRoundness};
   width: 100%;
 
@@ -133,14 +139,20 @@ export const InputWrapper = styled.div<InputFieldProps>`
     font-size: inherit;
     font-size: 100%;
 
+    ::placeholder {
+      color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};
+      opacity: 0.25;
+    }
+
+    color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};
+
     ${(props) =>
       props.iconPosition === 'right' &&
       `padding-right: ${measurements.extraLarge}; padding-left: ${measurements.medium};`}
     ${(props) =>
       props.iconPosition === 'left' &&
       `padding-left: ${measurements.extraLarge}; padding-right: ${measurements.medium};`}
-
-    &:focus {
+      &:focus {
       outline: none;
     }
   }
@@ -156,7 +168,7 @@ export const InputWrapper = styled.div<InputFieldProps>`
 `;
 
 const getCheckBoxContent = (props: any) => {
-  const color = props.active ? props.theme.colors.primary : props.theme.colors.backgroundColor;
+  const color = props.active ? props.theme.colors.primary : contrastColorQuick(props);
 
   return `
     background-color: ${color};
@@ -207,12 +219,6 @@ export const CheckBoxContent = styled.div<{ active: boolean }>`
   width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
-
-  > svg {
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-  }
 
   @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};

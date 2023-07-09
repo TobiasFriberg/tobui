@@ -1,8 +1,24 @@
-import { getContrast } from 'polished';
+import { darken, getLuminance, lighten } from 'polished';
 
 export const getVariantColor = (theme: any, variant: string) => {
   return theme.colors[variant];
 };
+
+export const contrastColorQuick = (p: any) =>
+  getContrastColor(
+    p.theme,
+    p.theme.colors.backgroundColor,
+    lighten(0.12, p.theme.colors.backgroundColor),
+    darken(0.12, p.theme.colors.backgroundColor)
+  );
+
+export const contrastColorQuickBorder = (p: any) =>
+  getContrastColor(
+    p.theme,
+    p.theme.colors.backgroundColor,
+    lighten(0.12, p.theme.colors.backgroundColor),
+    darken(0.12, p.theme.colors.backgroundColor)
+  );
 
 export const getContrastColor = (
   theme: any,
@@ -10,9 +26,9 @@ export const getContrastColor = (
   light: string = theme.colors.textColorLight,
   dark: string = theme.colors.textColorDark
 ) => {
-  const contrastRatio = getContrast(color, dark);
+  const lumen = getLuminance(color);
 
-  if (contrastRatio > 5) {
+  if (lumen > 0.3) {
     return dark;
   }
 

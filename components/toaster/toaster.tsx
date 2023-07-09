@@ -6,12 +6,18 @@ import { mdiAlert, mdiCheck, mdiClose, mdiInformation } from '@mdi/js';
 
 type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
 
+export type Sizes = 'small' | 'medium' | 'large';
+
+export type Positions = 'top' | 'bottom';
+
 type ToastMessage = {
   id?: number;
   text: string;
   sticky?: boolean;
   variant?: Variants;
   timeout?: number;
+  size?: Sizes;
+  position?: Positions;
 };
 
 type ToasterMessageProps = {
@@ -50,13 +56,13 @@ const ToasterMessage = ({ toaster, onDelete }: ToasterMessageProps) => {
     let icon = null;
     switch (toaster.variant) {
       case 'success':
-        icon = <Icon path={mdiCheck} size={1} />;
+        icon = <Icon path={mdiCheck} size={0.8} />;
         break;
       case 'error':
-        icon = <Icon path={mdiAlert} size={1} />;
+        icon = <Icon path={mdiAlert} size={0.8} />;
         break;
       case 'info':
-        icon = <Icon path={mdiInformation} size={1} />;
+        icon = <Icon path={mdiInformation} size={0.8} />;
         break;
       default:
         break;
@@ -71,13 +77,19 @@ const ToasterMessage = ({ toaster, onDelete }: ToasterMessageProps) => {
     }
     return (
       <CloseButton className="tui-toaster-close-button" onClick={() => closeToaster()}>
-        <Icon path={mdiClose} size={1} />
+        <Icon path={mdiClose} size={0.8} />
       </CloseButton>
     );
   };
 
   return (
-    <StyledToaster closed={closed} isClosing={isClosing} className={getClasses}>
+    <StyledToaster
+      position={toaster.position || 'bottom'}
+      size={toaster.size || 'medium'}
+      closed={closed}
+      isClosing={isClosing}
+      className={getClasses}
+    >
       <MessageGroup>
         {getIcon()}
         <Content className="tui-toaster-content">{toaster.text}</Content>

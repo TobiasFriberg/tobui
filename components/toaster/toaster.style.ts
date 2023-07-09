@@ -1,22 +1,6 @@
 import { getContrastColor, measurements } from '../../helpers/stylehelpers';
 import styled, { keyframes } from 'styled-components';
-
-const getVariant = (theme: any, variant: Variants) => {
-  if (!variant || variant === 'info') {
-    return;
-  }
-
-  switch (variant) {
-    case 'error':
-      return `background-color: ${theme.colors.notificationError}`;
-    case 'success':
-      return `background-color: ${theme.colors.notificationSuccess}`;
-    case 'primary':
-      return `background-color: ${theme.colors.primary}`;
-    case 'secondary':
-      return `background-color: ${theme.colors.secondary}`;
-  }
-};
+import { Positions, Sizes } from './toaster';
 
 type Variants = 'error' | 'success' | 'info' | 'primary' | 'secondary';
 
@@ -36,6 +20,17 @@ const toasterAnimation = keyframes`
   }
 `;
 
+const getMeasurement = (size: Sizes) => {
+  switch (size) {
+    case 'small':
+      return measurements.small;
+    case 'large':
+      return measurements.large;
+    default:
+      return measurements.medium;
+  }
+};
+
 export const Wrapper = styled.div<ToasterProps>`
   z-index: 99999;
   position: fixed;
@@ -44,16 +39,16 @@ export const Wrapper = styled.div<ToasterProps>`
   padding: 0 ${measurements.large};
   box-sizing: border-box;
   display: flex;
-  bottom: 100px;
+  bottom: 6%;
   flex-direction: column-reverse;
 `;
 
-export const StyledToaster = styled.div<{ isClosing: boolean; closed: boolean }>`
+export const StyledToaster = styled.div<{ isClosing: boolean; closed: boolean; size: Sizes; position: Positions }>`
   display: flex;
   margin: ${measurements.small} 0;
   flex-grow: 1;
   transition: 0.2s;
-  padding: ${measurements.large};
+  padding: ${(p) => getMeasurement(p.size)};
   border-radius: ${(props) => props.theme.roundness};
   position: relative;
   bottom: 0;
@@ -89,8 +84,8 @@ export const CloseButton = styled.div`
 
   svg {
     display: block;
-    width: calc(${(p) => p.theme.fontSize} * 1.3);
-    height: calc(${(p) => p.theme.fontSize} * 1.3);
+    width: calc(${(p) => p.theme.fontSize} * 1.1);
+    height: calc(${(p) => p.theme.fontSize} * 1.1);
   }
 `;
 

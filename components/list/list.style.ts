@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { measurements } from '../../helpers/stylehelpers';
+import { measurements, contrastColorQuick, contrastColorQuickBorder } from '../../helpers/stylehelpers';
+import { darken, lighten } from 'polished';
 
 type ListProps = {
   theme: any;
@@ -24,17 +25,17 @@ export const StyledList = styled.div<ListProps>`
     ${
       p.$edgeLines &&
       `
-      border-top: 1px solid ${p.theme.colors.grayLightMore};
-      border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+      border-top: 1px solid ${contrastColorQuickBorder(p)};
+      border-bottom: 1px solid ${contrastColorQuickBorder(p)};
     `
     }
 
     & > *:hover {
-      background-color: ${p.theme.colors.grayLightEvenMore};
+      background-color: ${contrastColorQuickBorder(p)};
     }
     
     & > *:not(:last-child) {
-      border-bottom: 1px solid ${p.theme.colors.grayLightMore};
+      border-bottom: 1px solid ${contrastColorQuickBorder(p)};
     }
 
     ${
