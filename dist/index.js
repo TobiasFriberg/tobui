@@ -1357,7 +1357,7 @@ var curriedTransparentize$1 = curriedTransparentize;
 const getVariantColor = (theme, variant) => {
     return theme.colors[variant];
 };
-const contrastColorQuick = (p) => getContrastColor(p.theme, p.theme.colors.backgroundColor, curriedLighten$1(0.12, p.theme.colors.backgroundColor), curriedDarken$1(0.02, p.theme.colors.backgroundColor));
+const contrastColorQuick = (p) => getContrastColor(p.theme, p.theme.colors.backgroundColor, curriedLighten$1(0.12, p.theme.colors.backgroundColor), curriedDarken$1(0.01, p.theme.colors.backgroundColor));
 const contrastColorQuickBorder = (p) => getContrastColor(p.theme, p.theme.colors.backgroundColor, curriedLighten$1(0.12, p.theme.colors.backgroundColor), curriedDarken$1(0.08, p.theme.colors.backgroundColor));
 const getContrastColor = (theme, color, light = theme.colors.textColorLight, dark = theme.colors.textColorDark) => {
     const lumen = getLuminance(color);
@@ -2145,7 +2145,7 @@ const InputWrapper = styled__default["default"].div `
 
     ::placeholder {
       color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};
-      opacity: 0.25;
+      opacity: 0.45;
     }
 
     color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};

@@ -141,7 +141,7 @@ export const InputWrapper = styled.div<InputFieldProps>`
 
     ::placeholder {
       color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};
-      opacity: 0.25;
+      opacity: 0.45;
     }
 
     color: ${(p) => getContrastColor(p.theme, p.theme.colors.backgroundColor)};

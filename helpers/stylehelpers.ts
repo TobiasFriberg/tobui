@@ -9,7 +9,7 @@ export const contrastColorQuick = (p: any) =>
     p.theme,
     p.theme.colors.backgroundColor,
     lighten(0.12, p.theme.colors.backgroundColor),
-    darken(0.02, p.theme.colors.backgroundColor)
+    darken(0.01, p.theme.colors.backgroundColor)
   );
 
 export const contrastColorQuickBorder = (p: any) =>
