@@ -1362,7 +1362,7 @@ const size = {
     desktop: '1024px',
 };
 const device = (theme) => ({
-    phone: `(max-width: ${theme.app ? '100vw' : size.phone})`,
+    phone: `(max-width: ${theme.app ? '9999999999px' : size.phone})`,
     tablet: `(max-width: ${size.tablet})`,
     tabletOnly: `(min-width: ${size.phone}) AND (max-width: ${size.tablet})`,
     desktop: `(min-width: ${size.desktop})`,
