@@ -19,8 +19,72 @@ export const ModalView = () => {
       <div>
         <Button onClick={() => handleOpenModal()}>Open modal</Button>
       </div>
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <Modal fillContent open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         A modal
+        <br />
+        test
+        <br />
+        A modal
+        <br />
+        test
+        <br />
+        A modal
+        <br />
+        test
+        <br />
+        A modal
+        <br />
+        test
+        <br />
+        A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />A modal
+        <br />
+        test
+        <br />
       </Modal>
     </>
   );

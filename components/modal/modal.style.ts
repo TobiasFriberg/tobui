@@ -20,15 +20,14 @@ const modalAnimation = keyframes`
 export const StyledModal = styled.div<ModalProps>`
   transition: 0.2s;
   position: fixed;
-  overflow: auto;
   z-index: 150;
   left: 0;
+  right: 0;
   top: 0;
-  width: 100vw;
-  height: 100vh;
+  bottom: 0;
   background-color: ${(props) => props.theme.colors.backgroundColor};
-  padding-bottom: calc(env(safe-area-inset-bottom) + ${measurements.medium});
   padding-top: env(safe-area-inset-top);
+  padding-bottom: ${measurements.medium});
   animation-name: ${modalAnimation};
   animation-duration: 0.2s;
   animation-timing-function: ease-out;
@@ -47,7 +46,10 @@ export const CloseButton = styled.div`
 `;
 
 export const Content = styled.div<{ $fill?: boolean }>`
-  ${(p) => !p.$fill && `padding: ${measurements.medium}; padding-top: ${measurements.extraExtraLarge};`}
+  padding: ${measurements.medium};
+  padding-top: ${measurements.extraExtraLarge};
   height: 100%;
   z-index: 1;
+  overflow: auto;
+  ${(p) => p.$fill && `padding-top: ${measurements.medium};`}
 `;
