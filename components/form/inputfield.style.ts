@@ -94,12 +94,12 @@ export const InputLabel = styled.label`
 export const ClearIcon = styled.div`
   cursor: pointer;
   margin-right: ${measurements.small};
-  margin-top: 1px;
+  display: flex;
 `;
 
 export const InputIcon = styled.div<{ position?: 'right' | 'left' }>`
   position: absolute;
-  margin-top: 1px;
+  display: flex;
 
   ${(props) => props.position === 'left' && `left: 0; margin-left: ${measurements.small};`}
   ${(props) => props.position === 'right' && `right: 0; margin-right: ${measurements.small};`}
@@ -219,6 +219,12 @@ export const CheckBoxContent = styled.div<{ active: boolean }>`
   width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
+  flex-grow: 0;
+  position: relative;
+
+  > svg {
+    position: absolute;
+  }
 
   @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};

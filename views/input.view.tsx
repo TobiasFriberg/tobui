@@ -160,7 +160,12 @@ export const InputView = () => {
 
   const descriptionCheckbox = `Checkbox`;
 
-  const exampleCheckbox = <CheckBox label="Some checkbox" checked={checked} onCheck={(e) => setChecked(e)} />;
+  const exampleCheckbox = (
+    <div>
+      <CheckBox label="Some checkbox" checkboxPlacement="left" checked={checked} onCheck={(e) => setChecked(e)} />
+      <CheckBox label="Some checkbox" checkboxPlacement="left" checked={checked} onCheck={(e) => setChecked(e)} />
+    </div>
+  );
 
   const optionsCheckbox = (
     <>

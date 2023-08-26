@@ -2090,11 +2090,11 @@ const InputLabel = styled.label `
 const ClearIcon = styled.div `
   cursor: pointer;
   margin-right: ${measurements.small};
-  margin-top: 1px;
+  display: flex;
 `;
 const InputIcon = styled.div `
   position: absolute;
-  margin-top: 1px;
+  display: flex;
 
   ${(props) => props.position === 'left' && `left: 0; margin-left: ${measurements.small};`}
   ${(props) => props.position === 'right' && `right: 0; margin-right: ${measurements.small};`}
@@ -2204,6 +2204,12 @@ const CheckBoxContent = styled.div `
   width: calc(${measurements.medium} * 1.5);
   border-radius: ${(props) => props.theme.roundness};
   padding: 2px;
+  flex-grow: 0;
+  position: relative;
+
+  > svg {
+    position: absolute;
+  }
 
   @media ${(p) => device(p.theme).phone} {
     height: ${measurements.large};

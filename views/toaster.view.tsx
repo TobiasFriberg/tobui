@@ -13,7 +13,7 @@ export const ToasterView = () => {
   const example = (
     <List padding>
       <div>
-        <Button onClick={() => AddToaster({ text: 'Look a toaster', size: 'small' })}>Show toaster</Button>
+        <Button onClick={() => AddToaster({ text: 'Look a toaster' })}>Show toaster</Button>
       </div>
       <div>
         <Button
@@ -21,7 +21,6 @@ export const ToasterView = () => {
             AddToaster({
               text: 'You need to manually remove me',
               variant: 'info',
-              size: 'small',
               position: 'top',
               sticky: true,
             })
@@ -37,6 +36,7 @@ export const ToasterView = () => {
     <>
       <List padding lines>
         <ListItem title="text*">string</ListItem>
+        <ListItem title="size">'small' | 'medium' | 'large'</ListItem>
         <ListItem title="variant">
           &apos;error&apos; | &apos;success&apos; | &apos;info&apos; | &apos;primary&apos; | &apos;secondary&apos;
         </ListItem>
