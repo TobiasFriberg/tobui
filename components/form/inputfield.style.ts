@@ -179,6 +179,7 @@ const getCheckBoxContent = (props: any) => {
 
 export const CheckBoxWrapper = styled.div<{ $location: 'left' | 'right' }>`
   margin-bottom: ${measurements.extraSmall};
+  display: flex;
 
   label {
     display: inline-flex;

@@ -2168,6 +2168,7 @@ const getCheckBoxContent = (props) => {
 };
 const CheckBoxWrapper = styled.div `
   margin-bottom: ${measurements.extraSmall};
+  display: flex;
 
   label {
     display: inline-flex;
