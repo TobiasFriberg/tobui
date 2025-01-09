@@ -7,7 +7,7 @@ export const InputSelectExample = () => (
       { label: 'Item 01', value: '01' },
       { label: 'Item 02', value: '02' },
     ]}
-    defaultValue="02"
+    value="02"
     onChange={() => {}}
   />
 );

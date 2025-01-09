@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InputLabel, InputWrapper, SelectIcon, StyledInputField } from './inputfield.style';
 import { mdiChevronDown } from '@mdi/js';
 import Icon from '@mdi/react';
@@ -31,6 +31,11 @@ export const Select = ({
   className,
 }: SelectProps) => {
   const [selectedValue, setSelectedValue] = useState(value);
+
+  useEffect(() => {
+    setSelectedValue(value);
+  }, [value]);
+
   const renderOptions = items.map((item, i) => (
     <option key={i} value={item.value}>
       {item.label}

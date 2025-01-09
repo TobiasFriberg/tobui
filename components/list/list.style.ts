@@ -7,6 +7,7 @@ type ListProps = {
   $padded: boolean;
   $lines: boolean;
   $edgeLines: boolean;
+  $hoverHighlight: boolean;
 };
 
 export const StyledList = styled.div<ListProps>`
@@ -20,29 +21,32 @@ export const StyledList = styled.div<ListProps>`
     }`}
 
   ${(p) =>
+    p.$hoverHighlight &&
+    `& > *:hover {
+      background-color: ${contrastColorQuickBorder(p)};
+    }`}
+
+
+    ${(p) =>
     p.$lines &&
+    p.$edgeLines &&
     `
-    ${
-      p.$edgeLines &&
-      `
       border-top: 1px solid ${contrastColorQuickBorder(p)};
       border-bottom: 1px solid ${contrastColorQuickBorder(p)};
-    `
-    }
+    `}
 
-    & > *:hover {
-      background-color: ${contrastColorQuickBorder(p)};
-    }
-    
+     ${(p) =>
+    p.$padded &&
+    p.$lines &&
+    `& > * {
+        padding: ${measurements.medium} ${measurements.small};
+      }`}
+
+  ${(p) =>
+    p.$lines &&
+    `
     & > *:not(:last-child) {
       border-bottom: 1px solid ${contrastColorQuickBorder(p)};
-    }
-
-    ${
-      p.$padded &&
-      `& > * {
-        padding: ${measurements.medium} ${measurements.small};
-      }`
     }
   `}
 `;

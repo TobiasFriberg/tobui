@@ -23,6 +23,8 @@ export const InputView = () => {
   const [searchResult, setSearchResult] = useState<string[]>(searchable);
   const [checked, setChecked] = useState(false);
 
+  const [someValue, setSomeValue] = useState('01');
+
   const description = `Inputs comes in many flavours and variants, use them as you like.`;
 
   const validator = (value: string) => {
@@ -131,7 +133,7 @@ export const InputView = () => {
         { label: 'Item 01', value: '01' },
         { label: 'Item 02', value: '02' },
       ]}
-      value="02"
+      value={someValue}
       onChange={() => {}}
     />
   );

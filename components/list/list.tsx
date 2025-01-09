@@ -6,13 +6,27 @@ type Props = {
   lines?: boolean;
   removeEdgeLines?: boolean;
   children: ReactNode;
+  hoverHighlight?: boolean;
   className?: string;
 };
 
-export const List = ({ children, padding = false, lines = false, className = '', removeEdgeLines }: Props) => {
+export const List = ({
+  children,
+  padding = false,
+  lines = false,
+  className = '',
+  removeEdgeLines,
+  hoverHighlight = false,
+}: Props) => {
   const getClasses = () => [className, 'tui-list', padding ? 'tui-padded' : '', lines ? 'tui-lines' : ''].join(' ');
   return (
-    <StyledList $padded={padding} $lines={lines} $edgeLines={!removeEdgeLines} className={getClasses()}>
+    <StyledList
+      $hoverHighlight={hoverHighlight}
+      $padded={padding}
+      $lines={lines}
+      $edgeLines={!removeEdgeLines}
+      className={getClasses()}
+    >
       {children}
     </StyledList>
   );
