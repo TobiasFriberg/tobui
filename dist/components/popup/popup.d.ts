@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 type Props = {
     title?: string;
     open?: boolean;
@@ -12,6 +12,6 @@ type Props = {
     closeText?: string;
     className?: string;
 };
-export declare const Popup: ({ title, open, onClose, onOpen, name, children, buttons, width, fullscreen, closeText, className, }: Props) => JSX.Element | null;
+export declare const Popup: ({ title, open, onClose, onOpen, name, children, buttons, width, fullscreen, closeText, className, }: Props) => React.JSX.Element | null;
 export declare const sendPopupEvent: (name: string, open?: boolean) => void;
 export {};

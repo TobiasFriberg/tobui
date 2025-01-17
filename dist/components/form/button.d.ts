@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 type Props = {
     children?: ReactNode;
     onClick: () => void | Promise<any>;
@@ -12,5 +12,5 @@ type Props = {
     disabled?: boolean;
     testId?: string;
 };
-export declare const Button: ({ children, onClick, className, loading, icon, disabled, iconOnly, testId, ...props }: Props) => JSX.Element;
+export declare const Button: ({ children, onClick, className, loading, icon, disabled, iconOnly, testId, ...props }: Props) => React.JSX.Element;
 export {};

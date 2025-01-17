@@ -37,6 +37,7 @@ export const DropdownView = () => {
         <ListItem title="content*">Element</ListItem>
         <ListItem title="position">'left' | 'right' | 'up' | 'down'</ListItem>
         <ListItem title="mobileModal">boolean</ListItem>
+        <ListItem title="open">boolean</ListItem>
       </List>
       <span>* = required</span>
     </>

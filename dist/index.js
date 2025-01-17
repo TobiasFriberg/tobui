@@ -265,109 +265,85 @@ h4 {
 `;
 
 function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
     }
-    return target;
-  };
-  return _extends.apply(this, arguments);
+    return n;
+  }, _extends.apply(null, arguments);
 }
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+
+function _inheritsLoose(t, o) {
+  t.prototype = Object.create(o.prototype), t.prototype.constructor = t, _setPrototypeOf(t, o);
+}
+
+function _getPrototypeOf(t) {
+  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+    return t.__proto__ || Object.getPrototypeOf(t);
+  }, _getPrototypeOf(t);
+}
+
+function _isNativeFunction(t) {
+  try {
+    return -1 !== Function.toString.call(t).indexOf("[native code]");
+  } catch (n) {
+    return "function" == typeof t;
   }
-  return self;
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-  return _setPrototypeOf(o, p);
-}
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  _setPrototypeOf(subClass, superClass);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
-  };
-  return _getPrototypeOf(o);
-}
-
-function _isNativeFunction(fn) {
-  return Function.toString.call(fn).indexOf("[native code]") !== -1;
 }
 
 function _isNativeReflectConstruct() {
-  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-  if (Reflect.construct.sham) return false;
-  if (typeof Proxy === "function") return true;
   try {
-    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-    return true;
-  } catch (e) {
-    return false;
-  }
+    var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+  } catch (t) {}
+  return (_isNativeReflectConstruct = function _isNativeReflectConstruct() {
+    return !!t;
+  })();
 }
 
-function _construct(Parent, args, Class) {
-  if (_isNativeReflectConstruct()) {
-    _construct = Reflect.construct.bind();
-  } else {
-    _construct = function _construct(Parent, args, Class) {
-      var a = [null];
-      a.push.apply(a, args);
-      var Constructor = Function.bind.apply(Parent, a);
-      var instance = new Constructor();
-      if (Class) _setPrototypeOf(instance, Class.prototype);
-      return instance;
-    };
-  }
-  return _construct.apply(null, arguments);
+function _construct(t, e, r) {
+  if (_isNativeReflectConstruct()) return Reflect.construct.apply(null, arguments);
+  var o = [null];
+  o.push.apply(o, e);
+  var p = new (t.bind.apply(t, o))();
+  return r && _setPrototypeOf(p, r.prototype), p;
 }
 
-function _wrapNativeSuper(Class) {
-  var _cache = typeof Map === "function" ? new Map() : undefined;
-  _wrapNativeSuper = function _wrapNativeSuper(Class) {
-    if (Class === null || !_isNativeFunction(Class)) return Class;
-    if (typeof Class !== "function") {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-    if (typeof _cache !== "undefined") {
-      if (_cache.has(Class)) return _cache.get(Class);
-      _cache.set(Class, Wrapper);
+function _wrapNativeSuper(t) {
+  var r = "function" == typeof Map ? new Map() : void 0;
+  return _wrapNativeSuper = function _wrapNativeSuper(t) {
+    if (null === t || !_isNativeFunction(t)) return t;
+    if ("function" != typeof t) throw new TypeError("Super expression must either be null or a function");
+    if (void 0 !== r) {
+      if (r.has(t)) return r.get(t);
+      r.set(t, Wrapper);
     }
     function Wrapper() {
-      return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+      return _construct(t, arguments, _getPrototypeOf(this).constructor);
     }
-    Wrapper.prototype = Object.create(Class.prototype, {
+    return Wrapper.prototype = Object.create(t.prototype, {
       constructor: {
         value: Wrapper,
-        enumerable: false,
-        writable: true,
-        configurable: true
+        enumerable: !1,
+        writable: !0,
+        configurable: !0
       }
-    });
-    return _setPrototypeOf(Wrapper, Class);
-  };
-  return _wrapNativeSuper(Class);
+    }), _setPrototypeOf(Wrapper, t);
+  }, _wrapNativeSuper(t);
 }
 
 // based on https://github.com/styled-components/styled-components/blob/fcf6f3804c57a14dd7984dfab7bc06ee2edca044/src/utils/error.js
-
 /**
  * Parse errors.md and turn it into a simple hash of code: message
  * @private
@@ -452,84 +428,71 @@ var ERRORS = {
   "77": "remToPx expects a value in \"rem\" but you provided it in \"%s\".\n\n",
   "78": "base must be set in \"px\" or \"%\" but you set it in \"%s\".\n"
 };
+
 /**
  * super basic version of sprintf
  * @private
  */
-
 function format() {
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
     args[_key] = arguments[_key];
   }
-
   var a = args[0];
   var b = [];
   var c;
-
   for (c = 1; c < args.length; c += 1) {
     b.push(args[c]);
   }
-
   b.forEach(function (d) {
     a = a.replace(/%[a-z]/, d);
   });
   return a;
 }
+
 /**
  * Create an error file out of errors.md for development and a simple web link to the full errors
  * in production mode.
  * @private
  */
-
-
 var PolishedError = /*#__PURE__*/function (_Error) {
   _inheritsLoose(PolishedError, _Error);
-
   function PolishedError(code) {
     var _this;
-
     if (process.env.NODE_ENV === 'production') {
       _this = _Error.call(this, "An error occurred. See https://github.com/styled-components/polished/blob/main/src/internalHelpers/errors.md#" + code + " for more information.") || this;
     } else {
       for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
         args[_key2 - 1] = arguments[_key2];
       }
-
       _this = _Error.call(this, format.apply(void 0, [ERRORS[code]].concat(args))) || this;
     }
-
     return _assertThisInitialized(_this);
   }
-
   return PolishedError;
 }( /*#__PURE__*/_wrapNativeSuper(Error));
 
 function colorToInt(color) {
   return Math.round(color * 255);
 }
-
 function convertToInt(red, green, blue) {
   return colorToInt(red) + "," + colorToInt(green) + "," + colorToInt(blue);
 }
-
 function hslToRgb(hue, saturation, lightness, convert) {
   if (convert === void 0) {
     convert = convertToInt;
   }
-
   if (saturation === 0) {
     // achromatic
     return convert(lightness, lightness, lightness);
-  } // formulae from https://en.wikipedia.org/wiki/HSL_and_HSV
+  }
 
-
+  // formulae from https://en.wikipedia.org/wiki/HSL_and_HSV
   var huePrime = (hue % 360 + 360) % 360 / 60;
   var chroma = (1 - Math.abs(2 * lightness - 1)) * saturation;
   var secondComponent = chroma * (1 - Math.abs(huePrime % 2 - 1));
   var red = 0;
   var green = 0;
   var blue = 0;
-
   if (huePrime >= 0 && huePrime < 1) {
     red = chroma;
     green = secondComponent;
@@ -549,7 +512,6 @@ function hslToRgb(hue, saturation, lightness, convert) {
     red = chroma;
     blue = secondComponent;
   }
-
   var lightnessModification = lightness - chroma / 2;
   var finalRed = red + lightnessModification;
   var finalGreen = green + lightnessModification;
@@ -707,11 +669,11 @@ var namedColorMap = {
   yellow: 'ff0',
   yellowgreen: '9acd32'
 };
+
 /**
  * Checks if a string is a CSS named color and returns its equivalent hex value, otherwise returns the original color.
  * @private
  */
-
 function nameToHex(color) {
   if (typeof color !== 'string') return color;
   var normalizedColorName = color.toLowerCase();
@@ -726,6 +688,7 @@ var rgbRegex = /^rgb\(\s*(\d{1,3})\s*(?:,)?\s*(\d{1,3})\s*(?:,)?\s*(\d{1,3})\s*\
 var rgbaRegex = /^rgb(?:a)?\(\s*(\d{1,3})\s*(?:,)?\s*(\d{1,3})\s*(?:,)?\s*(\d{1,3})\s*(?:,|\/)\s*([-+]?\d*[.]?\d+[%]?)\s*\)$/i;
 var hslRegex = /^hsl\(\s*(\d{0,3}[.]?[0-9]+(?:deg)?)\s*(?:,)?\s*(\d{1,3}[.]?[0-9]?)%\s*(?:,)?\s*(\d{1,3}[.]?[0-9]?)%\s*\)$/i;
 var hslaRegex = /^hsl(?:a)?\(\s*(\d{0,3}[.]?[0-9]+(?:deg)?)\s*(?:,)?\s*(\d{1,3}[.]?[0-9]?)%\s*(?:,)?\s*(\d{1,3}[.]?[0-9]?)%\s*(?:,|\/)\s*([-+]?\d*[.]?\d+[%]?)\s*\)$/i;
+
 /**
  * Returns an RgbColor or RgbaColor object. This utility function is only useful
  * if want to extract a color component. With the color util `toColorString` you
@@ -737,14 +700,11 @@ var hslaRegex = /^hsl(?:a)?\(\s*(\d{0,3}[.]?[0-9]+(?:deg)?)\s*(?:,)?\s*(\d{1,3}[
  * // Assigns `{ red: 92, green: 102, blue: 112, alpha: 0.75 }` to color2
  * const color2 = parseToRgb('hsla(210, 10%, 40%, 0.75)');
  */
-
 function parseToRgb(color) {
   if (typeof color !== 'string') {
     throw new PolishedError(3);
   }
-
   var normalizedColor = nameToHex(color);
-
   if (normalizedColor.match(hexRegex)) {
     return {
       red: parseInt("" + normalizedColor[1] + normalizedColor[2], 16),
@@ -752,7 +712,6 @@ function parseToRgb(color) {
       blue: parseInt("" + normalizedColor[5] + normalizedColor[6], 16)
     };
   }
-
   if (normalizedColor.match(hexRgbaRegex)) {
     var alpha = parseFloat((parseInt("" + normalizedColor[7] + normalizedColor[8], 16) / 255).toFixed(2));
     return {
@@ -762,7 +721,6 @@ function parseToRgb(color) {
       alpha: alpha
     };
   }
-
   if (normalizedColor.match(reducedHexRegex)) {
     return {
       red: parseInt("" + normalizedColor[1] + normalizedColor[1], 16),
@@ -770,10 +728,8 @@ function parseToRgb(color) {
       blue: parseInt("" + normalizedColor[3] + normalizedColor[3], 16)
     };
   }
-
   if (normalizedColor.match(reducedRgbaHexRegex)) {
     var _alpha = parseFloat((parseInt("" + normalizedColor[4] + normalizedColor[4], 16) / 255).toFixed(2));
-
     return {
       red: parseInt("" + normalizedColor[1] + normalizedColor[1], 16),
       green: parseInt("" + normalizedColor[2] + normalizedColor[2], 16),
@@ -781,9 +737,7 @@ function parseToRgb(color) {
       alpha: _alpha
     };
   }
-
   var rgbMatched = rgbRegex.exec(normalizedColor);
-
   if (rgbMatched) {
     return {
       red: parseInt("" + rgbMatched[1], 10),
@@ -791,9 +745,7 @@ function parseToRgb(color) {
       blue: parseInt("" + rgbMatched[3], 10)
     };
   }
-
   var rgbaMatched = rgbaRegex.exec(normalizedColor.substring(0, 50));
-
   if (rgbaMatched) {
     return {
       red: parseInt("" + rgbaMatched[1], 10),
@@ -802,44 +754,32 @@ function parseToRgb(color) {
       alpha: parseFloat("" + rgbaMatched[4]) > 1 ? parseFloat("" + rgbaMatched[4]) / 100 : parseFloat("" + rgbaMatched[4])
     };
   }
-
   var hslMatched = hslRegex.exec(normalizedColor);
-
   if (hslMatched) {
     var hue = parseInt("" + hslMatched[1], 10);
     var saturation = parseInt("" + hslMatched[2], 10) / 100;
     var lightness = parseInt("" + hslMatched[3], 10) / 100;
     var rgbColorString = "rgb(" + hslToRgb(hue, saturation, lightness) + ")";
     var hslRgbMatched = rgbRegex.exec(rgbColorString);
-
     if (!hslRgbMatched) {
       throw new PolishedError(4, normalizedColor, rgbColorString);
     }
-
     return {
       red: parseInt("" + hslRgbMatched[1], 10),
       green: parseInt("" + hslRgbMatched[2], 10),
       blue: parseInt("" + hslRgbMatched[3], 10)
     };
   }
-
   var hslaMatched = hslaRegex.exec(normalizedColor.substring(0, 50));
-
   if (hslaMatched) {
     var _hue = parseInt("" + hslaMatched[1], 10);
-
     var _saturation = parseInt("" + hslaMatched[2], 10) / 100;
-
     var _lightness = parseInt("" + hslaMatched[3], 10) / 100;
-
     var _rgbColorString = "rgb(" + hslToRgb(_hue, _saturation, _lightness) + ")";
-
     var _hslRgbMatched = rgbRegex.exec(_rgbColorString);
-
     if (!_hslRgbMatched) {
       throw new PolishedError(4, normalizedColor, _rgbColorString);
     }
-
     return {
       red: parseInt("" + _hslRgbMatched[1], 10),
       green: parseInt("" + _hslRgbMatched[2], 10),
@@ -847,7 +787,6 @@ function parseToRgb(color) {
       alpha: parseFloat("" + hslaMatched[4]) > 1 ? parseFloat("" + hslaMatched[4]) / 100 : parseFloat("" + hslaMatched[4])
     };
   }
-
   throw new PolishedError(5);
 }
 
@@ -859,7 +798,6 @@ function rgbToHsl(color) {
   var max = Math.max(red, green, blue);
   var min = Math.min(red, green, blue);
   var lightness = (max + min) / 2;
-
   if (max === min) {
     // achromatic
     if (color.alpha !== undefined) {
@@ -877,28 +815,22 @@ function rgbToHsl(color) {
       };
     }
   }
-
   var hue;
   var delta = max - min;
   var saturation = lightness > 0.5 ? delta / (2 - max - min) : delta / (max + min);
-
   switch (max) {
     case red:
       hue = (green - blue) / delta + (green < blue ? 6 : 0);
       break;
-
     case green:
       hue = (blue - red) / delta + 2;
       break;
-
     default:
       // blue case
       hue = (red - green) / delta + 4;
       break;
   }
-
   hue *= 60;
-
   if (color.alpha !== undefined) {
     return {
       hue: hue,
@@ -907,7 +839,6 @@ function rgbToHsl(color) {
       alpha: color.alpha
     };
   }
-
   return {
     hue: hue,
     saturation: saturation,
@@ -940,10 +871,8 @@ var reduceHexValue = function reduceHexValue(value) {
   if (value.length === 7 && value[1] === value[2] && value[3] === value[4] && value[5] === value[6]) {
     return "#" + value[1] + value[3] + value[5];
   }
-
   return value;
 };
-
 var reduceHexValue$1 = reduceHexValue;
 
 function numberToHex(value) {
@@ -954,11 +883,9 @@ function numberToHex(value) {
 function colorToHex(color) {
   return numberToHex(Math.round(color * 255));
 }
-
 function convertToHex(red, green, blue) {
   return reduceHexValue$1("#" + colorToHex(red) + colorToHex(green) + colorToHex(blue));
 }
-
 function hslToHex(hue, saturation, lightness) {
   return hslToRgb(hue, saturation, lightness, convertToHex);
 }
@@ -992,7 +919,6 @@ function hsl(value, saturation, lightness) {
   } else if (typeof value === 'object' && saturation === undefined && lightness === undefined) {
     return hslToHex(value.hue, value.saturation, value.lightness);
   }
-
   throw new PolishedError(1);
 }
 
@@ -1028,7 +954,6 @@ function hsla(value, saturation, lightness, alpha) {
   } else if (typeof value === 'object' && saturation === undefined && lightness === undefined && alpha === undefined) {
     return value.alpha >= 1 ? hslToHex(value.hue, value.saturation, value.lightness) : "rgba(" + hslToRgb(value.hue, value.saturation, value.lightness) + "," + value.alpha + ")";
   }
-
   throw new PolishedError(2);
 }
 
@@ -1061,7 +986,6 @@ function rgb(value, green, blue) {
   } else if (typeof value === 'object' && green === undefined && blue === undefined) {
     return reduceHexValue$1("#" + numberToHex(value.red) + numberToHex(value.green) + numberToHex(value.blue));
   }
-
   throw new PolishedError(6);
 }
 
@@ -1108,25 +1032,22 @@ function rgba(firstValue, secondValue, thirdValue, fourthValue) {
   } else if (typeof firstValue === 'object' && secondValue === undefined && thirdValue === undefined && fourthValue === undefined) {
     return firstValue.alpha >= 1 ? rgb(firstValue.red, firstValue.green, firstValue.blue) : "rgba(" + firstValue.red + "," + firstValue.green + "," + firstValue.blue + "," + firstValue.alpha + ")";
   }
-
   throw new PolishedError(7);
 }
 
 var isRgb = function isRgb(color) {
   return typeof color.red === 'number' && typeof color.green === 'number' && typeof color.blue === 'number' && (typeof color.alpha !== 'number' || typeof color.alpha === 'undefined');
 };
-
 var isRgba = function isRgba(color) {
   return typeof color.red === 'number' && typeof color.green === 'number' && typeof color.blue === 'number' && typeof color.alpha === 'number';
 };
-
 var isHsl = function isHsl(color) {
   return typeof color.hue === 'number' && typeof color.saturation === 'number' && typeof color.lightness === 'number' && (typeof color.alpha !== 'number' || typeof color.alpha === 'undefined');
 };
-
 var isHsla = function isHsla(color) {
   return typeof color.hue === 'number' && typeof color.saturation === 'number' && typeof color.lightness === 'number' && typeof color.alpha === 'number';
 };
+
 /**
  * Converts a RgbColor, RgbaColor, HslColor or HslaColor object to a color string.
  * This util is useful in case you only know on runtime which color object is
@@ -1158,7 +1079,6 @@ var isHsla = function isHsla(color) {
  * }
  */
 
-
 function toColorString(color) {
   if (typeof color !== 'object') throw new PolishedError(8);
   if (isRgba(color)) return rgba(color);
@@ -1178,13 +1098,48 @@ function curried(f, length, acc) {
     var combined = acc.concat(Array.prototype.slice.call(arguments));
     return combined.length >= length ? f.apply(this, combined) : curried(f, length, combined);
   };
-} // eslint-disable-next-line no-redeclare
+}
 
-
+// eslint-disable-next-line no-redeclare
 function curry(f) {
   // eslint-disable-line no-redeclare
   return curried(f, f.length, []);
 }
+
+/**
+ * Changes the hue of the color. Hue is a number between 0 to 360. The first
+ * argument for adjustHue is the amount of degrees the color is rotated around
+ * the color wheel, always producing a positive hue value.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: adjustHue(180, '#448'),
+ *   background: adjustHue('180', 'rgba(101,100,205,0.7)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${adjustHue(180, '#448')};
+ *   background: ${adjustHue('180', 'rgba(101,100,205,0.7)')};
+ * `
+ *
+ * // CSS in JS Output
+ * element {
+ *   background: "#888844";
+ *   background: "rgba(136,136,68,0.7)";
+ * }
+ */
+function adjustHue(degree, color) {
+  if (color === 'transparent') return color;
+  var hslColor = parseToHsl(color);
+  return toColorString(_extends({}, hslColor, {
+    hue: hslColor.hue + parseFloat(degree)
+  }));
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(adjustHue);
 
 function guard(lowerBoundary, upperBoundary, value) {
   return Math.max(lowerBoundary, Math.min(upperBoundary, value));
@@ -1213,20 +1168,52 @@ function guard(lowerBoundary, upperBoundary, value) {
  *   background: "rgba(255,189,49,0.7)";
  * }
  */
-
 function darken(amount, color) {
   if (color === 'transparent') return color;
   var hslColor = parseToHsl(color);
   return toColorString(_extends({}, hslColor, {
     lightness: guard(0, 1, hslColor.lightness - parseFloat(amount))
   }));
-} // prettier-ignore
+}
 
-
-var curriedDarken = /*#__PURE__*/curry
-/* ::<number | string, string, string> */
-(darken);
+// prettier-ignore
+var curriedDarken = curry /* ::<number | string, string, string> */(darken);
 var curriedDarken$1 = curriedDarken;
+
+/**
+ * Decreases the intensity of a color. Its range is between 0 to 1. The first
+ * argument of the desaturate function is the amount by how much the color
+ * intensity should be decreased.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: desaturate(0.2, '#CCCD64'),
+ *   background: desaturate('0.2', 'rgba(204,205,100,0.7)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${desaturate(0.2, '#CCCD64')};
+ *   background: ${desaturate('0.2', 'rgba(204,205,100,0.7)')};
+ * `
+ *
+ * // CSS in JS Output
+ * element {
+ *   background: "#b8b979";
+ *   background: "rgba(184,185,121,0.7)";
+ * }
+ */
+function desaturate(amount, color) {
+  if (color === 'transparent') return color;
+  var hslColor = parseToHsl(color);
+  return toColorString(_extends({}, hslColor, {
+    saturation: guard(0, 1, hslColor.saturation - parseFloat(amount))
+  }));
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(desaturate);
 
 /**
  * Returns a number (float) representing the luminance of a color.
@@ -1254,19 +1241,16 @@ var curriedDarken$1 = curriedDarken;
  *   background: "rgba(58, 133, 255, 1)";
  * }
  */
-
 function getLuminance(color) {
   if (color === 'transparent') return 0;
   var rgbColor = parseToRgb(color);
-
   var _Object$keys$map = Object.keys(rgbColor).map(function (key) {
-    var channel = rgbColor[key] / 255;
-    return channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
-  }),
-      r = _Object$keys$map[0],
-      g = _Object$keys$map[1],
-      b = _Object$keys$map[2];
-
+      var channel = rgbColor[key] / 255;
+      return channel <= 0.03928 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4);
+    }),
+    r = _Object$keys$map[0],
+    g = _Object$keys$map[1],
+    b = _Object$keys$map[2];
   return parseFloat((0.2126 * r + 0.7152 * g + 0.0722 * b).toFixed(3));
 }
 
@@ -1293,20 +1277,314 @@ function getLuminance(color) {
  *   background: "rgba(229,230,177,0.7)";
  * }
  */
-
 function lighten(amount, color) {
   if (color === 'transparent') return color;
   var hslColor = parseToHsl(color);
   return toColorString(_extends({}, hslColor, {
     lightness: guard(0, 1, hslColor.lightness + parseFloat(amount))
   }));
-} // prettier-ignore
+}
 
-
-var curriedLighten = /*#__PURE__*/curry
-/* ::<number | string, string, string> */
-(lighten);
+// prettier-ignore
+var curriedLighten = curry /* ::<number | string, string, string> */(lighten);
 var curriedLighten$1 = curriedLighten;
+
+/**
+ * Mixes the two provided colors together by calculating the average of each of the RGB components weighted to the first color by the provided weight.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: mix(0.5, '#f00', '#00f')
+ *   background: mix(0.25, '#f00', '#00f')
+ *   background: mix('0.5', 'rgba(255, 0, 0, 0.5)', '#00f')
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${mix(0.5, '#f00', '#00f')};
+ *   background: ${mix(0.25, '#f00', '#00f')};
+ *   background: ${mix('0.5', 'rgba(255, 0, 0, 0.5)', '#00f')};
+ * `
+ *
+ * // CSS in JS Output
+ *
+ * element {
+ *   background: "#7f007f";
+ *   background: "#3f00bf";
+ *   background: "rgba(63, 0, 191, 0.75)";
+ * }
+ */
+function mix(weight, color, otherColor) {
+  if (color === 'transparent') return otherColor;
+  if (otherColor === 'transparent') return color;
+  if (weight === 0) return otherColor;
+  var parsedColor1 = parseToRgb(color);
+  var color1 = _extends({}, parsedColor1, {
+    alpha: typeof parsedColor1.alpha === 'number' ? parsedColor1.alpha : 1
+  });
+  var parsedColor2 = parseToRgb(otherColor);
+  var color2 = _extends({}, parsedColor2, {
+    alpha: typeof parsedColor2.alpha === 'number' ? parsedColor2.alpha : 1
+  });
+
+  // The formula is copied from the original Sass implementation:
+  // http://sass-lang.com/documentation/Sass/Script/Functions.html#mix-instance_method
+  var alphaDelta = color1.alpha - color2.alpha;
+  var x = parseFloat(weight) * 2 - 1;
+  var y = x * alphaDelta === -1 ? x : x + alphaDelta;
+  var z = 1 + x * alphaDelta;
+  var weight1 = (y / z + 1) / 2.0;
+  var weight2 = 1 - weight1;
+  var mixedColor = {
+    red: Math.floor(color1.red * weight1 + color2.red * weight2),
+    green: Math.floor(color1.green * weight1 + color2.green * weight2),
+    blue: Math.floor(color1.blue * weight1 + color2.blue * weight2),
+    alpha: color1.alpha * parseFloat(weight) + color2.alpha * (1 - parseFloat(weight))
+  };
+  return rgba(mixedColor);
+}
+
+// prettier-ignore
+var curriedMix = curry /* ::<number | string, string, string, string> */(mix);
+var mix$1 = curriedMix;
+
+/**
+ * Increases the opacity of a color. Its range for the amount is between 0 to 1.
+ *
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: opacify(0.1, 'rgba(255, 255, 255, 0.9)');
+ *   background: opacify(0.2, 'hsla(0, 0%, 100%, 0.5)'),
+ *   background: opacify('0.5', 'rgba(255, 0, 0, 0.2)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${opacify(0.1, 'rgba(255, 255, 255, 0.9)')};
+ *   background: ${opacify(0.2, 'hsla(0, 0%, 100%, 0.5)')},
+ *   background: ${opacify('0.5', 'rgba(255, 0, 0, 0.2)')},
+ * `
+ *
+ * // CSS in JS Output
+ *
+ * element {
+ *   background: "#fff";
+ *   background: "rgba(255,255,255,0.7)";
+ *   background: "rgba(255,0,0,0.7)";
+ * }
+ */
+function opacify(amount, color) {
+  if (color === 'transparent') return color;
+  var parsedColor = parseToRgb(color);
+  var alpha = typeof parsedColor.alpha === 'number' ? parsedColor.alpha : 1;
+  var colorWithAlpha = _extends({}, parsedColor, {
+    alpha: guard(0, 1, (alpha * 100 + parseFloat(amount) * 100) / 100)
+  });
+  return rgba(colorWithAlpha);
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(opacify);
+
+/**
+ * Increases the intensity of a color. Its range is between 0 to 1. The first
+ * argument of the saturate function is the amount by how much the color
+ * intensity should be increased.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: saturate(0.2, '#CCCD64'),
+ *   background: saturate('0.2', 'rgba(204,205,100,0.7)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${saturate(0.2, '#FFCD64')};
+ *   background: ${saturate('0.2', 'rgba(204,205,100,0.7)')};
+ * `
+ *
+ * // CSS in JS Output
+ *
+ * element {
+ *   background: "#e0e250";
+ *   background: "rgba(224,226,80,0.7)";
+ * }
+ */
+function saturate(amount, color) {
+  if (color === 'transparent') return color;
+  var hslColor = parseToHsl(color);
+  return toColorString(_extends({}, hslColor, {
+    saturation: guard(0, 1, hslColor.saturation + parseFloat(amount))
+  }));
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(saturate);
+
+/**
+ * Sets the hue of a color to the provided value. The hue range can be
+ * from 0 and 359.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: setHue(42, '#CCCD64'),
+ *   background: setHue('244', 'rgba(204,205,100,0.7)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${setHue(42, '#CCCD64')};
+ *   background: ${setHue('244', 'rgba(204,205,100,0.7)')};
+ * `
+ *
+ * // CSS in JS Output
+ * element {
+ *   background: "#cdae64";
+ *   background: "rgba(107,100,205,0.7)";
+ * }
+ */
+function setHue(hue, color) {
+  if (color === 'transparent') return color;
+  return toColorString(_extends({}, parseToHsl(color), {
+    hue: parseFloat(hue)
+  }));
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(setHue);
+
+/**
+ * Sets the lightness of a color to the provided value. The lightness range can be
+ * from 0 and 1.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: setLightness(0.2, '#CCCD64'),
+ *   background: setLightness('0.75', 'rgba(204,205,100,0.7)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${setLightness(0.2, '#CCCD64')};
+ *   background: ${setLightness('0.75', 'rgba(204,205,100,0.7)')};
+ * `
+ *
+ * // CSS in JS Output
+ * element {
+ *   background: "#4d4d19";
+ *   background: "rgba(223,224,159,0.7)";
+ * }
+ */
+function setLightness(lightness, color) {
+  if (color === 'transparent') return color;
+  return toColorString(_extends({}, parseToHsl(color), {
+    lightness: parseFloat(lightness)
+  }));
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(setLightness);
+
+/**
+ * Sets the saturation of a color to the provided value. The saturation range can be
+ * from 0 and 1.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: setSaturation(0.2, '#CCCD64'),
+ *   background: setSaturation('0.75', 'rgba(204,205,100,0.7)'),
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${setSaturation(0.2, '#CCCD64')};
+ *   background: ${setSaturation('0.75', 'rgba(204,205,100,0.7)')};
+ * `
+ *
+ * // CSS in JS Output
+ * element {
+ *   background: "#adad84";
+ *   background: "rgba(228,229,76,0.7)";
+ * }
+ */
+function setSaturation(saturation, color) {
+  if (color === 'transparent') return color;
+  return toColorString(_extends({}, parseToHsl(color), {
+    saturation: parseFloat(saturation)
+  }));
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(setSaturation);
+
+/**
+ * Shades a color by mixing it with black. `shade` can produce
+ * hue shifts, where as `darken` manipulates the luminance channel and therefore
+ * doesn't produce hue shifts.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: shade(0.25, '#00f')
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${shade(0.25, '#00f')};
+ * `
+ *
+ * // CSS in JS Output
+ *
+ * element {
+ *   background: "#00003f";
+ * }
+ */
+
+function shade(percentage, color) {
+  if (color === 'transparent') return color;
+  return mix$1(parseFloat(percentage), 'rgb(0, 0, 0)', color);
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(shade);
+
+/**
+ * Tints a color by mixing it with white. `tint` can produce
+ * hue shifts, where as `lighten` manipulates the luminance channel and therefore
+ * doesn't produce hue shifts.
+ *
+ * @example
+ * // Styles as object usage
+ * const styles = {
+ *   background: tint(0.25, '#00f')
+ * }
+ *
+ * // styled-components usage
+ * const div = styled.div`
+ *   background: ${tint(0.25, '#00f')};
+ * `
+ *
+ * // CSS in JS Output
+ *
+ * element {
+ *   background: "#bfbfff";
+ * }
+ */
+
+function tint(percentage, color) {
+  if (color === 'transparent') return color;
+  return mix$1(parseFloat(percentage), 'rgb(255, 255, 255)', color);
+}
+
+// prettier-ignore
+curry /* ::<number | string, string, string> */(tint);
 
 /**
  * Decreases the opacity of a color. Its range for the amount is between 0 to 1.
@@ -1335,23 +1613,18 @@ var curriedLighten$1 = curriedLighten;
  *   background: "rgba(255,0,0,0.3)";
  * }
  */
-
 function transparentize(amount, color) {
   if (color === 'transparent') return color;
   var parsedColor = parseToRgb(color);
   var alpha = typeof parsedColor.alpha === 'number' ? parsedColor.alpha : 1;
-
   var colorWithAlpha = _extends({}, parsedColor, {
     alpha: guard(0, 1, +(alpha * 100 - parseFloat(amount) * 100).toFixed(2) / 100)
   });
-
   return rgba(colorWithAlpha);
-} // prettier-ignore
+}
 
-
-var curriedTransparentize = /*#__PURE__*/curry
-/* ::<number | string, string, string> */
-(transparentize);
+// prettier-ignore
+var curriedTransparentize = curry /* ::<number | string, string, string> */(transparentize);
 var curriedTransparentize$1 = curriedTransparentize;
 
 const getVariantColor = (theme, variant) => {
@@ -2317,6 +2590,9 @@ const SearchField = ({ handleSearch, placeholder, label, delay = 1000, onClear, 
 
 const Select = ({ items = [], value, onChange, width = 'auto', label, disabled = false, testId = 'select', className, }) => {
     const [selectedValue, setSelectedValue] = React.useState(value);
+    React.useEffect(() => {
+        setSelectedValue(value);
+    }, [value]);
     const renderOptions = items.map((item, i) => (React__default["default"].createElement("option", { key: i, value: item.value }, item.label)));
     const renderLabel = () => {
         if (!label) {
@@ -2528,26 +2804,30 @@ const StyledList = styled__default["default"].div `
       padding-bottom: ${measurements.medium};
     }`}
 
-  ${(p) => p.$lines &&
+  ${(p) => p.$hoverHighlight &&
+    `& > *:hover {
+      background-color: ${contrastColorQuickBorder(p)};
+    }`}
+
+
+    ${(p) => p.$lines &&
+    p.$edgeLines &&
     `
-    ${p.$edgeLines &&
-        `
       border-top: 1px solid ${contrastColorQuickBorder(p)};
       border-bottom: 1px solid ${contrastColorQuickBorder(p)};
     `}
 
-    & > *:hover {
-      background-color: ${contrastColorQuickBorder(p)};
-    }
-    
+     ${(p) => p.$padded &&
+    p.$lines &&
+    `& > * {
+        padding: ${measurements.medium} ${measurements.small};
+      }`}
+
+  ${(p) => p.$lines &&
+    `
     & > *:not(:last-child) {
       border-bottom: 1px solid ${contrastColorQuickBorder(p)};
     }
-
-    ${p.$padded &&
-        `& > * {
-        padding: ${measurements.medium} ${measurements.small};
-      }`}
   `}
 `;
 const StyledListTitle = styled__default["default"].div `
@@ -2556,9 +2836,9 @@ const StyledListTitle = styled__default["default"].div `
   margin-bottom: ${measurements.small};
 `;
 
-const List = ({ children, padding = false, lines = false, className = '', removeEdgeLines }) => {
+const List = ({ children, padding = false, lines = false, className = '', removeEdgeLines, hoverHighlight = false, }) => {
     const getClasses = () => [className, 'tui-list', padding ? 'tui-padded' : '', lines ? 'tui-lines' : ''].join(' ');
-    return (React__default["default"].createElement(StyledList, { "$padded": padding, "$lines": lines, "$edgeLines": !removeEdgeLines, className: getClasses() }, children));
+    return (React__default["default"].createElement(StyledList, { "$hoverHighlight": hoverHighlight, "$padded": padding, "$lines": lines, "$edgeLines": !removeEdgeLines, className: getClasses() }, children));
 };
 const ListItem = ({ children, title = '', className }) => {
     return (React__default["default"].createElement("div", { className: `${className} tui-listItem` },
@@ -2814,9 +3094,12 @@ const DropdownWrapper = styled__default["default"].div `
   display: inline-block;
 `;
 
-const Dropdown = ({ children, content, position = 'down', mobileModal = false, className }) => {
-    const [expanded, setExpanded] = React.useState(false);
+const Dropdown = ({ children, content, position = 'down', mobileModal = false, className, open = false, }) => {
+    const [expanded, setExpanded] = React.useState(open);
     const dropdownRef = React.useRef(null);
+    React.useEffect(() => {
+        setExpanded(open);
+    }, [open]);
     const handleMouseEvent = (e) => {
         if (!expanded) {
             return;

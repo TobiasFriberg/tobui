@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 type CardProps = {
     children?: ReactNode;
     image?: ReactNode;
@@ -8,5 +8,5 @@ type CardProps = {
     className?: string;
     padding?: boolean;
 };
-export declare const Card: ({ children, maxHeight, image, wrap, imagePlacement, className, padding, }: CardProps) => JSX.Element;
+export declare const Card: ({ children, maxHeight, image, wrap, imagePlacement, className, padding, }: CardProps) => React.JSX.Element;
 export {};

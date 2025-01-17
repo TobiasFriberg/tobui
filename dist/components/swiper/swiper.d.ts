@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 type StepperProps = {
     views: ReactNode[];
     sensitivity?: number;
@@ -9,5 +9,5 @@ type StepperProps = {
     height?: string;
     className?: string;
 };
-export declare const Swiper: ({ views, step, loop, sensitivity, onSwiped, shouldSwipe, height, className, }: StepperProps) => JSX.Element;
+export declare const Swiper: ({ views, step, loop, sensitivity, onSwiped, shouldSwipe, height, className, }: StepperProps) => React.JSX.Element;
 export {};

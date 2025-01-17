@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 export interface ISelectItem {
     id?: string | number;
     label: string;
@@ -14,5 +14,5 @@ type SelectProps = {
     testId?: string;
     className?: string;
 };
-export declare const Select: ({ items, value, onChange, width, label, disabled, testId, className, }: SelectProps) => JSX.Element;
+export declare const Select: ({ items, value, onChange, width, label, disabled, testId, className, }: SelectProps) => React.JSX.Element;
 export {};

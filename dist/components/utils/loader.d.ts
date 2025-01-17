@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 type Props = {
     size?: string;
     light?: boolean;
@@ -6,5 +6,5 @@ type Props = {
     testId?: string;
     className?: string;
 };
-export declare const Loader: ({ size, light, fillPage, testId, className }: Props) => JSX.Element;
+export declare const Loader: ({ size, light, fillPage, testId, className }: Props) => React.JSX.Element;
 export {};

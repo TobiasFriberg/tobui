@@ -7,5 +7,5 @@ type ModalProps = {
     onOpen?: () => void;
     className?: string;
 };
-export declare const Modal: ({ children, onClose, onOpen, open, fillContent, className }: ModalProps) => JSX.Element | null;
+export declare const Modal: ({ children, onClose, onOpen, open, fillContent, className }: ModalProps) => React.JSX.Element | null;
 export {};

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 type Props = {
     value: string;
     onChange: (e: any) => void;
@@ -18,5 +18,5 @@ type Props = {
     onClear?: () => void;
     testId?: string;
 };
-export declare const InputField: ({ type, multiline, rows, label, value, onChange, className, iconPosition, placeholder, width, validator, onClear, testId, autoComplete, onBlur, onFocus, ...props }: Props) => JSX.Element;
+export declare const InputField: ({ type, multiline, rows, label, value, onChange, className, iconPosition, placeholder, width, validator, onClear, testId, autoComplete, onBlur, onFocus, ...props }: Props) => React.JSX.Element;
 export {};

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 type StepperProps = {
     steps: ReactNode[];
     step?: number;
@@ -8,5 +8,5 @@ type StepperProps = {
     indicatorNavigation?: boolean;
     className?: string;
 };
-export declare const Stepper: ({ steps, step, loop, fillContent, hideArrows, indicatorNavigation, className, }: StepperProps) => JSX.Element;
+export declare const Stepper: ({ steps, step, loop, fillContent, hideArrows, indicatorNavigation, className, }: StepperProps) => React.JSX.Element;
 export {};

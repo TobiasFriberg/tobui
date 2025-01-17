@@ -14,7 +14,7 @@ export declare const NavigationButton: import("styled-components").StyledCompone
     icon?: import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | null | undefined;
     disabled?: boolean | undefined;
     testId?: string | undefined;
-}) => JSX.Element, any, {}, never>;
+}) => import("react").JSX.Element, any, {}, never>;
 export declare const StepperStyle: import("styled-components").StyledComponent<"div", any, {}, never>;
 export declare const StepperContent: import("styled-components").StyledComponent<"div", any, {
     $fillContent?: boolean | undefined;

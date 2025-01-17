@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from 'react';
 type Props = {
     label?: string;
     checked: boolean;
@@ -6,5 +6,5 @@ type Props = {
     checkboxPlacement?: 'left' | 'right';
     className?: string;
 };
-export declare const CheckBox: ({ label, checked, onCheck, checkboxPlacement, className }: Props) => JSX.Element;
+export declare const CheckBox: ({ label, checked, onCheck, checkboxPlacement, className }: Props) => React.JSX.Element;
 export {};

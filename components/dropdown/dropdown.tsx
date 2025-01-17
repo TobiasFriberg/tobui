@@ -1,4 +1,4 @@
-import React, { ReactNode, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useEventListener } from '../../hooks';
 import { StyledDropdown, DropdownContent, DropdownButton, Blocker, DropdownWrapper } from './dropdown.style';
 
@@ -8,11 +8,23 @@ type Props = {
   position?: 'down' | 'up' | 'left' | 'right';
   mobileModal?: boolean;
   className?: string;
+  open?: boolean;
 };
 
-export const Dropdown = ({ children, content, position = 'down', mobileModal = false, className }: Props) => {
-  const [expanded, setExpanded] = useState(false);
+export const Dropdown = ({
+  children,
+  content,
+  position = 'down',
+  mobileModal = false,
+  className,
+  open = false,
+}: Props) => {
+  const [expanded, setExpanded] = useState(open);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    setExpanded(open);
+  }, [open]);
 
   const handleMouseEvent = (e: MouseEvent) => {
     if (!expanded) {
